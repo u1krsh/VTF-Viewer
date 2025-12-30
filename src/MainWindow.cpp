@@ -22,7 +22,7 @@
 MainWindow::MainWindow(QWidget* parent) 
     : QMainWindow(parent), currentVTF_(nullptr), currentVMT_(nullptr) {
     
-    setWindowTitle("ValveExplorer - Source Engine Texture Viewer");
+    setWindowTitle("VTF-Viewer - Source Engine Texture Viewer");
     resize(1400, 900);
     
     // Center window on screen
@@ -104,7 +104,7 @@ void MainWindow::createActions() {
     connect(fitToWindowAction_, &QAction::triggered, this, &MainWindow::fitToWindow);
     
     aboutAction_ = new QAction("&About", this);
-    aboutAction_->setStatusTip("About ValveExplorer");
+    aboutAction_->setStatusTip("About VTF-Viewer");
     connect(aboutAction_, &QAction::triggered, this, &MainWindow::about);
 }
 
@@ -386,25 +386,11 @@ void MainWindow::fitToWindow() {
 }
 
 void MainWindow::about() {
-    QMessageBox::about(this, "About ValveExplorer",
+    QMessageBox::about(this, "About VTF-Viewer",
         "<div style='text-align: center;'>"
-        "<h1 style='color: #6c63ff; margin-bottom: 10px;'>🎨 ValveExplorer</h1>"
-        "<p style='font-size: 14px; color: #b8b8d0;'><b>Version 1.0.0</b></p>"
-        "<p style='margin-top: 15px; color: #e8e8f0;'>A revolutionary Source Engine texture viewer and exporter<br>"
-        "with modern UI and premium design.</p>"
-        "</div>"
-        "<div style='margin-top: 20px;'>"
-        "<p style='color: #6c63ff; font-weight: bold;'>✨ Features:</p>"
-        "<ul style='color: #e8e8f0; line-height: 1.8;'>"
-        "<li>🎯 View VTF textures with DXT compression support</li>"
-        "<li>📄 Parse VMT material files</li>"
-        "<li>💾 Export to PNG, JPEG, BMP, and TGA formats</li>"
-        "<li>🖼️ Gallery view with thumbnails</li>"
-        "<li>🔍 Zoom and pan capabilities</li>"
-        "<li>🎨 Revolutionary modern dark theme UI</li>"
-        "</ul>"
-        "</div>"
-        "<p style='margin-top: 20px; text-align: center; color: #b8b8d0; font-size: 12px;'>"
-        "Built with Qt6 and custom VTFLib integration<br>"
-        "Designed for game developers and modders</p>");
+        "<h3>VTF-Viewer</h3>"
+        "<p>Version 1.0.0</p>"
+        "<p>A tool for viewing and exporting Source Engine textures.</p>"
+        "<p>Built with Qt6. Released under GPL v3.0.</p>"
+        "</div>");
 }

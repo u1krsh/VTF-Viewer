@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# ValveExplorer Build Script
+# VTF-Viewer Build Script
 
 echo "==================================="
-echo "ValveExplorer Build Script"
+echo "VTF-Viewer Build Script"
 echo "==================================="
 echo ""
 
@@ -44,5 +44,5 @@ echo "Build completed successfully!"
 echo "==================================="
 echo ""
 echo "To run the application:"
-echo "  ./bin/ValveExplorer"
+echo "  ./bin/VTF-Viewer"
 echo ""

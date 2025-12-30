@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(ValveExplorer VERSION 1.0.0 LANGUAGES CXX)
+project(VTF-Viewer VERSION 1.0.0 LANGUAGES CXX)
 
 # ============================================================================
 # Project Configuration
@@ -160,7 +160,7 @@ install(TARGETS ${PROJECT_NAME}
 
 message(STATUS "")
 message(STATUS "========================================")
-message(STATUS "  ValveExplorer Configuration Summary")
+message(STATUS "  VTF-Viewer Configuration Summary")
 message(STATUS "========================================")
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "C++ Standard: ${CMAKE_CXX_STANDARD}")

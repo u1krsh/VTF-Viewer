@@ -4,14 +4,16 @@
 #include <QFile>
 #include <QTextStream>
 #include <QFont>
+#include <QIcon>
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
     
     // Set application metadata
-    app.setApplicationName("ValveExplorere");
+    app.setApplicationName("VTF-Viewer");
     app.setApplicationVersion("1.0.0");
-    app.setOrganizationName("ValveExplorer");
+    app.setOrganizationName("VTF-Viewer");
+    app.setWindowIcon(QIcon(":/icons/icon.png"));
     
     // Set modern font
     QFont font("Segoe UI", 10);
@@ -31,7 +33,7 @@ int main(int argc, char* argv[]) {
     
     // Create and show main window
     MainWindow window;
-    window.setWindowTitle("ValveExplorer - Source Engine Texture Viewer");
+    window.setWindowTitle("VTF-Viewer - Source Engine Texture Viewer");
     window.show();
     
     int result = app.exec();
