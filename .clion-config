@@ -1,0 +1,20 @@
+# CLion CMake Presets
+# This file helps CLion configure the project with optimal settings
+
+# Recommended CLion Settings:
+# - Build Directory: cmake-build-debug (for Debug) or cmake-build-release (for Release)
+# - CMake options: -DCMAKE_BUILD_TYPE=Debug (or Release)
+# - Build target: ValveExplorer
+# - Run target: ValveExplorer
+
+# For Debug builds in CLion:
+# Build > Build Project (Ctrl+F9)
+# Run > Run 'ValveExplorer' (Shift+F10)
+# Run > Debug 'ValveExplorer' (Shift+F9)
+
+# The CMakeLists.txt now includes:
+# - CMAKE_EXPORT_COMPILE_COMMANDS for better code analysis
+# - Source grouping for organized project view
+# - Compiler warnings enabled
+# - Proper include directories
+# - Qt6 auto-generation (MOC, RCC, UIC)

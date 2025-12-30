@@ -1,0 +1,465 @@
+/* ValveExplorer - Revolutionary Modern UI Stylesheet */
+
+/* ============================================================================
+   Color Palette - Premium Dark Theme with Vibrant Accents
+   ============================================================================ */
+
+/* Main Colors */
+QWidget {
+    background-color: #0f0f1e;
+    color: #e8e8f0;
+    font-family: "Segoe UI", "Ubuntu", "Roboto", sans-serif;
+    font-size: 13px;
+}
+
+/* ============================================================================
+   Main Window
+   ============================================================================ */
+
+QMainWindow {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                                stop:0 #0f0f1e, stop:1 #1a1a2e);
+}
+
+/* ============================================================================
+   Menu Bar - Sleek and Modern
+   ============================================================================ */
+
+QMenuBar {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #1e1e3f, stop:1 #16162e);
+    border-bottom: 2px solid #6c63ff;
+    padding: 6px;
+    spacing: 8px;
+}
+
+QMenuBar::item {
+    background: transparent;
+    color: #e8e8f0;
+    padding: 8px 16px;
+    border-radius: 6px;
+    margin: 2px;
+}
+
+QMenuBar::item:selected {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #6c63ff, stop:1 #5a52d5);
+    color: white;
+}
+
+QMenuBar::item:pressed {
+    background: #5a52d5;
+}
+
+/* ============================================================================
+   Menu Dropdown - Glassmorphism Effect
+   ============================================================================ */
+
+QMenu {
+    background: rgba(30, 30, 63, 0.95);
+    border: 1px solid rgba(108, 99, 255, 0.3);
+    border-radius: 12px;
+    padding: 8px;
+    backdrop-filter: blur(10px);
+}
+
+QMenu::item {
+    padding: 10px 30px 10px 20px;
+    border-radius: 6px;
+    margin: 2px 4px;
+    color: #e8e8f0;
+}
+
+QMenu::item:selected {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                                stop:0 #6c63ff, stop:1 #7c73ff);
+    color: white;
+}
+
+QMenu::separator {
+    height: 1px;
+    background: rgba(108, 99, 255, 0.2);
+    margin: 6px 10px;
+}
+
+/* ============================================================================
+   Toolbar - Premium Gradient
+   ============================================================================ */
+
+QToolBar {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #1e1e3f, stop:1 #16162e);
+    border-bottom: 2px solid rgba(108, 99, 255, 0.5);
+    spacing: 8px;
+    padding: 8px;
+}
+
+QToolButton {
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 8px;
+    color: #e8e8f0;
+    min-width: 80px;
+}
+
+QToolButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 rgba(108, 99, 255, 0.3),
+                                stop:1 rgba(108, 99, 255, 0.1));
+    border: 2px solid rgba(108, 99, 255, 0.5);
+}
+
+QToolButton:pressed {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #6c63ff, stop:1 #5a52d5);
+    border: 2px solid #6c63ff;
+}
+
+/* ============================================================================
+   Status Bar - Subtle Glow
+   ============================================================================ */
+
+QStatusBar {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #16162e, stop:1 #1e1e3f);
+    border-top: 2px solid rgba(108, 99, 255, 0.3);
+    color: #b8b8d0;
+    padding: 6px;
+}
+
+/* ============================================================================
+   Gallery View - Modern Grid with Hover Effects
+   ============================================================================ */
+
+QListWidget {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                                stop:0 #1a1a2e, stop:1 #16162e);
+    border: 2px solid rgba(108, 99, 255, 0.2);
+    border-radius: 12px;
+    padding: 12px;
+    outline: none;
+}
+
+QListWidget::item {
+    background: rgba(30, 30, 63, 0.6);
+    border: 2px solid rgba(108, 99, 255, 0.2);
+    border-radius: 10px;
+    padding: 8px;
+    margin: 6px;
+    color: #e8e8f0;
+}
+
+QListWidget::item:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 rgba(108, 99, 255, 0.4),
+                                stop:1 rgba(124, 115, 255, 0.2));
+    border: 2px solid rgba(108, 99, 255, 0.6);
+    transform: scale(1.05);
+}
+
+QListWidget::item:selected {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                                stop:0 #6c63ff, stop:1 #7c73ff);
+    border: 2px solid #8c83ff;
+    color: white;
+}
+
+/* ============================================================================
+   Scroll Bars - Sleek and Minimal
+   ============================================================================ */
+
+QScrollBar:vertical {
+    background: rgba(30, 30, 63, 0.3);
+    width: 12px;
+    border-radius: 6px;
+    margin: 0px;
+}
+
+QScrollBar::handle:vertical {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                                stop:0 #6c63ff, stop:1 #7c73ff);
+    border-radius: 6px;
+    min-height: 30px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                                stop:0 #7c73ff, stop:1 #8c83ff);
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+QScrollBar:horizontal {
+    background: rgba(30, 30, 63, 0.3);
+    height: 12px;
+    border-radius: 6px;
+    margin: 0px;
+}
+
+QScrollBar::handle:horizontal {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #6c63ff, stop:1 #7c73ff);
+    border-radius: 6px;
+    min-width: 30px;
+}
+
+QScrollBar::handle:horizontal:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #7c73ff, stop:1 #8c83ff);
+}
+
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    width: 0px;
+}
+
+/* ============================================================================
+   Splitter - Elegant Divider
+   ============================================================================ */
+
+QSplitter::handle {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                                stop:0 rgba(108, 99, 255, 0.3),
+                                stop:1 rgba(124, 115, 255, 0.3));
+    width: 3px;
+}
+
+QSplitter::handle:hover {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                                stop:0 #6c63ff, stop:1 #7c73ff);
+}
+
+/* ============================================================================
+   Dock Widget - Properties Panel
+   ============================================================================ */
+
+QDockWidget {
+    titlebar-close-icon: none;
+    titlebar-normal-icon: none;
+    color: #e8e8f0;
+}
+
+QDockWidget::title {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #1e1e3f, stop:1 #16162e);
+    border: 2px solid rgba(108, 99, 255, 0.3);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: #6c63ff;
+}
+
+/* ============================================================================
+   Text Edit - Properties Display
+   ============================================================================ */
+
+QTextEdit {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                                stop:0 #1a1a2e, stop:1 #16162e);
+    border: 2px solid rgba(108, 99, 255, 0.2);
+    border-radius: 10px;
+    padding: 12px;
+    color: #e8e8f0;
+    selection-background-color: #6c63ff;
+    selection-color: white;
+}
+
+/* ============================================================================
+   Buttons - Modern with Gradient
+   ============================================================================ */
+
+QPushButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #6c63ff, stop:1 #5a52d5);
+    border: 2px solid rgba(108, 99, 255, 0.5);
+    border-radius: 8px;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+    min-width: 100px;
+}
+
+QPushButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #7c73ff, stop:1 #6c63ff);
+    border: 2px solid #8c83ff;
+}
+
+QPushButton:pressed {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #5a52d5, stop:1 #4a42c5);
+    border: 2px solid #6c63ff;
+}
+
+QPushButton:disabled {
+    background: rgba(108, 99, 255, 0.3);
+    border: 2px solid rgba(108, 99, 255, 0.2);
+    color: rgba(232, 232, 240, 0.5);
+}
+
+/* ============================================================================
+   Dialog - Export Dialog
+   ============================================================================ */
+
+QDialog {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                                stop:0 #1a1a2e, stop:1 #16162e);
+    border: 2px solid rgba(108, 99, 255, 0.5);
+    border-radius: 12px;
+}
+
+/* ============================================================================
+   Line Edit - Input Fields
+   ============================================================================ */
+
+QLineEdit {
+    background: rgba(30, 30, 63, 0.6);
+    border: 2px solid rgba(108, 99, 255, 0.3);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #e8e8f0;
+    selection-background-color: #6c63ff;
+    selection-color: white;
+}
+
+QLineEdit:focus {
+    border: 2px solid #6c63ff;
+    background: rgba(30, 30, 63, 0.8);
+}
+
+/* ============================================================================
+   Combo Box - Dropdown
+   ============================================================================ */
+
+QComboBox {
+    background: rgba(30, 30, 63, 0.6);
+    border: 2px solid rgba(108, 99, 255, 0.3);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #e8e8f0;
+    min-width: 150px;
+}
+
+QComboBox:hover {
+    border: 2px solid rgba(108, 99, 255, 0.6);
+}
+
+QComboBox:focus {
+    border: 2px solid #6c63ff;
+}
+
+QComboBox::drop-down {
+    border: none;
+    width: 30px;
+}
+
+QComboBox::down-arrow {
+    image: none;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #6c63ff;
+    margin-right: 8px;
+}
+
+QComboBox QAbstractItemView {
+    background: rgba(30, 30, 63, 0.95);
+    border: 2px solid rgba(108, 99, 255, 0.5);
+    border-radius: 8px;
+    selection-background-color: #6c63ff;
+    selection-color: white;
+    padding: 4px;
+}
+
+/* ============================================================================
+   Spin Box - Number Input
+   ============================================================================ */
+
+QSpinBox {
+    background: rgba(30, 30, 63, 0.6);
+    border: 2px solid rgba(108, 99, 255, 0.3);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #e8e8f0;
+}
+
+QSpinBox:focus {
+    border: 2px solid #6c63ff;
+}
+
+QSpinBox::up-button, QSpinBox::down-button {
+    background: rgba(108, 99, 255, 0.3);
+    border: none;
+    border-radius: 4px;
+    width: 20px;
+}
+
+QSpinBox::up-button:hover, QSpinBox::down-button:hover {
+    background: rgba(108, 99, 255, 0.5);
+}
+
+/* ============================================================================
+   Label - Form Labels
+   ============================================================================ */
+
+QLabel {
+    color: #b8b8d0;
+    background: transparent;
+    padding: 4px;
+}
+
+/* ============================================================================
+   Progress Dialog
+   ============================================================================ */
+
+QProgressDialog {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                                stop:0 #1a1a2e, stop:1 #16162e);
+    border: 2px solid rgba(108, 99, 255, 0.5);
+    border-radius: 12px;
+}
+
+QProgressBar {
+    background: rgba(30, 30, 63, 0.6);
+    border: 2px solid rgba(108, 99, 255, 0.3);
+    border-radius: 8px;
+    text-align: center;
+    color: white;
+    height: 25px;
+}
+
+QProgressBar::chunk {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                                stop:0 #6c63ff, stop:1 #7c73ff);
+    border-radius: 6px;
+}
+
+/* ============================================================================
+   Message Box
+   ============================================================================ */
+
+QMessageBox {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                                stop:0 #1a1a2e, stop:1 #16162e);
+}
+
+QMessageBox QLabel {
+    color: #e8e8f0;
+    min-width: 300px;
+}
+
+/* ============================================================================
+   Tooltips - Elegant Hints
+   ============================================================================ */
+
+QToolTip {
+    background: rgba(30, 30, 63, 0.95);
+    border: 2px solid rgba(108, 99, 255, 0.5);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #e8e8f0;
+    font-size: 12px;
+}
