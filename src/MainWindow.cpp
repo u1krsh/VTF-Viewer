@@ -391,6 +391,17 @@ void MainWindow::about() {
         "<h3>VTF-Viewer</h3>"
         "<p>Version 1.0.0</p>"
         "<p>A tool for viewing and exporting Source Engine textures.</p>"
+        "<hr>"
+        "<p><b>Keyboard Shortcuts:</b></p>"
+        "<table align='center' style='margin: 0 auto;'>"
+        "<tr><td>Ctrl+O</td><td>&nbsp;Open Directory</td></tr>"
+        "<tr><td>Ctrl+E</td><td>&nbsp;Export Current</td></tr>"
+        "<tr><td>Ctrl++</td><td>&nbsp;Zoom In</td></tr>"
+        "<tr><td>Ctrl+-</td><td>&nbsp;Zoom Out</td></tr>"
+        "<tr><td>Ctrl+0</td><td>&nbsp;Reset Zoom</td></tr>"
+        "<tr><td>Ctrl+F</td><td>&nbsp;Fit to Window</td></tr>"
+        "</table>"
+        "<hr>"
         "<p>Built with Qt6. Released under GPL v3.0.</p>"
         "</div>");
 }
