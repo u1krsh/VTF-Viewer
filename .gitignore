@@ -50,9 +50,7 @@ bin/
 *.su
 *.idb
 *.pdb
-build-release-linux.sh
-build-release-macos.sh
-build-release-windows.bat
+
 # OS specific
 .DS_Store
 Thumbs.db
