@@ -204,7 +204,7 @@ void MainWindow::loadDirectory(const QString& path) {
         QApplication::processEvents();
     }
     
-    statusBar()->showMessage(QString("✅ Loaded %1 textures").arg(count));
+    statusBar()->showMessage(QString("✅ Loaded %1 textures from %2").arg(count).arg(QFileInfo(path).fileName()));
 }
 
 void MainWindow::onTextureSelected(const QString& filename) {
