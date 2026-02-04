@@ -58,7 +58,7 @@ QString PropertiesPanel::formatFlags(quint32 flags) {
     if (flags & VTFLib::TEXTUREFLAGS_CLAMPT) flagList << "ClampT";
     if (flags & VTFLib::TEXTUREFLAGS_ANISOTROPIC) flagList << "Anisotropic";
     if (flags & VTFLib::TEXTUREFLAGS_SRGB) flagList << "sRGB";
-    if (flags & VTFLib::TEXTUREFLAGS_NORMAL) flagList << "Normal";
+    if (flags & VTFLib::TEXTUREFLAGS_NORMAL) flagList << "Normal Map";
     if (flags & VTFLib::TEXTUREFLAGS_NOMIP) flagList << "NoMip";
     if (flags & VTFLib::TEXTUREFLAGS_NOLOD) flagList << "NoLOD";
     if (flags & VTFLib::TEXTUREFLAGS_ENVMAP) flagList << "EnvMap";
