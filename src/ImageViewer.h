@@ -20,6 +20,7 @@ public slots:
     void zoomOut();
     void resetZoom();
     void fitToWindow();
+    void setCheckerboardEnabled(bool enabled);
     
 private:
     QScrollArea* scrollArea_;
@@ -27,6 +28,7 @@ private:
     QImage currentImage_;
     double scaleFactor_;
     bool fitToWindowMode_;
+    bool checkerboardEnabled_;
     
     void updateImage();
     void scaleImage(double factor);
