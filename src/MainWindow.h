@@ -5,6 +5,8 @@
 #include <QSplitter>
 #include <QTreeWidget>
 #include <QMap>
+#include <QStringList>
+#include <QSettings>
 
 class GalleryView;
 class ImageViewer;
@@ -30,6 +32,10 @@ private slots:
     void resetZoom();
     void fitToWindow();
     void about();
+    void openRecentDirectory();
+    void clearRecentDirectories();
+    void copyImageToClipboard();
+    void toggleCheckerboardBackground();
     
 private:
     void createActions();
@@ -59,11 +65,25 @@ private:
     QAction* resetZoomAction_;
     QAction* fitToWindowAction_;
     QAction* aboutAction_;
+    QAction* copyToClipboardAction_;
+    QAction* checkerboardAction_;
+    QMenu* recentMenu_;
     
     // Data
     QMap<QString, QString> loadedTextures_; // filename -> full path
     QString currentDirectory_;
     VTFReader* currentVTF_;
+    QStringList recentDirectories_;
+    bool checkerboardEnabled_;
+    
+    void updateRecentDirectoriesMenu();
+    void addToRecentDirectories(const QString& path);
+    void loadSettings();
+    void saveSettings();
+    
+protected:
+    void dragEnterEvent(QDragEnterEvent* event) override;
+    void dropEvent(QDropEvent* event) override;
     VMTParser* currentVMT_;
 };
 
