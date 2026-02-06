@@ -10,6 +10,10 @@ QWidget {
     color: #e8e8f0;
     font-family: "Segoe UI", "Ubuntu", "Roboto", sans-serif;
     font-size: 13px;
+    /* Improved legibility and smooth experience */
+    font-weight: 400;
+    selection-background-color: #6c63ff;
+    selection-color: white;
 }
 
 /* ============================================================================
