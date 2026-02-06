@@ -18,9 +18,18 @@
 #include <QApplication>
 #include <QScreen>
 #include <QStyle>
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include <QMimeData>
+#include <QClipboard>
+#include <QSettings>
 
 MainWindow::MainWindow(QWidget* parent) 
-    : QMainWindow(parent), currentVTF_(nullptr), currentVMT_(nullptr) {
+    : QMainWindow(parent), currentVTF_(nullptr), currentVMT_(nullptr), 
+      checkerboardEnabled_(false) {
+    
+    // Enable drag and drop
+    setAcceptDrops(true);
     
     setWindowTitle("VTF-Viewer - Source Engine Texture Viewer");
     resize(1400, 900);
@@ -106,22 +115,47 @@ void MainWindow::createActions() {
     aboutAction_ = new QAction("&About", this);
     aboutAction_->setStatusTip("About VTF-Viewer");
     connect(aboutAction_, &QAction::triggered, this, &MainWindow::about);
+    
+    // New QoL actions
+    copyToClipboardAction_ = new QAction("&Copy to Clipboard", this);
+    copyToClipboardAction_->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_C));
+    copyToClipboardAction_->setStatusTip("Copy current image to clipboard");
+    connect(copyToClipboardAction_, &QAction::triggered, this, &MainWindow::copyImageToClipboard);
+    
+    checkerboardAction_ = new QAction("Toggle &Checkerboard", this);
+    checkerboardAction_->setShortcut(QKeySequence(Qt::Key_B));
+    checkerboardAction_->setStatusTip("Toggle checkerboard transparency background");
+    checkerboardAction_->setCheckable(true);
+    connect(checkerboardAction_, &QAction::triggered, this, &MainWindow::toggleCheckerboardBackground);
+    
+    // Load settings
+    loadSettings();
 }
 
 void MainWindow::createMenus() {
     QMenu* fileMenu = menuBar()->addMenu("&File");
     fileMenu->addAction(openDirAction_);
+    
+    // Recent directories submenu
+    recentMenu_ = fileMenu->addMenu("Recent &Directories");
+    updateRecentDirectoriesMenu();
+    
     fileMenu->addSeparator();
     fileMenu->addAction(exportCurrentAction_);
     fileMenu->addAction(exportAllAction_);
     fileMenu->addSeparator();
     fileMenu->addAction(exitAction_);
     
+    QMenu* editMenu = menuBar()->addMenu("&Edit");
+    editMenu->addAction(copyToClipboardAction_);
+    
     QMenu* viewMenu = menuBar()->addMenu("&View");
     viewMenu->addAction(zoomInAction_);
     viewMenu->addAction(zoomOutAction_);
     viewMenu->addAction(resetZoomAction_);
     viewMenu->addAction(fitToWindowAction_);
+    viewMenu->addSeparator();
+    viewMenu->addAction(checkerboardAction_);
     
     QMenu* helpMenu = menuBar()->addMenu("&Help");
     helpMenu->addAction(aboutAction_);
@@ -204,8 +238,7 @@ void MainWindow::loadDirectory(const QString& path) {
         QApplication::processEvents();
     }
     
-    statusBar()->showMessage(QString("✅ Loaded %1 textures from %2").arg(count).arg(QFileInfo(path).fileName()));
-}
+    statusBar()->showMessage(QString(\"✅ Loaded %1 textures from %2\").arg(count).arg(QFileInfo(path).fileName()));\n    \n    // Add to recent directories\n    addToRecentDirectories(path);\n}
 
 void MainWindow::onTextureSelected(const QString& filename) {
     loadTexture(filename);
@@ -404,4 +437,153 @@ void MainWindow::about() {
         "<hr>"
         "<p>Built with Qt6. Released under GPL v3.0.</p>"
         "</div>");
+}
+
+// ============================================================================
+// Drag and Drop Support
+// ============================================================================
+
+void MainWindow::dragEnterEvent(QDragEnterEvent* event) {
+    if (event->mimeData()->hasUrls()) {
+        for (const QUrl& url : event->mimeData()->urls()) {
+            QString path = url.toLocalFile();
+            QFileInfo fileInfo(path);
+            if (fileInfo.isDir() || fileInfo.suffix().toLower() == "vtf" || 
+                fileInfo.suffix().toLower() == "vmt") {
+                event->acceptProposedAction();
+                return;
+            }
+        }
+    }
+}
+
+void MainWindow::dropEvent(QDropEvent* event) {
+    const QMimeData* mimeData = event->mimeData();
+    if (mimeData->hasUrls()) {
+        for (const QUrl& url : mimeData->urls()) {
+            QString path = url.toLocalFile();
+            QFileInfo fileInfo(path);
+            
+            if (fileInfo.isDir()) {
+                loadDirectory(path);
+                break;
+            } else if (fileInfo.suffix().toLower() == "vtf" || 
+                       fileInfo.suffix().toLower() == "vmt") {
+                loadDirectory(fileInfo.absolutePath());
+                break;
+            }
+        }
+    }
+}
+
+// ============================================================================
+// Copy to Clipboard
+// ============================================================================
+
+void MainWindow::copyImageToClipboard() {
+    if (currentVTF_ == nullptr) {
+        statusBar()->showMessage("⚠️ No image to copy", 3000);
+        return;
+    }
+    
+    QImage image = currentVTF_->getImage();
+    if (!image.isNull()) {
+        QClipboard* clipboard = QApplication::clipboard();
+        clipboard->setImage(image);
+        statusBar()->showMessage("📋 Image copied to clipboard!", 3000);
+    }
+}
+
+// ============================================================================
+// Checkerboard Background Toggle
+// ============================================================================
+
+void MainWindow::toggleCheckerboardBackground() {
+    checkerboardEnabled_ = !checkerboardEnabled_;
+    checkerboardAction_->setChecked(checkerboardEnabled_);
+    imageViewer_->setCheckerboardEnabled(checkerboardEnabled_);
+    statusBar()->showMessage(checkerboardEnabled_ ? 
+        "🎨 Checkerboard background enabled" : 
+        "🎨 Checkerboard background disabled", 2000);
+}
+
+// ============================================================================
+// Recent Directories Management
+// ============================================================================
+
+void MainWindow::updateRecentDirectoriesMenu() {
+    recentMenu_->clear();
+    
+    for (const QString& dir : recentDirectories_) {
+        QAction* action = recentMenu_->addAction(dir);
+        action->setData(dir);
+        connect(action, &QAction::triggered, this, &MainWindow::openRecentDirectory);
+    }
+    
+    if (!recentDirectories_.isEmpty()) {
+        recentMenu_->addSeparator();
+        QAction* clearAction = recentMenu_->addAction("Clear Recent");
+        connect(clearAction, &QAction::triggered, this, &MainWindow::clearRecentDirectories);
+    }
+    
+    recentMenu_->setEnabled(!recentDirectories_.isEmpty());
+}
+
+void MainWindow::openRecentDirectory() {
+    QAction* action = qobject_cast<QAction*>(sender());
+    if (action) {
+        QString dir = action->data().toString();
+        if (QDir(dir).exists()) {
+            loadDirectory(dir);
+        } else {
+            QMessageBox::warning(this, "Directory Not Found",
+                QString("The directory no longer exists:\n%1").arg(dir));
+            recentDirectories_.removeAll(dir);
+            updateRecentDirectoriesMenu();
+            saveSettings();
+        }
+    }
+}
+
+void MainWindow::clearRecentDirectories() {
+    recentDirectories_.clear();
+    updateRecentDirectoriesMenu();
+    saveSettings();
+    statusBar()->showMessage("🗑️ Recent directories cleared", 2000);
+}
+
+void MainWindow::addToRecentDirectories(const QString& path) {
+    recentDirectories_.removeAll(path);
+    recentDirectories_.prepend(path);
+    
+    // Keep only the last 10 entries
+    while (recentDirectories_.size() > 10) {
+        recentDirectories_.removeLast();
+    }
+    
+    updateRecentDirectoriesMenu();
+    saveSettings();
+}
+
+// ============================================================================
+// Settings Persistence
+// ============================================================================
+
+void MainWindow::loadSettings() {
+    QSettings settings;
+    recentDirectories_ = settings.value("recentDirectories").toStringList();
+    checkerboardEnabled_ = settings.value("checkerboardEnabled", false).toBool();
+    checkerboardAction_->setChecked(checkerboardEnabled_);
+    
+    // Restore window geometry if saved
+    if (settings.contains("geometry")) {
+        restoreGeometry(settings.value("geometry").toByteArray());
+    }
+}
+
+void MainWindow::saveSettings() {
+    QSettings settings;
+    settings.setValue("recentDirectories", recentDirectories_);
+    settings.setValue("checkerboardEnabled", checkerboardEnabled_);
+    settings.setValue("geometry", saveGeometry());
 }
