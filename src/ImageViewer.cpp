@@ -3,7 +3,7 @@
 #include <QResizeEvent>
 
 ImageViewer::ImageViewer(QWidget* parent) 
-    : QWidget(parent), scaleFactor_(1.0), fitToWindowMode_(false) {
+    : QWidget(parent), scaleFactor_(1.0), fitToWindowMode_(false), checkerboardEnabled_(false) {
     
     imageLabel_ = new QLabel;
     imageLabel_->setBackgroundRole(QPalette::Base);
@@ -82,5 +82,20 @@ void ImageViewer::resizeEvent(QResizeEvent* event) {
     QWidget::resizeEvent(event);
     if (fitToWindowMode_) {
         updateImage();
+    }
+}
+
+void ImageViewer::setCheckerboardEnabled(bool enabled) {
+    checkerboardEnabled_ = enabled;
+    if (enabled) {
+        // Create a checkerboard pattern stylesheet
+        scrollArea_->setStyleSheet(
+            "QScrollArea { background-image: "
+            "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><rect width=\"8\" height=\"8\" fill=\"%23404040\"/><rect x=\"8\" y=\"8\" width=\"8\" height=\"8\" fill=\"%23404040\"/><rect x=\"8\" width=\"8\" height=\"8\" fill=\"%23606060\"/><rect y=\"8\" width=\"8\" height=\"8\" fill=\"%23606060\"/></svg>'); }"
+        );
+        scrollArea_->widget()->setStyleSheet("background: transparent;");
+    } else {
+        scrollArea_->setStyleSheet("");
+        scrollArea_->widget()->setStyleSheet("");
     }
 }
