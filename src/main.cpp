@@ -13,6 +13,7 @@ int main(int argc, char* argv[]) {
     app.setApplicationName("VTF-Viewer");
     app.setApplicationVersion("1.0.0");
     app.setOrganizationName("VTF-Viewer");
+    app.setOrganizationDomain("vtf-viewer.local");
     app.setWindowIcon(QIcon(":/icons/icon.png"));
     
     // Set modern font
