@@ -177,6 +177,11 @@ cmake -DCMAKE_PREFIX_PATH=/path/to/qt ..
 1. **Launch VTF-Viewer**
 2. Click **File → Open Directory** or press `Ctrl+O`
 3. Select a folder containing VTF/VMT files
+- **Quick file/folder loading**: Drag and drop folders or VTF/VMT files
+- **Recent directories**: Quick access to previously opened folders
+- **Copy to clipboard**: Copy current image with Ctrl+C
+- **Transparency preview**: Toggle checkerboard background with B key
+- **Settings persistence**: Window geometry and preferences saved
 4. Textures will appear in the gallery view
 
 ### Navigation
