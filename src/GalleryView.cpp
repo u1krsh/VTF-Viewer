@@ -1,18 +1,33 @@
 #include "GalleryView.h"
 #include <QFileInfo>
 
-GalleryView::GalleryView(QWidget* parent) : QListWidget(parent) {
-    setViewMode(QListView::IconMode);
-    setIconSize(QSize(128, 128));
-    setResizeMode(QListView::Adjust);
-    setMovement(QListView::Static);
-    setSpacing(10);
-    setUniformItemSizes(true);
+GalleryView::GalleryView(QWidget* parent) : QWidget(parent) {
+    QVBoxLayout* layout = new QVBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(4);
     
-    connect(this, &QListWidget::itemSelectionChanged, 
+    // Search bar
+    searchEdit_ = new QLineEdit;
+    searchEdit_->setPlaceholderText("🔍 Filter textures...");
+    searchEdit_->setClearButtonEnabled(true);
+    layout->addWidget(searchEdit_);
+    
+    // List widget
+    listWidget_ = new QListWidget;
+    listWidget_->setViewMode(QListView::IconMode);
+    listWidget_->setIconSize(QSize(128, 128));
+    listWidget_->setResizeMode(QListView::Adjust);
+    listWidget_->setMovement(QListView::Static);
+    listWidget_->setSpacing(10);
+    listWidget_->setUniformItemSizes(true);
+    layout->addWidget(listWidget_);
+    
+    connect(listWidget_, &QListWidget::itemSelectionChanged, 
             this, &GalleryView::onItemSelectionChanged);
-    connect(this, &QListWidget::itemDoubleClicked,
+    connect(listWidget_, &QListWidget::itemDoubleClicked,
             this, &GalleryView::onItemDoubleClicked);
+    connect(searchEdit_, &QLineEdit::textChanged,
+            this, &GalleryView::filterItems);
 }
 
 void GalleryView::addTexture(const QString& filename, const QImage& thumbnail) {
@@ -21,22 +36,33 @@ void GalleryView::addTexture(const QString& filename, const QImage& thumbnail) {
     
     QListWidgetItem* item = new QListWidgetItem(QIcon(QPixmap::fromImage(thumbnail)), displayName);
     item->setToolTip(filename);
-    addItem(item);
+    listWidget_->addItem(item);
     
     itemToFilename_[item] = filename;
 }
 
 void GalleryView::clear() {
     itemToFilename_.clear();
-    QListWidget::clear();
+    listWidget_->clear();
+    searchEdit_->clear();
 }
 
 QString GalleryView::getCurrentFilename() const {
-    QListWidgetItem* item = currentItem();
+    QListWidgetItem* item = listWidget_->currentItem();
     if (item && itemToFilename_.contains(item)) {
         return itemToFilename_[item];
     }
     return QString();
+}
+
+int GalleryView::getVisibleCount() const {
+    int count = 0;
+    for (int i = 0; i < listWidget_->count(); ++i) {
+        if (!listWidget_->item(i)->isHidden()) {
+            count++;
+        }
+    }
+    return count;
 }
 
 void GalleryView::onItemSelectionChanged() {
@@ -50,4 +76,14 @@ void GalleryView::onItemDoubleClicked(QListWidgetItem* item) {
     if (item && itemToFilename_.contains(item)) {
         emit textureDoubleClicked(itemToFilename_[item]);
     }
+}
+
+void GalleryView::filterItems(const QString& text) {
+    for (int i = 0; i < listWidget_->count(); ++i) {
+        QListWidgetItem* item = listWidget_->item(i);
+        bool matches = text.isEmpty() || 
+                      item->text().contains(text, Qt::CaseInsensitive);
+        item->setHidden(!matches);
+    }
+    emit visibleCountChanged(getVisibleCount());
 }

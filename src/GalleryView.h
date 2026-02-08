@@ -3,8 +3,10 @@
 
 #include <QListWidget>
 #include <QMap>
+#include <QLineEdit>
+#include <QVBoxLayout>
 
-class GalleryView : public QListWidget {
+class GalleryView : public QWidget {
     Q_OBJECT
     
 public:
@@ -13,16 +15,21 @@ public:
     void addTexture(const QString& filename, const QImage& thumbnail);
     void clear();
     QString getCurrentFilename() const;
+    int getVisibleCount() const;
     
 signals:
     void textureSelected(const QString& filename);
     void textureDoubleClicked(const QString& filename);
+    void visibleCountChanged(int count);
     
 private slots:
     void onItemSelectionChanged();
     void onItemDoubleClicked(QListWidgetItem* item);
+    void filterItems(const QString& text);
     
 private:
+    QListWidget* listWidget_;
+    QLineEdit* searchEdit_;
     QMap<QListWidgetItem*, QString> itemToFilename_;
 };
 
