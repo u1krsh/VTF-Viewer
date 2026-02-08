@@ -20,6 +20,8 @@ GalleryView::GalleryView(QWidget* parent) : QWidget(parent) {
     listWidget_->setMovement(QListView::Static);
     listWidget_->setSpacing(10);
     listWidget_->setUniformItemSizes(true);
+    listWidget_->setSelectionMode(QAbstractItemView::SingleSelection);
+    listWidget_->setFocusPolicy(Qt::StrongFocus);
     layout->addWidget(listWidget_);
     
     connect(listWidget_, &QListWidget::itemSelectionChanged, 
