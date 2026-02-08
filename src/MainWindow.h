@@ -7,6 +7,7 @@
 #include <QMap>
 #include <QStringList>
 #include <QSettings>
+#include <QLabel>
 
 class GalleryView;
 class ImageViewer;
@@ -36,6 +37,7 @@ private slots:
     void clearRecentDirectories();
     void copyImageToClipboard();
     void toggleCheckerboardBackground();
+    void updateZoomDisplay(double factor, bool fitMode);
     
 private:
     void createActions();
@@ -68,6 +70,9 @@ private:
     QAction* copyToClipboardAction_;
     QAction* checkerboardAction_;
     QMenu* recentMenu_;
+    
+    // Status bar widgets
+    QLabel* zoomLabel_;
     
     // Data
     QMap<QString, QString> loadedTextures_; // filename -> full path

@@ -69,6 +69,10 @@ MainWindow::MainWindow(QWidget* parent)
             this, &MainWindow::onTextureSelected);
     connect(galleryView_, &GalleryView::textureDoubleClicked,
             this, &MainWindow::onTextureDoubleClicked);
+    
+    // Connect zoom display
+    connect(imageViewer_, &ImageViewer::zoomChanged,
+            this, &MainWindow::updateZoomDisplay);
 }
 
 MainWindow::~MainWindow() {
@@ -174,6 +178,11 @@ void MainWindow::createToolBar() {
 }
 
 void MainWindow::createStatusBar() {
+    zoomLabel_ = new QLabel("100%");
+    zoomLabel_->setMinimumWidth(60);
+    zoomLabel_->setAlignment(Qt::AlignCenter);
+    zoomLabel_->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+    statusBar()->addPermanentWidget(zoomLabel_);
     statusBar()->showMessage("Ready");
 }
 
@@ -586,4 +595,17 @@ void MainWindow::saveSettings() {
     settings.setValue("recentDirectories", recentDirectories_);
     settings.setValue("checkerboardEnabled", checkerboardEnabled_);
     settings.setValue("geometry", saveGeometry());
+}
+
+// ============================================================================
+// Zoom Display
+// ============================================================================
+
+void MainWindow::updateZoomDisplay(double factor, bool fitMode) {
+    if (fitMode) {
+        zoomLabel_->setText("Fit");
+    } else {
+        int percent = static_cast<int>(factor * 100.0 + 0.5);
+        zoomLabel_->setText(QString("%1%").arg(percent));
+    }
 }
