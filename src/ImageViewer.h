@@ -14,6 +14,8 @@ public:
     
     void setImage(const QImage& image);
     void clear();
+    double getScaleFactor() const { return scaleFactor_; }
+    bool isFitToWindow() const { return fitToWindowMode_; }
     
 public slots:
     void zoomIn();
@@ -21,6 +23,9 @@ public slots:
     void resetZoom();
     void fitToWindow();
     void setCheckerboardEnabled(bool enabled);
+    
+signals:
+    void zoomChanged(double factor, bool fitMode);
     
 private:
     QScrollArea* scrollArea_;
@@ -35,6 +40,7 @@ private:
     
 protected:
     void resizeEvent(QResizeEvent* event) override;
+    void wheelEvent(QWheelEvent* event) override;
 };
 
 #endif // IMAGEVIEWER_H

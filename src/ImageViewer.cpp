@@ -1,6 +1,7 @@
 #include "ImageViewer.h"
 #include <QVBoxLayout>
 #include <QResizeEvent>
+#include <QWheelEvent>
 
 ImageViewer::ImageViewer(QWidget* parent) 
     : QWidget(parent), scaleFactor_(1.0), fitToWindowMode_(false), checkerboardEnabled_(false) {
@@ -26,6 +27,7 @@ void ImageViewer::setImage(const QImage& image) {
     scaleFactor_ = 1.0;
     fitToWindowMode_ = false;
     updateImage();
+    emit zoomChanged(scaleFactor_, fitToWindowMode_);
 }
 
 void ImageViewer::clear() {
@@ -57,6 +59,7 @@ void ImageViewer::scaleImage(double factor) {
     scaleFactor_ = qBound(0.1, scaleFactor_, 10.0);
     fitToWindowMode_ = false;
     updateImage();
+    emit zoomChanged(scaleFactor_, fitToWindowMode_);
 }
 
 void ImageViewer::zoomIn() {
@@ -71,11 +74,13 @@ void ImageViewer::resetZoom() {
     scaleFactor_ = 1.0;
     fitToWindowMode_ = false;
     updateImage();
+    emit zoomChanged(scaleFactor_, fitToWindowMode_);
 }
 
 void ImageViewer::fitToWindow() {
     fitToWindowMode_ = true;
     updateImage();
+    emit zoomChanged(scaleFactor_, fitToWindowMode_);
 }
 
 void ImageViewer::resizeEvent(QResizeEvent* event) {
@@ -83,6 +88,23 @@ void ImageViewer::resizeEvent(QResizeEvent* event) {
     if (fitToWindowMode_) {
         updateImage();
     }
+}
+
+void ImageViewer::wheelEvent(QWheelEvent* event) {
+    if (currentImage_.isNull()) {
+        QWidget::wheelEvent(event);
+        return;
+    }
+    
+    // Zoom with mouse wheel (no modifier needed for image viewer)
+    int delta = event->angleDelta().y();
+    if (delta > 0) {
+        scaleImage(1.15);
+    } else if (delta < 0) {
+        scaleImage(1.0 / 1.15);
+    }
+    
+    event->accept();
 }
 
 void ImageViewer::setCheckerboardEnabled(bool enabled) {
