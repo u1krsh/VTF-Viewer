@@ -15,6 +15,7 @@
 #include <QProgressDialog>
 #include <QDir>
 #include <QFileInfo>
+#include <QDirIterator>
 #include <QApplication>
 #include <QScreen>
 #include <QStyle>
@@ -26,7 +27,7 @@
 
 MainWindow::MainWindow(QWidget* parent) 
     : QMainWindow(parent), currentVTF_(nullptr), currentVMT_(nullptr), 
-      checkerboardEnabled_(false) {
+      checkerboardEnabled_(false), recursiveScan_(false) {
     
     // Enable drag and drop
     setAcceptDrops(true);
@@ -132,6 +133,11 @@ void MainWindow::createActions() {
     checkerboardAction_->setCheckable(true);
     connect(checkerboardAction_, &QAction::triggered, this, &MainWindow::toggleCheckerboardBackground);
     
+    recursiveScanAction_ = new QAction("&Recursive Scan", this);
+    recursiveScanAction_->setStatusTip("Scan subdirectories when opening a directory");
+    recursiveScanAction_->setCheckable(true);
+    connect(recursiveScanAction_, &QAction::triggered, this, &MainWindow::toggleRecursiveScan);
+    
     // Load settings
     loadSettings();
 }
@@ -160,6 +166,7 @@ void MainWindow::createMenus() {
     viewMenu->addAction(fitToWindowAction_);
     viewMenu->addSeparator();
     viewMenu->addAction(checkerboardAction_);
+    viewMenu->addAction(recursiveScanAction_);
     
     QMenu* helpMenu = menuBar()->addMenu("&Help");
     helpMenu->addAction(aboutAction_);
@@ -212,7 +219,16 @@ void MainWindow::loadDirectory(const QString& path) {
     QStringList filters;
     filters << "*.vtf" << "*.vmt";
     
-    QFileInfoList files = dir.entryInfoList(filters, QDir::Files);
+    QFileInfoList files;
+    if (recursiveScan_) {
+        QDirIterator it(path, filters, QDir::Files, QDirIterator::Subdirectories);
+        while (it.hasNext()) {
+            it.next();
+            files.append(it.fileInfo());
+        }
+    } else {
+        files = dir.entryInfoList(filters, QDir::Files);
+    }
     
     if (files.isEmpty()) {
         QMessageBox::information(this, "No Files Found",
@@ -583,6 +599,8 @@ void MainWindow::loadSettings() {
     recentDirectories_ = settings.value("recentDirectories").toStringList();
     checkerboardEnabled_ = settings.value("checkerboardEnabled", false).toBool();
     checkerboardAction_->setChecked(checkerboardEnabled_);
+    recursiveScan_ = settings.value("recursiveScan", false).toBool();
+    recursiveScanAction_->setChecked(recursiveScan_);
     
     // Restore window geometry if saved
     if (settings.contains("geometry")) {
@@ -594,6 +612,7 @@ void MainWindow::saveSettings() {
     QSettings settings;
     settings.setValue("recentDirectories", recentDirectories_);
     settings.setValue("checkerboardEnabled", checkerboardEnabled_);
+    settings.setValue("recursiveScan", recursiveScan_);
     settings.setValue("geometry", saveGeometry());
 }
 
@@ -608,4 +627,17 @@ void MainWindow::updateZoomDisplay(double factor, bool fitMode) {
         int percent = static_cast<int>(factor * 100.0 + 0.5);
         zoomLabel_->setText(QString("%1%").arg(percent));
     }
+}
+
+// ============================================================================
+// Recursive Scan Toggle
+// ============================================================================
+
+void MainWindow::toggleRecursiveScan() {
+    recursiveScan_ = !recursiveScan_;
+    recursiveScanAction_->setChecked(recursiveScan_);
+    saveSettings();
+    statusBar()->showMessage(recursiveScan_ ? 
+        "📁 Recursive scanning enabled" : 
+        "📁 Recursive scanning disabled", 2000);
 }

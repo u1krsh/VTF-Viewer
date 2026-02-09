@@ -38,6 +38,7 @@ private slots:
     void copyImageToClipboard();
     void toggleCheckerboardBackground();
     void updateZoomDisplay(double factor, bool fitMode);
+    void toggleRecursiveScan();
     
 private:
     void createActions();
@@ -69,6 +70,7 @@ private:
     QAction* aboutAction_;
     QAction* copyToClipboardAction_;
     QAction* checkerboardAction_;
+    QAction* recursiveScanAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets
@@ -80,6 +82,7 @@ private:
     VTFReader* currentVTF_;
     QStringList recentDirectories_;
     bool checkerboardEnabled_;
+    bool recursiveScan_;
     
     void updateRecentDirectoriesMenu();
     void addToRecentDirectories(const QString& path);
