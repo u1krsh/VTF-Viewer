@@ -24,6 +24,7 @@
 #include <QMimeData>
 #include <QClipboard>
 #include <QSettings>
+#include <QCloseEvent>
 
 MainWindow::MainWindow(QWidget* parent) 
     : QMainWindow(parent), currentVTF_(nullptr), currentVMT_(nullptr), 
@@ -606,6 +607,12 @@ void MainWindow::loadSettings() {
     if (settings.contains("geometry")) {
         restoreGeometry(settings.value("geometry").toByteArray());
     }
+    if (settings.contains("windowState")) {
+        restoreState(settings.value("windowState").toByteArray());
+    }
+    if (settings.contains("splitterState")) {
+        mainSplitter_->restoreState(settings.value("splitterState").toByteArray());
+    }
 }
 
 void MainWindow::saveSettings() {
@@ -614,6 +621,8 @@ void MainWindow::saveSettings() {
     settings.setValue("checkerboardEnabled", checkerboardEnabled_);
     settings.setValue("recursiveScan", recursiveScan_);
     settings.setValue("geometry", saveGeometry());
+    settings.setValue("windowState", saveState());
+    settings.setValue("splitterState", mainSplitter_->saveState());
 }
 
 // ============================================================================
@@ -640,4 +649,13 @@ void MainWindow::toggleRecursiveScan() {
     statusBar()->showMessage(recursiveScan_ ? 
         "📁 Recursive scanning enabled" : 
         "📁 Recursive scanning disabled", 2000);
+}
+
+// ============================================================================
+// Close Event — Save State
+// ============================================================================
+
+void MainWindow::closeEvent(QCloseEvent* event) {
+    saveSettings();
+    QMainWindow::closeEvent(event);
 }

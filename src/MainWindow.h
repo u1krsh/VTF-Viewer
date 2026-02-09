@@ -92,6 +92,7 @@ private:
 protected:
     void dragEnterEvent(QDragEnterEvent* event) override;
     void dropEvent(QDropEvent* event) override;
+    void closeEvent(QCloseEvent* event) override;
     VMTParser* currentVMT_;
 };
 
