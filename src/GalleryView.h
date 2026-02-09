@@ -16,6 +16,7 @@ public:
     void clear();
     QString getCurrentFilename() const;
     int getVisibleCount() const;
+    void setThumbnailSize(int size);
     
 signals:
     void textureSelected(const QString& filename);

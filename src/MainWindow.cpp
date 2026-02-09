@@ -25,10 +25,11 @@
 #include <QClipboard>
 #include <QSettings>
 #include <QCloseEvent>
+#include <QSlider>
 
 MainWindow::MainWindow(QWidget* parent) 
     : QMainWindow(parent), currentVTF_(nullptr), currentVMT_(nullptr), 
-      checkerboardEnabled_(false), recursiveScan_(false) {
+      checkerboardEnabled_(false), recursiveScan_(false), thumbnailSize_(128) {
     
     // Enable drag and drop
     setAcceptDrops(true);
@@ -183,6 +184,22 @@ void MainWindow::createToolBar() {
     toolBar->addAction(zoomOutAction_);
     toolBar->addAction(resetZoomAction_);
     toolBar->addAction(fitToWindowAction_);
+    
+    // Thumbnail size slider
+    toolBar->addSeparator();
+    QLabel* thumbLabel = new QLabel(" Thumbnails: ");
+    toolBar->addWidget(thumbLabel);
+    QSlider* thumbSlider = new QSlider(Qt::Horizontal);
+    thumbSlider->setRange(64, 256);
+    thumbSlider->setValue(thumbnailSize_);
+    thumbSlider->setMaximumWidth(120);
+    thumbSlider->setToolTip("Adjust thumbnail size");
+    connect(thumbSlider, &QSlider::valueChanged, this, [this](int value) {
+        thumbnailSize_ = value;
+        galleryView_->setThumbnailSize(value);
+        saveSettings();
+    });
+    toolBar->addWidget(thumbSlider);
 }
 
 void MainWindow::createStatusBar() {
@@ -602,6 +619,8 @@ void MainWindow::loadSettings() {
     checkerboardAction_->setChecked(checkerboardEnabled_);
     recursiveScan_ = settings.value("recursiveScan", false).toBool();
     recursiveScanAction_->setChecked(recursiveScan_);
+    thumbnailSize_ = settings.value("thumbnailSize", 128).toInt();
+    galleryView_->setThumbnailSize(thumbnailSize_);
     
     // Restore window geometry if saved
     if (settings.contains("geometry")) {
@@ -620,6 +639,7 @@ void MainWindow::saveSettings() {
     settings.setValue("recentDirectories", recentDirectories_);
     settings.setValue("checkerboardEnabled", checkerboardEnabled_);
     settings.setValue("recursiveScan", recursiveScan_);
+    settings.setValue("thumbnailSize", thumbnailSize_);
     settings.setValue("geometry", saveGeometry());
     settings.setValue("windowState", saveState());
     settings.setValue("splitterState", mainSplitter_->saveState());

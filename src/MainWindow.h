@@ -8,6 +8,7 @@
 #include <QStringList>
 #include <QSettings>
 #include <QLabel>
+#include <QSlider>
 
 class GalleryView;
 class ImageViewer;
@@ -83,6 +84,7 @@ private:
     QStringList recentDirectories_;
     bool checkerboardEnabled_;
     bool recursiveScan_;
+    int thumbnailSize_;
     
     void updateRecentDirectoriesMenu();
     void addToRecentDirectories(const QString& path);

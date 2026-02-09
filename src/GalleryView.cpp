@@ -89,3 +89,7 @@ void GalleryView::filterItems(const QString& text) {
     }
     emit visibleCountChanged(getVisibleCount());
 }
+
+void GalleryView::setThumbnailSize(int size) {
+    listWidget_->setIconSize(QSize(size, size));
+}
