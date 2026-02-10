@@ -164,6 +164,12 @@ void MainWindow::createActions() {
     prevTextureAction_->setStatusTip("View previous texture in gallery");
     connect(prevTextureAction_, &QAction::triggered, this, &MainWindow::previousTexture);
     
+    fullScreenAction_ = new QAction("&Full Screen", this);
+    fullScreenAction_->setShortcut(QKeySequence(Qt::Key_F11));
+    fullScreenAction_->setStatusTip("Toggle full screen mode");
+    fullScreenAction_->setCheckable(true);
+    connect(fullScreenAction_, &QAction::triggered, this, &MainWindow::toggleFullScreen);
+    
     // Load settings
     loadSettings();
 }
@@ -199,6 +205,8 @@ void MainWindow::createMenus() {
     viewMenu->addSeparator();
     viewMenu->addAction(nextTextureAction_);
     viewMenu->addAction(prevTextureAction_);
+    viewMenu->addSeparator();
+    viewMenu->addAction(fullScreenAction_);
     
     QMenu* helpMenu = menuBar()->addMenu("&Help");
     helpMenu->addAction(aboutAction_);
@@ -759,4 +767,20 @@ void MainWindow::nextTexture() {
 
 void MainWindow::previousTexture() {
     galleryView_->selectPrevious();
+}
+
+// ============================================================================
+// Full Screen Toggle
+// ============================================================================
+
+void MainWindow::toggleFullScreen() {
+    if (isFullScreen()) {
+        showNormal();
+        fullScreenAction_->setChecked(false);
+        statusBar()->showMessage("Exited full screen", 2000);
+    } else {
+        showFullScreen();
+        fullScreenAction_->setChecked(true);
+        statusBar()->showMessage("Press F11 to exit full screen", 3000);
+    }
 }

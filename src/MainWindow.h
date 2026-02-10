@@ -45,6 +45,7 @@ private slots:
     void updateTextureCount();
     void nextTexture();
     void previousTexture();
+    void toggleFullScreen();
     
 private:
     void createActions();
@@ -81,6 +82,7 @@ private:
     QAction* rotateCCWAction_;
     QAction* nextTextureAction_;
     QAction* prevTextureAction_;
+    QAction* fullScreenAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets
