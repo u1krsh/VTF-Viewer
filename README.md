@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![VTF-Viewer](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![VTF-Viewer](https://img.shields.io/badge/version-1.1.0-blue.svg)
 ![License](https://img.shields.io/badge/license-GPL--3.0-green.svg)
 ![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg)
 ![C++](https://img.shields.io/badge/C%2B%2B-17-00599C.svg)
@@ -61,7 +61,12 @@ Built with C++ and Qt6, VTF-Viewer supports DXT compression, mipmaps, normal map
   - Pan and navigate large textures
   - Fit to window for optimal viewing
   - Full-resolution display
+  - Image rotation (90° clockwise/counter-clockwise)
+  - Full screen mode (F11)
   - Keyboard shortcuts for quick navigation
+- **Gallery Search**: Filter textures by name with real-time search
+- **Adjustable Thumbnails**: Slider to resize gallery thumbnails (64-256px)
+- **Texture Navigation**: Next/Previous with PgUp/PgDown keys
 
 ### Export Functionality
 - **Multiple Format Support**: PNG, JPEG, BMP, TGA
@@ -179,9 +184,10 @@ cmake -DCMAKE_PREFIX_PATH=/path/to/qt ..
 3. Select a folder containing VTF/VMT files
 - **Quick file/folder loading**: Drag and drop folders or VTF/VMT files
 - **Recent directories**: Quick access to previously opened folders
+- **Recursive scanning**: Toggle recursive subdirectory scanning from View menu
 - **Copy to clipboard**: Copy current image with Ctrl+C
 - **Transparency preview**: Toggle checkerboard background with B key
-- **Settings persistence**: Window geometry and preferences saved
+- **Settings persistence**: Window geometry, splitter layout, and preferences saved
 4. Textures will appear in the gallery view
 
 ### Navigation
@@ -198,6 +204,13 @@ cmake -DCMAKE_PREFIX_PATH=/path/to/qt ..
 | Zoom Out | `Ctrl+-` | Toolbar button / Mouse wheel down |
 | Reset Zoom | `Ctrl+0` | Toolbar button |
 | Fit to Window | `Ctrl+F` | Toolbar button |
+| Rotate CW | `R` | View menu |
+| Rotate CCW | `Shift+R` | View menu |
+| Next Texture | `PgDown` | View menu |
+| Previous Texture | `PgUp` | View menu |
+| Full Screen | `F11` | View menu |
+| Checkerboard | `B` | View menu |
+| Copy to Clipboard | `Ctrl+C` | Edit menu |
 | Pan Image | - | Click and drag |
 
 ### Exporting
