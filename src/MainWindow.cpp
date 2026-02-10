@@ -76,6 +76,10 @@ MainWindow::MainWindow(QWidget* parent)
     // Connect zoom display
     connect(imageViewer_, &ImageViewer::zoomChanged,
             this, &MainWindow::updateZoomDisplay);
+    
+    // Connect texture count updates from gallery filter
+    connect(galleryView_, &GalleryView::visibleCountChanged,
+            this, [this](int) { updateTextureCount(); });
 }
 
 MainWindow::~MainWindow() {
@@ -216,6 +220,12 @@ void MainWindow::createToolBar() {
 }
 
 void MainWindow::createStatusBar() {
+    textureCountLabel_ = new QLabel("0 textures");
+    textureCountLabel_->setMinimumWidth(90);
+    textureCountLabel_->setAlignment(Qt::AlignCenter);
+    textureCountLabel_->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+    statusBar()->addPermanentWidget(textureCountLabel_);
+    
     zoomLabel_ = new QLabel("100%");
     zoomLabel_->setMinimumWidth(60);
     zoomLabel_->setAlignment(Qt::AlignCenter);
@@ -294,7 +304,12 @@ void MainWindow::loadDirectory(const QString& path) {
         QApplication::processEvents();
     }
     
-    statusBar()->showMessage(QString(\"✅ Loaded %1 textures from %2\").arg(count).arg(QFileInfo(path).fileName()));\n    \n    // Add to recent directories\n    addToRecentDirectories(path);\n}
+    statusBar()->showMessage(QString("✅ Loaded %1 textures from %2").arg(count).arg(QFileInfo(path).fileName()));
+    updateTextureCount();
+    
+    // Add to recent directories
+    addToRecentDirectories(path);
+}
 
 void MainWindow::onTextureSelected(const QString& filename) {
     loadTexture(filename);
@@ -705,4 +720,18 @@ void MainWindow::rotateImageCW() {
 void MainWindow::rotateImageCCW() {
     imageViewer_->rotateCounterClockwise();
     statusBar()->showMessage("🔄 Rotated 90° counter-clockwise", 2000);
+}
+
+// ============================================================================
+// Texture Count
+// ============================================================================
+
+void MainWindow::updateTextureCount() {
+    int visible = galleryView_->getVisibleCount();
+    int total = loadedTextures_.size();
+    if (visible == total) {
+        textureCountLabel_->setText(QString("%1 textures").arg(total));
+    } else {
+        textureCountLabel_->setText(QString("%1/%2 shown").arg(visible).arg(total));
+    }
 }

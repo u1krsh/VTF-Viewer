@@ -42,6 +42,7 @@ private slots:
     void toggleRecursiveScan();
     void rotateImageCW();
     void rotateImageCCW();
+    void updateTextureCount();
     
 private:
     void createActions();
@@ -80,6 +81,7 @@ private:
     
     // Status bar widgets
     QLabel* zoomLabel_;
+    QLabel* textureCountLabel_;
     
     // Data
     QMap<QString, QString> loadedTextures_; // filename -> full path
