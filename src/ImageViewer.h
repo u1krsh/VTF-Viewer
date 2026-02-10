@@ -23,6 +23,8 @@ public slots:
     void resetZoom();
     void fitToWindow();
     void setCheckerboardEnabled(bool enabled);
+    void rotateClockwise();
+    void rotateCounterClockwise();
     
 signals:
     void zoomChanged(double factor, bool fitMode);
@@ -34,9 +36,11 @@ private:
     double scaleFactor_;
     bool fitToWindowMode_;
     bool checkerboardEnabled_;
+    int rotation_;
     
     void updateImage();
     void scaleImage(double factor);
+    QImage getRotatedImage() const;
     
 protected:
     void resizeEvent(QResizeEvent* event) override;

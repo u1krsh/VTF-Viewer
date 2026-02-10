@@ -140,6 +140,16 @@ void MainWindow::createActions() {
     recursiveScanAction_->setCheckable(true);
     connect(recursiveScanAction_, &QAction::triggered, this, &MainWindow::toggleRecursiveScan);
     
+    rotateCWAction_ = new QAction("Rotate &Clockwise", this);
+    rotateCWAction_->setShortcut(QKeySequence(Qt::Key_R));
+    rotateCWAction_->setStatusTip("Rotate image 90° clockwise");
+    connect(rotateCWAction_, &QAction::triggered, this, &MainWindow::rotateImageCW);
+    
+    rotateCCWAction_ = new QAction("Rotate C&ounter-Clockwise", this);
+    rotateCCWAction_->setShortcut(QKeySequence(Qt::SHIFT | Qt::Key_R));
+    rotateCCWAction_->setStatusTip("Rotate image 90° counter-clockwise");
+    connect(rotateCCWAction_, &QAction::triggered, this, &MainWindow::rotateImageCCW);
+    
     // Load settings
     loadSettings();
 }
@@ -169,6 +179,9 @@ void MainWindow::createMenus() {
     viewMenu->addSeparator();
     viewMenu->addAction(checkerboardAction_);
     viewMenu->addAction(recursiveScanAction_);
+    viewMenu->addSeparator();
+    viewMenu->addAction(rotateCWAction_);
+    viewMenu->addAction(rotateCCWAction_);
     
     QMenu* helpMenu = menuBar()->addMenu("&Help");
     helpMenu->addAction(aboutAction_);
@@ -678,4 +691,18 @@ void MainWindow::toggleRecursiveScan() {
 void MainWindow::closeEvent(QCloseEvent* event) {
     saveSettings();
     QMainWindow::closeEvent(event);
+}
+
+// ============================================================================
+// Image Rotation
+// ============================================================================
+
+void MainWindow::rotateImageCW() {
+    imageViewer_->rotateClockwise();
+    statusBar()->showMessage("🔄 Rotated 90° clockwise", 2000);
+}
+
+void MainWindow::rotateImageCCW() {
+    imageViewer_->rotateCounterClockwise();
+    statusBar()->showMessage("🔄 Rotated 90° counter-clockwise", 2000);
 }

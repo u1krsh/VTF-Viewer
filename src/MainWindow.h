@@ -40,6 +40,8 @@ private slots:
     void toggleCheckerboardBackground();
     void updateZoomDisplay(double factor, bool fitMode);
     void toggleRecursiveScan();
+    void rotateImageCW();
+    void rotateImageCCW();
     
 private:
     void createActions();
@@ -72,6 +74,8 @@ private:
     QAction* copyToClipboardAction_;
     QAction* checkerboardAction_;
     QAction* recursiveScanAction_;
+    QAction* rotateCWAction_;
+    QAction* rotateCCWAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets

@@ -2,9 +2,11 @@
 #include <QVBoxLayout>
 #include <QResizeEvent>
 #include <QWheelEvent>
+#include <QTransform>
 
 ImageViewer::ImageViewer(QWidget* parent) 
-    : QWidget(parent), scaleFactor_(1.0), fitToWindowMode_(false), checkerboardEnabled_(false) {
+    : QWidget(parent), scaleFactor_(1.0), fitToWindowMode_(false), 
+      checkerboardEnabled_(false), rotation_(0) {
     
     imageLabel_ = new QLabel;
     imageLabel_->setBackgroundRole(QPalette::Base);
@@ -26,6 +28,7 @@ void ImageViewer::setImage(const QImage& image) {
     currentImage_ = image;
     scaleFactor_ = 1.0;
     fitToWindowMode_ = false;
+    rotation_ = 0;
     updateImage();
     emit zoomChanged(scaleFactor_, fitToWindowMode_);
 }
@@ -33,6 +36,16 @@ void ImageViewer::setImage(const QImage& image) {
 void ImageViewer::clear() {
     currentImage_ = QImage();
     imageLabel_->clear();
+    rotation_ = 0;
+}
+
+QImage ImageViewer::getRotatedImage() const {
+    if (rotation_ == 0) {
+        return currentImage_;
+    }
+    QTransform transform;
+    transform.rotate(rotation_);
+    return currentImage_.transformed(transform, Qt::SmoothTransformation);
 }
 
 void ImageViewer::updateImage() {
@@ -40,14 +53,16 @@ void ImageViewer::updateImage() {
         return;
     }
     
+    QImage displayImage = getRotatedImage();
+    
     if (fitToWindowMode_) {
         QSize availableSize = scrollArea_->viewport()->size();
-        QPixmap pixmap = QPixmap::fromImage(currentImage_);
+        QPixmap pixmap = QPixmap::fromImage(displayImage);
         pixmap = pixmap.scaled(availableSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         imageLabel_->setPixmap(pixmap);
         imageLabel_->adjustSize();
     } else {
-        QPixmap pixmap = QPixmap::fromImage(currentImage_);
+        QPixmap pixmap = QPixmap::fromImage(displayImage);
         QSize scaledSize = pixmap.size() * scaleFactor_;
         imageLabel_->setPixmap(pixmap.scaled(scaledSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
         imageLabel_->adjustSize();
@@ -83,6 +98,16 @@ void ImageViewer::fitToWindow() {
     emit zoomChanged(scaleFactor_, fitToWindowMode_);
 }
 
+void ImageViewer::rotateClockwise() {
+    rotation_ = (rotation_ + 90) % 360;
+    updateImage();
+}
+
+void ImageViewer::rotateCounterClockwise() {
+    rotation_ = (rotation_ - 90 + 360) % 360;
+    updateImage();
+}
+
 void ImageViewer::resizeEvent(QResizeEvent* event) {
     QWidget::resizeEvent(event);
     if (fitToWindowMode_) {
@@ -96,7 +121,6 @@ void ImageViewer::wheelEvent(QWheelEvent* event) {
         return;
     }
     
-    // Zoom with mouse wheel (no modifier needed for image viewer)
     int delta = event->angleDelta().y();
     if (delta > 0) {
         scaleImage(1.15);
@@ -110,7 +134,6 @@ void ImageViewer::wheelEvent(QWheelEvent* event) {
 void ImageViewer::setCheckerboardEnabled(bool enabled) {
     checkerboardEnabled_ = enabled;
     if (enabled) {
-        // Create a checkerboard pattern stylesheet
         scrollArea_->setStyleSheet(
             "QScrollArea { background-image: "
             "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><rect width=\"8\" height=\"8\" fill=\"%23404040\"/><rect x=\"8\" y=\"8\" width=\"8\" height=\"8\" fill=\"%23404040\"/><rect x=\"8\" width=\"8\" height=\"8\" fill=\"%23606060\"/><rect y=\"8\" width=\"8\" height=\"8\" fill=\"%23606060\"/></svg>'); }"
