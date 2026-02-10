@@ -93,3 +93,23 @@ void GalleryView::filterItems(const QString& text) {
 void GalleryView::setThumbnailSize(int size) {
     listWidget_->setIconSize(QSize(size, size));
 }
+
+void GalleryView::selectNext() {
+    int current = listWidget_->currentRow();
+    for (int i = current + 1; i < listWidget_->count(); ++i) {
+        if (!listWidget_->item(i)->isHidden()) {
+            listWidget_->setCurrentRow(i);
+            return;
+        }
+    }
+}
+
+void GalleryView::selectPrevious() {
+    int current = listWidget_->currentRow();
+    for (int i = current - 1; i >= 0; --i) {
+        if (!listWidget_->item(i)->isHidden()) {
+            listWidget_->setCurrentRow(i);
+            return;
+        }
+    }
+}

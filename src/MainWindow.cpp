@@ -154,6 +154,16 @@ void MainWindow::createActions() {
     rotateCCWAction_->setStatusTip("Rotate image 90° counter-clockwise");
     connect(rotateCCWAction_, &QAction::triggered, this, &MainWindow::rotateImageCCW);
     
+    nextTextureAction_ = new QAction("&Next Texture", this);
+    nextTextureAction_->setShortcut(QKeySequence(Qt::Key_PageDown));
+    nextTextureAction_->setStatusTip("View next texture in gallery");
+    connect(nextTextureAction_, &QAction::triggered, this, &MainWindow::nextTexture);
+    
+    prevTextureAction_ = new QAction("&Previous Texture", this);
+    prevTextureAction_->setShortcut(QKeySequence(Qt::Key_PageUp));
+    prevTextureAction_->setStatusTip("View previous texture in gallery");
+    connect(prevTextureAction_, &QAction::triggered, this, &MainWindow::previousTexture);
+    
     // Load settings
     loadSettings();
 }
@@ -186,6 +196,9 @@ void MainWindow::createMenus() {
     viewMenu->addSeparator();
     viewMenu->addAction(rotateCWAction_);
     viewMenu->addAction(rotateCCWAction_);
+    viewMenu->addSeparator();
+    viewMenu->addAction(nextTextureAction_);
+    viewMenu->addAction(prevTextureAction_);
     
     QMenu* helpMenu = menuBar()->addMenu("&Help");
     helpMenu->addAction(aboutAction_);
@@ -734,4 +747,16 @@ void MainWindow::updateTextureCount() {
     } else {
         textureCountLabel_->setText(QString("%1/%2 shown").arg(visible).arg(total));
     }
+}
+
+// ============================================================================
+// Next / Previous Texture
+// ============================================================================
+
+void MainWindow::nextTexture() {
+    galleryView_->selectNext();
+}
+
+void MainWindow::previousTexture() {
+    galleryView_->selectPrevious();
 }

@@ -43,6 +43,8 @@ private slots:
     void rotateImageCW();
     void rotateImageCCW();
     void updateTextureCount();
+    void nextTexture();
+    void previousTexture();
     
 private:
     void createActions();
@@ -77,6 +79,8 @@ private:
     QAction* recursiveScanAction_;
     QAction* rotateCWAction_;
     QAction* rotateCCWAction_;
+    QAction* nextTextureAction_;
+    QAction* prevTextureAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets
