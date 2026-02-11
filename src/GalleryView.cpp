@@ -1,16 +1,31 @@
 #include "GalleryView.h"
 #include <QFileInfo>
+#include <QHBoxLayout>
 
 GalleryView::GalleryView(QWidget* parent) : QWidget(parent) {
     QVBoxLayout* layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(4);
     
-    // Search bar
+    // Search bar and sort combo in a horizontal layout
+    QHBoxLayout* topLayout = new QHBoxLayout;
+    topLayout->setSpacing(4);
+    
     searchEdit_ = new QLineEdit;
     searchEdit_->setPlaceholderText("🔍 Filter textures...");
     searchEdit_->setClearButtonEnabled(true);
-    layout->addWidget(searchEdit_);
+    topLayout->addWidget(searchEdit_, 1);
+    
+    sortCombo_ = new QComboBox;
+    sortCombo_->addItem("Name ↑");
+    sortCombo_->addItem("Name ↓");
+    sortCombo_->addItem("Size ↑");
+    sortCombo_->addItem("Size ↓");
+    sortCombo_->setToolTip("Sort gallery items");
+    sortCombo_->setMinimumWidth(80);
+    topLayout->addWidget(sortCombo_);
+    
+    layout->addLayout(topLayout);
     
     // List widget
     listWidget_ = new QListWidget;
@@ -30,6 +45,8 @@ GalleryView::GalleryView(QWidget* parent) : QWidget(parent) {
             this, &GalleryView::onItemDoubleClicked);
     connect(searchEdit_, &QLineEdit::textChanged,
             this, &GalleryView::filterItems);
+    connect(sortCombo_, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &GalleryView::sortItems);
 }
 
 void GalleryView::addTexture(const QString& filename, const QImage& thumbnail) {
@@ -41,10 +58,12 @@ void GalleryView::addTexture(const QString& filename, const QImage& thumbnail) {
     listWidget_->addItem(item);
     
     itemToFilename_[item] = filename;
+    itemToFileSize_[item] = fileInfo.size();
 }
 
 void GalleryView::clear() {
     itemToFilename_.clear();
+    itemToFileSize_.clear();
     listWidget_->clear();
     searchEdit_->clear();
 }
@@ -112,4 +131,69 @@ void GalleryView::selectPrevious() {
             return;
         }
     }
+}
+
+void GalleryView::sortItems(int sortIndex) {
+    listWidget_->setSortingEnabled(false);
+    
+    // Collect all items with their data
+    struct ItemData {
+        QString name;
+        QIcon icon;
+        QString tooltip;
+        QString filename;
+        qint64 fileSize;
+    };
+    
+    QList<ItemData> items;
+    for (int i = 0; i < listWidget_->count(); ++i) {
+        QListWidgetItem* item = listWidget_->item(i);
+        ItemData data;
+        data.name = item->text();
+        data.icon = item->icon();
+        data.tooltip = item->toolTip();
+        data.filename = itemToFilename_.value(item);
+        data.fileSize = itemToFileSize_.value(item, 0);
+        items.append(data);
+    }
+    
+    // Sort based on selected option
+    switch (sortIndex) {
+        case 0: // Name ascending
+            std::sort(items.begin(), items.end(), [](const ItemData& a, const ItemData& b) {
+                return a.name.toLower() < b.name.toLower();
+            });
+            break;
+        case 1: // Name descending
+            std::sort(items.begin(), items.end(), [](const ItemData& a, const ItemData& b) {
+                return a.name.toLower() > b.name.toLower();
+            });
+            break;
+        case 2: // Size ascending
+            std::sort(items.begin(), items.end(), [](const ItemData& a, const ItemData& b) {
+                return a.fileSize < b.fileSize;
+            });
+            break;
+        case 3: // Size descending
+            std::sort(items.begin(), items.end(), [](const ItemData& a, const ItemData& b) {
+                return a.fileSize > b.fileSize;
+            });
+            break;
+    }
+    
+    // Rebuild the list
+    itemToFilename_.clear();
+    itemToFileSize_.clear();
+    listWidget_->clear();
+    
+    for (const ItemData& data : items) {
+        QListWidgetItem* item = new QListWidgetItem(data.icon, data.name);
+        item->setToolTip(data.tooltip);
+        listWidget_->addItem(item);
+        itemToFilename_[item] = data.filename;
+        itemToFileSize_[item] = data.fileSize;
+    }
+    
+    // Re-apply filter
+    filterItems(searchEdit_->text());
 }

@@ -5,6 +5,7 @@
 #include <QMap>
 #include <QLineEdit>
 #include <QVBoxLayout>
+#include <QComboBox>
 
 class GalleryView : public QWidget {
     Q_OBJECT
@@ -29,11 +30,14 @@ private slots:
     void onItemSelectionChanged();
     void onItemDoubleClicked(QListWidgetItem* item);
     void filterItems(const QString& text);
+    void sortItems(int sortIndex);
     
 private:
     QListWidget* listWidget_;
     QLineEdit* searchEdit_;
+    QComboBox* sortCombo_;
     QMap<QListWidgetItem*, QString> itemToFilename_;
+    QMap<QListWidgetItem*, qint64> itemToFileSize_;
 };
 
 #endif // GALLERYVIEW_H
