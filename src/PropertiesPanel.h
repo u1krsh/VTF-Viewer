@@ -19,6 +19,7 @@ private:
     QTextEdit* textEdit_;
     
     QString formatFlags(quint32 flags);
+    QString formatFileSize(qint64 bytes);
 };
 
 #endif // PROPERTIESPANEL_H
