@@ -20,6 +20,7 @@ public:
     void setThumbnailSize(int size);
     void selectNext();
     void selectPrevious();
+    void focusSearch();
     
 signals:
     void textureSelected(const QString& filename);

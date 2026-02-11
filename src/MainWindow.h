@@ -46,6 +46,7 @@ private slots:
     void nextTexture();
     void previousTexture();
     void toggleFullScreen();
+    void focusSearch();
     
 private:
     void createActions();
@@ -83,6 +84,7 @@ private:
     QAction* nextTextureAction_;
     QAction* prevTextureAction_;
     QAction* fullScreenAction_;
+    QAction* focusSearchAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets

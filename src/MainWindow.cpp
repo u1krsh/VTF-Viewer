@@ -170,6 +170,11 @@ void MainWindow::createActions() {
     fullScreenAction_->setCheckable(true);
     connect(fullScreenAction_, &QAction::triggered, this, &MainWindow::toggleFullScreen);
     
+    focusSearchAction_ = new QAction("&Focus Search", this);
+    focusSearchAction_->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_L));
+    focusSearchAction_->setStatusTip("Focus the gallery search bar");
+    connect(focusSearchAction_, &QAction::triggered, this, &MainWindow::focusSearch);
+    
     // Load settings
     loadSettings();
 }
@@ -190,6 +195,8 @@ void MainWindow::createMenus() {
     
     QMenu* editMenu = menuBar()->addMenu("&Edit");
     editMenu->addAction(copyToClipboardAction_);
+    editMenu->addSeparator();
+    editMenu->addAction(focusSearchAction_);
     
     QMenu* viewMenu = menuBar()->addMenu("&View");
     viewMenu->addAction(zoomInAction_);
@@ -791,4 +798,13 @@ void MainWindow::toggleFullScreen() {
         fullScreenAction_->setChecked(true);
         statusBar()->showMessage("Press F11 to exit full screen", 3000);
     }
+}
+
+// ============================================================================
+// Focus Search
+// ============================================================================
+
+void MainWindow::focusSearch() {
+    galleryView_->focusSearch();
+    statusBar()->showMessage("🔍 Search focused — start typing to filter", 2000);
 }

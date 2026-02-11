@@ -133,6 +133,11 @@ void GalleryView::selectPrevious() {
     }
 }
 
+void GalleryView::focusSearch() {
+    searchEdit_->setFocus();
+    searchEdit_->selectAll();
+}
+
 void GalleryView::sortItems(int sortIndex) {
     listWidget_->setSortingEnabled(false);
     
