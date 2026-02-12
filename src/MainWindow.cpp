@@ -255,6 +255,12 @@ void MainWindow::createToolBar() {
 }
 
 void MainWindow::createStatusBar() {
+    imageDimensionsLabel_ = new QLabel("");
+    imageDimensionsLabel_->setMinimumWidth(100);
+    imageDimensionsLabel_->setAlignment(Qt::AlignCenter);
+    imageDimensionsLabel_->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+    statusBar()->addPermanentWidget(imageDimensionsLabel_);
+    
     textureCountLabel_ = new QLabel("0 textures");
     textureCountLabel_->setMinimumWidth(90);
     textureCountLabel_->setAlignment(Qt::AlignCenter);
@@ -385,6 +391,12 @@ void MainWindow::loadTexture(const QString& filename) {
                 .arg(currentVTF_->getWidth())
                 .arg(currentVTF_->getHeight())
                 .arg(currentVTF_->getFormat()));
+            
+            // Update title bar with current file
+            setWindowTitle(QString("%1 — VTF-Viewer").arg(fileInfo.fileName()));
+            
+            // Update dimensions in status bar
+            imageDimensionsLabel_->setText(QString("%1×%2").arg(currentVTF_->getWidth()).arg(currentVTF_->getHeight()));
         }
     } else if (fileInfo.suffix().toLower() == "vmt") {
         currentVMT_ = new VMTParser;
@@ -412,6 +424,10 @@ void MainWindow::loadTexture(const QString& filename) {
             statusBar()->showMessage(QString("Loaded VMT: %1 (Shader: %2)")
                 .arg(fileInfo.fileName())
                 .arg(currentVMT_->getShader()));
+            
+            // Update title bar with current file
+            setWindowTitle(QString("%1 — VTF-Viewer").arg(fileInfo.fileName()));
+            imageDimensionsLabel_->setText("");
         }
     }
 }

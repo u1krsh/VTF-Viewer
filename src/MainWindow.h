@@ -92,6 +92,7 @@ private:
     // Status bar widgets
     QLabel* zoomLabel_;
     QLabel* textureCountLabel_;
+    QLabel* imageDimensionsLabel_;
     
     // Data
     QMap<QString, QString> loadedTextures_; // filename -> full path
