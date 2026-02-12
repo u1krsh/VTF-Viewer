@@ -47,6 +47,7 @@ private slots:
     void previousTexture();
     void toggleFullScreen();
     void focusSearch();
+    void reloadDirectory();
     
 private:
     void createActions();
@@ -85,6 +86,7 @@ private:
     QAction* prevTextureAction_;
     QAction* fullScreenAction_;
     QAction* focusSearchAction_;
+    QAction* reloadAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets
@@ -99,6 +101,7 @@ private:
     bool checkerboardEnabled_;
     bool recursiveScan_;
     int thumbnailSize_;
+    QString lastExportPath_;
     
     void updateRecentDirectoriesMenu();
     void addToRecentDirectories(const QString& path);

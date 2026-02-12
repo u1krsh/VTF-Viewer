@@ -69,3 +69,7 @@ QString ExportDialog::getFormat() const {
 int ExportDialog::getQuality() const {
     return qualitySpinBox_->value();
 }
+
+void ExportDialog::setOutputPath(const QString& path) {
+    pathEdit_->setText(path);
+}

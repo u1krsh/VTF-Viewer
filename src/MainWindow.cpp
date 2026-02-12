@@ -29,7 +29,8 @@
 
 MainWindow::MainWindow(QWidget* parent) 
     : QMainWindow(parent), currentVTF_(nullptr), currentVMT_(nullptr), 
-      checkerboardEnabled_(false), recursiveScan_(false), thumbnailSize_(128) {
+      checkerboardEnabled_(false), recursiveScan_(false), thumbnailSize_(128),
+      lastExportPath_(QString()) {
     
     // Enable drag and drop
     setAcceptDrops(true);
@@ -175,6 +176,11 @@ void MainWindow::createActions() {
     focusSearchAction_->setStatusTip("Focus the gallery search bar");
     connect(focusSearchAction_, &QAction::triggered, this, &MainWindow::focusSearch);
     
+    reloadAction_ = new QAction("&Reload Directory", this);
+    reloadAction_->setShortcut(QKeySequence(Qt::Key_F5));
+    reloadAction_->setStatusTip("Reload the current directory");
+    connect(reloadAction_, &QAction::triggered, this, &MainWindow::reloadDirectory);
+    
     // Load settings
     loadSettings();
 }
@@ -182,6 +188,7 @@ void MainWindow::createActions() {
 void MainWindow::createMenus() {
     QMenu* fileMenu = menuBar()->addMenu("&File");
     fileMenu->addAction(openDirAction_);
+    fileMenu->addAction(reloadAction_);
     
     // Recent directories submenu
     recentMenu_ = fileMenu->addMenu("Recent &Directories");
@@ -418,6 +425,9 @@ void MainWindow::exportCurrent() {
     }
     
     ExportDialog dialog(this);
+    if (!lastExportPath_.isEmpty()) {
+        dialog.setOutputPath(lastExportPath_);
+    }
     if (dialog.exec() == QDialog::Accepted) {
         QString outputPath = dialog.getOutputPath();
         QString format = dialog.getFormat();
@@ -429,6 +439,8 @@ void MainWindow::exportCurrent() {
             return;
         }
         
+        lastExportPath_ = outputPath;
+        saveSettings();
         exportTexture(currentFile, outputPath, format, quality);
         QMessageBox::information(this, "Export Complete",
                                "Texture exported successfully.");
@@ -443,6 +455,9 @@ void MainWindow::exportAll() {
     }
     
     ExportDialog dialog(this);
+    if (!lastExportPath_.isEmpty()) {
+        dialog.setOutputPath(lastExportPath_);
+    }
     if (dialog.exec() == QDialog::Accepted) {
         QString outputPath = dialog.getOutputPath();
         QString format = dialog.getFormat();
@@ -453,6 +468,9 @@ void MainWindow::exportAll() {
                                "Please select an output directory.");
             return;
         }
+        
+        lastExportPath_ = outputPath;
+        saveSettings();
         
         QProgressDialog progress("Exporting textures...", "Cancel", 
                                 0, loadedTextures_.size(), this);
@@ -685,6 +703,7 @@ void MainWindow::loadSettings() {
     recursiveScanAction_->setChecked(recursiveScan_);
     thumbnailSize_ = settings.value("thumbnailSize", 128).toInt();
     galleryView_->setThumbnailSize(thumbnailSize_);
+    lastExportPath_ = settings.value("lastExportPath").toString();
     
     // Restore window geometry if saved
     if (settings.contains("geometry")) {
@@ -704,6 +723,7 @@ void MainWindow::saveSettings() {
     settings.setValue("checkerboardEnabled", checkerboardEnabled_);
     settings.setValue("recursiveScan", recursiveScan_);
     settings.setValue("thumbnailSize", thumbnailSize_);
+    settings.setValue("lastExportPath", lastExportPath_);
     settings.setValue("geometry", saveGeometry());
     settings.setValue("windowState", saveState());
     settings.setValue("splitterState", mainSplitter_->saveState());
@@ -807,4 +827,17 @@ void MainWindow::toggleFullScreen() {
 void MainWindow::focusSearch() {
     galleryView_->focusSearch();
     statusBar()->showMessage("🔍 Search focused — start typing to filter", 2000);
+}
+
+// ============================================================================
+// Reload Directory
+// ============================================================================
+
+void MainWindow::reloadDirectory() {
+    if (currentDirectory_.isEmpty()) {
+        statusBar()->showMessage("⚠️ No directory to reload", 3000);
+        return;
+    }
+    statusBar()->showMessage("🔄 Reloading directory...");
+    loadDirectory(currentDirectory_);
 }
