@@ -6,6 +6,7 @@
 #include <QLineEdit>
 #include <QVBoxLayout>
 #include <QComboBox>
+#include <QPushButton>
 
 class GalleryView : public QWidget {
     Q_OBJECT
@@ -21,6 +22,7 @@ public:
     void selectNext();
     void selectPrevious();
     void focusSearch();
+    void toggleViewMode();
     
 signals:
     void textureSelected(const QString& filename);
@@ -37,6 +39,7 @@ private:
     QListWidget* listWidget_;
     QLineEdit* searchEdit_;
     QComboBox* sortCombo_;
+    QPushButton* viewToggleButton_;
     QMap<QListWidgetItem*, QString> itemToFilename_;
     QMap<QListWidgetItem*, qint64> itemToFileSize_;
 };

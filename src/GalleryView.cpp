@@ -25,6 +25,11 @@ GalleryView::GalleryView(QWidget* parent) : QWidget(parent) {
     sortCombo_->setMinimumWidth(80);
     topLayout->addWidget(sortCombo_);
     
+    viewToggleButton_ = new QPushButton("☰");
+    viewToggleButton_->setToolTip("Toggle grid/list view");
+    viewToggleButton_->setMaximumWidth(30);
+    topLayout->addWidget(viewToggleButton_);
+    
     layout->addLayout(topLayout);
     
     // List widget
@@ -47,6 +52,8 @@ GalleryView::GalleryView(QWidget* parent) : QWidget(parent) {
             this, &GalleryView::filterItems);
     connect(sortCombo_, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &GalleryView::sortItems);
+    connect(viewToggleButton_, &QPushButton::clicked,
+            this, &GalleryView::toggleViewMode);
 }
 
 void GalleryView::addTexture(const QString& filename, const QImage& thumbnail) {
@@ -136,6 +143,20 @@ void GalleryView::selectPrevious() {
 void GalleryView::focusSearch() {
     searchEdit_->setFocus();
     searchEdit_->selectAll();
+}
+
+void GalleryView::toggleViewMode() {
+    if (listWidget_->viewMode() == QListView::IconMode) {
+        listWidget_->setViewMode(QListView::ListMode);
+        listWidget_->setSpacing(2);
+        viewToggleButton_->setText("▦");
+        viewToggleButton_->setToolTip("Switch to grid view");
+    } else {
+        listWidget_->setViewMode(QListView::IconMode);
+        listWidget_->setSpacing(10);
+        viewToggleButton_->setText("☰");
+        viewToggleButton_->setToolTip("Switch to list view");
+    }
 }
 
 void GalleryView::sortItems(int sortIndex) {
