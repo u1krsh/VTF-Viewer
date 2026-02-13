@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![VTF-Viewer](https://img.shields.io/badge/version-1.1.0-blue.svg)
+![VTF-Viewer](https://img.shields.io/badge/version-1.2.0-blue.svg)
 ![License](https://img.shields.io/badge/license-GPL--3.0-green.svg)
 ![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg)
 ![C++](https://img.shields.io/badge/C%2B%2B-17-00599C.svg)
@@ -64,14 +64,19 @@ Built with C++ and Qt6, VTF-Viewer supports DXT compression, mipmaps, normal map
   - Image rotation (90° clockwise/counter-clockwise)
   - Full screen mode (F11)
   - Keyboard shortcuts for quick navigation
-- **Gallery Search**: Filter textures by name with real-time search
+- **Gallery Search**: Filter textures by name with real-time search (`Ctrl+L` to focus)
+- **Gallery Sorting**: Sort by name or file size (ascending/descending)
+- **Grid/List Toggle**: Switch between icon grid and list view modes
 - **Adjustable Thumbnails**: Slider to resize gallery thumbnails (64-256px)
 - **Texture Navigation**: Next/Previous with PgUp/PgDown keys
+- **Detailed Tooltips**: Hover over gallery items for file size and path info
+- **Reload Directory**: Refresh current directory with `F5`
 
 ### Export Functionality
 - **Multiple Format Support**: PNG, JPEG, BMP, TGA
 - **Batch Export**: Export all loaded textures in one operation
 - **Quality Control**: Adjustable JPEG quality settings
+- **Export Path Persistence**: Remembers last-used export directory
 - **Preserve Metadata**: Maintain texture properties during export
 
 ### Performance
@@ -211,6 +216,9 @@ cmake -DCMAKE_PREFIX_PATH=/path/to/qt ..
 | Full Screen | `F11` | View menu |
 | Checkerboard | `B` | View menu |
 | Copy to Clipboard | `Ctrl+C` | Edit menu |
+| Focus Search | `Ctrl+L` | Edit menu |
+| Reload Directory | `F5` | File menu |
+| Exit FS / Clear | `Escape` | - |
 | Pan Image | - | Click and drag |
 
 ### Exporting
@@ -230,12 +238,13 @@ cmake -DCMAKE_PREFIX_PATH=/path/to/qt ..
 ### Properties Panel
 
 The properties panel displays detailed information about the selected texture:
-- **Dimensions**: Width × Height
+- **Dimensions**: Width × Height with megapixel count
+- **File Size**: Human-readable file sizes (B, KB, MB, GB)
 - **Format**: Compression and color format
 - **Mipmap Levels**: Number of mipmap levels
 - **Frames**: Animation frame count
-- **Flags**: Texture flags and properties
-- **VMT Data**: Associated material properties (if available)
+- **Flags**: Texture flags with flag count and hex value
+- **VMT Data**: Associated material properties with parameter count
 
 ## Project Structure
 
