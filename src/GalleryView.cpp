@@ -60,8 +60,24 @@ void GalleryView::addTexture(const QString& filename, const QImage& thumbnail) {
     QFileInfo fileInfo(filename);
     QString displayName = fileInfo.fileName();
     
+    // Build detailed tooltip with file information
+    qint64 size = fileInfo.size();
+    QString sizeStr;
+    if (size < 1024) {
+        sizeStr = QString("%1 B").arg(size);
+    } else if (size < 1024 * 1024) {
+        sizeStr = QString("%1 KB").arg(size / 1024.0, 0, 'f', 1);
+    } else {
+        sizeStr = QString("%1 MB").arg(size / (1024.0 * 1024.0), 0, 'f', 2);
+    }
+    
+    QString tooltip = QString("%1\nSize: %2\nPath: %3")
+        .arg(displayName)
+        .arg(sizeStr)
+        .arg(fileInfo.absolutePath());
+    
     QListWidgetItem* item = new QListWidgetItem(QIcon(QPixmap::fromImage(thumbnail)), displayName);
-    item->setToolTip(filename);
+    item->setToolTip(tooltip);
     listWidget_->addItem(item);
     
     itemToFilename_[item] = filename;

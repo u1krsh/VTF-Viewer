@@ -349,6 +349,9 @@ void MainWindow::loadDirectory(const QString& path) {
     statusBar()->showMessage(QString("✅ Loaded %1 textures from %2").arg(count).arg(QFileInfo(path).fileName()));
     updateTextureCount();
     
+    // Update title bar with directory info
+    setWindowTitle(QString("%1 (%2 textures) — VTF-Viewer").arg(QFileInfo(path).fileName()).arg(count));
+    
     // Add to recent directories
     addToRecentDirectories(path);
 }
