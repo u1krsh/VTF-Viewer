@@ -25,6 +25,7 @@
 #include <QClipboard>
 #include <QSettings>
 #include <QCloseEvent>
+#include <QKeyEvent>
 #include <QSlider>
 
 MainWindow::MainWindow(QWidget* parent) 
@@ -856,4 +857,28 @@ void MainWindow::reloadDirectory() {
     }
     statusBar()->showMessage("🔄 Reloading directory...");
     loadDirectory(currentDirectory_);
+}
+
+// ============================================================================
+// Escape Key Handling
+// ============================================================================
+
+void MainWindow::keyPressEvent(QKeyEvent* event) {
+    if (event->key() == Qt::Key_Escape) {
+        if (isFullScreen()) {
+            showNormal();
+            fullScreenAction_->setChecked(false);
+            statusBar()->showMessage("Exited full screen", 2000);
+        } else {
+            // Clear selection and reset title
+            imageViewer_->clear();
+            propertiesPanel_->clear();
+            imageDimensionsLabel_->setText("");
+            setWindowTitle("VTF-Viewer — Source Engine Texture Viewer");
+            statusBar()->showMessage("Selection cleared", 2000);
+        }
+        event->accept();
+        return;
+    }
+    QMainWindow::keyPressEvent(event);
 }
