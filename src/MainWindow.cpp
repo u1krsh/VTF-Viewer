@@ -262,6 +262,12 @@ void MainWindow::createToolBar() {
 }
 
 void MainWindow::createStatusBar() {
+    formatLabel_ = new QLabel("");
+    formatLabel_->setMinimumWidth(80);
+    formatLabel_->setAlignment(Qt::AlignCenter);
+    formatLabel_->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+    statusBar()->addPermanentWidget(formatLabel_);
+    
     imageDimensionsLabel_ = new QLabel("");
     imageDimensionsLabel_->setMinimumWidth(100);
     imageDimensionsLabel_->setAlignment(Qt::AlignCenter);
@@ -407,6 +413,9 @@ void MainWindow::loadTexture(const QString& filename) {
             
             // Update dimensions in status bar
             imageDimensionsLabel_->setText(QString("%1×%2").arg(currentVTF_->getWidth()).arg(currentVTF_->getHeight()));
+            
+            // Update format indicator
+            formatLabel_->setText(currentVTF_->getFormat());
         }
     } else if (fileInfo.suffix().toLower() == "vmt") {
         currentVMT_ = new VMTParser;
@@ -438,6 +447,7 @@ void MainWindow::loadTexture(const QString& filename) {
             // Update title bar with current file
             setWindowTitle(QString("%1 — VTF-Viewer").arg(fileInfo.fileName()));
             imageDimensionsLabel_->setText("");
+            formatLabel_->setText("");
         }
     }
 }
@@ -903,6 +913,7 @@ void MainWindow::closeCurrent() {
     imageViewer_->clear();
     propertiesPanel_->clear();
     imageDimensionsLabel_->setText("");
+    formatLabel_->setText("");
     
     delete currentVTF_;
     delete currentVMT_;
