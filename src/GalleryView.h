@@ -21,6 +21,8 @@ public:
     void setThumbnailSize(int size);
     void selectNext();
     void selectPrevious();
+    void selectFirst();
+    void selectLast();
     void focusSearch();
     void toggleViewMode();
     

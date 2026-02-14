@@ -187,6 +187,16 @@ void MainWindow::createActions() {
     closeCurrentAction_->setStatusTip("Close the currently viewed texture");
     connect(closeCurrentAction_, &QAction::triggered, this, &MainWindow::closeCurrent);
     
+    firstTextureAction_ = new QAction("&First Texture", this);
+    firstTextureAction_->setShortcut(QKeySequence(Qt::Key_Home));
+    firstTextureAction_->setStatusTip("Jump to first texture in gallery");
+    connect(firstTextureAction_, &QAction::triggered, this, &MainWindow::firstTexture);
+    
+    lastTextureAction_ = new QAction("&Last Texture", this);
+    lastTextureAction_->setShortcut(QKeySequence(Qt::Key_End));
+    lastTextureAction_->setStatusTip("Jump to last texture in gallery");
+    connect(lastTextureAction_, &QAction::triggered, this, &MainWindow::lastTexture);
+    
     // Load settings
     loadSettings();
 }
@@ -226,6 +236,8 @@ void MainWindow::createMenus() {
     viewMenu->addSeparator();
     viewMenu->addAction(nextTextureAction_);
     viewMenu->addAction(prevTextureAction_);
+    viewMenu->addAction(firstTextureAction_);
+    viewMenu->addAction(lastTextureAction_);
     viewMenu->addSeparator();
     viewMenu->addAction(fullScreenAction_);
     
@@ -926,4 +938,16 @@ void MainWindow::closeCurrent() {
         setWindowTitle("VTF-Viewer — Source Engine Texture Viewer");
     }
     statusBar()->showMessage("🗑️ Current texture closed", 2000);
+}
+
+// ============================================================================
+// First / Last Texture
+// ============================================================================
+
+void MainWindow::firstTexture() {
+    galleryView_->selectFirst();
+}
+
+void MainWindow::lastTexture() {
+    galleryView_->selectLast();
 }

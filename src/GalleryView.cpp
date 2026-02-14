@@ -156,6 +156,24 @@ void GalleryView::selectPrevious() {
     }
 }
 
+void GalleryView::selectFirst() {
+    for (int i = 0; i < listWidget_->count(); ++i) {
+        if (!listWidget_->item(i)->isHidden()) {
+            listWidget_->setCurrentRow(i);
+            return;
+        }
+    }
+}
+
+void GalleryView::selectLast() {
+    for (int i = listWidget_->count() - 1; i >= 0; --i) {
+        if (!listWidget_->item(i)->isHidden()) {
+            listWidget_->setCurrentRow(i);
+            return;
+        }
+    }
+}
+
 void GalleryView::focusSearch() {
     searchEdit_->setFocus();
     searchEdit_->selectAll();

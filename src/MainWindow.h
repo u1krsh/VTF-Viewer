@@ -49,6 +49,8 @@ private slots:
     void focusSearch();
     void reloadDirectory();
     void closeCurrent();
+    void firstTexture();
+    void lastTexture();
     
 private:
     void createActions();
@@ -89,6 +91,8 @@ private:
     QAction* focusSearchAction_;
     QAction* reloadAction_;
     QAction* closeCurrentAction_;
+    QAction* firstTextureAction_;
+    QAction* lastTextureAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets
