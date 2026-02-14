@@ -48,6 +48,7 @@ private slots:
     void toggleFullScreen();
     void focusSearch();
     void reloadDirectory();
+    void closeCurrent();
     
 private:
     void createActions();
@@ -87,6 +88,7 @@ private:
     QAction* fullScreenAction_;
     QAction* focusSearchAction_;
     QAction* reloadAction_;
+    QAction* closeCurrentAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets

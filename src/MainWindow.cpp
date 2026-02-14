@@ -182,6 +182,11 @@ void MainWindow::createActions() {
     reloadAction_->setStatusTip("Reload the current directory");
     connect(reloadAction_, &QAction::triggered, this, &MainWindow::reloadDirectory);
     
+    closeCurrentAction_ = new QAction("&Close Current", this);
+    closeCurrentAction_->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_W));
+    closeCurrentAction_->setStatusTip("Close the currently viewed texture");
+    connect(closeCurrentAction_, &QAction::triggered, this, &MainWindow::closeCurrent);
+    
     // Load settings
     loadSettings();
 }
@@ -199,6 +204,7 @@ void MainWindow::createMenus() {
     fileMenu->addAction(exportCurrentAction_);
     fileMenu->addAction(exportAllAction_);
     fileMenu->addSeparator();
+    fileMenu->addAction(closeCurrentAction_);
     fileMenu->addAction(exitAction_);
     
     QMenu* editMenu = menuBar()->addMenu("&Edit");
@@ -887,4 +893,26 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
         return;
     }
     QMainWindow::keyPressEvent(event);
+}
+
+// ============================================================================
+// Close Current Texture
+// ============================================================================
+
+void MainWindow::closeCurrent() {
+    imageViewer_->clear();
+    propertiesPanel_->clear();
+    imageDimensionsLabel_->setText("");
+    
+    delete currentVTF_;
+    delete currentVMT_;
+    currentVTF_ = nullptr;
+    currentVMT_ = nullptr;
+    
+    if (!currentDirectory_.isEmpty()) {
+        setWindowTitle(QString("%1 — VTF-Viewer").arg(QFileInfo(currentDirectory_).fileName()));
+    } else {
+        setWindowTitle("VTF-Viewer — Source Engine Texture Viewer");
+    }
+    statusBar()->showMessage("🗑️ Current texture closed", 2000);
 }
