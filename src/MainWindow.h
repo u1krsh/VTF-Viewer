@@ -51,6 +51,7 @@ private slots:
     void closeCurrent();
     void firstTexture();
     void lastTexture();
+    void openContainingDir();
     
 private:
     void createActions();
@@ -93,6 +94,7 @@ private:
     QAction* closeCurrentAction_;
     QAction* firstTextureAction_;
     QAction* lastTextureAction_;
+    QAction* openContainingDirAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets

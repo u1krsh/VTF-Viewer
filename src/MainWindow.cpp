@@ -27,6 +27,8 @@
 #include <QCloseEvent>
 #include <QKeyEvent>
 #include <QSlider>
+#include <QDesktopServices>
+#include <QUrl>
 
 MainWindow::MainWindow(QWidget* parent) 
     : QMainWindow(parent), currentVTF_(nullptr), currentVMT_(nullptr), 
@@ -197,6 +199,11 @@ void MainWindow::createActions() {
     lastTextureAction_->setStatusTip("Jump to last texture in gallery");
     connect(lastTextureAction_, &QAction::triggered, this, &MainWindow::lastTexture);
     
+    openContainingDirAction_ = new QAction("Open Containing &Directory", this);
+    openContainingDirAction_->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_D));
+    openContainingDirAction_->setStatusTip("Open the containing directory in file manager");
+    connect(openContainingDirAction_, &QAction::triggered, this, &MainWindow::openContainingDir);
+    
     // Load settings
     loadSettings();
 }
@@ -220,6 +227,7 @@ void MainWindow::createMenus() {
     QMenu* editMenu = menuBar()->addMenu("&Edit");
     editMenu->addAction(copyToClipboardAction_);
     editMenu->addSeparator();
+    editMenu->addAction(openContainingDirAction_);
     editMenu->addAction(focusSearchAction_);
     
     QMenu* viewMenu = menuBar()->addMenu("&View");
@@ -950,4 +958,23 @@ void MainWindow::firstTexture() {
 
 void MainWindow::lastTexture() {
     galleryView_->selectLast();
+}
+
+// ============================================================================
+// Open Containing Directory
+// ============================================================================
+
+void MainWindow::openContainingDir() {
+    QString currentFile = galleryView_->getCurrentFilename();
+    if (currentFile.isEmpty()) {
+        if (!currentDirectory_.isEmpty()) {
+            QDesktopServices::openUrl(QUrl::fromLocalFile(currentDirectory_));
+        } else {
+            statusBar()->showMessage("⚠️ No file or directory to open", 3000);
+        }
+        return;
+    }
+    QFileInfo fileInfo(currentFile);
+    QDesktopServices::openUrl(QUrl::fromLocalFile(fileInfo.absolutePath()));
+    statusBar()->showMessage(QString("📂 Opened: %1").arg(fileInfo.absolutePath()), 2000);
 }
