@@ -514,6 +514,16 @@ void MainWindow::exportAll() {
     if (!lastExportPath_.isEmpty()) {
         dialog.setOutputPath(lastExportPath_);
     }
+    
+    // Confirmation dialog before batch export
+    QMessageBox::StandardButton confirm = QMessageBox::question(this, 
+        "Batch Export",
+        QString("Export all %1 loaded textures?").arg(loadedTextures_.size()),
+        QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+    if (confirm != QMessageBox::Yes) {
+        return;
+    }
+    
     if (dialog.exec() == QDialog::Accepted) {
         QString outputPath = dialog.getOutputPath();
         QString format = dialog.getFormat();
