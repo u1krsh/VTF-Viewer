@@ -205,6 +205,11 @@ void MainWindow::createActions() {
     openContainingDirAction_->setStatusTip("Open the containing directory in file manager");
     connect(openContainingDirAction_, &QAction::triggered, this, &MainWindow::openContainingDir);
     
+    copyFilePathAction_ = new QAction("Copy File &Path", this);
+    copyFilePathAction_->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_C));
+    copyFilePathAction_->setStatusTip("Copy the current file path to clipboard");
+    connect(copyFilePathAction_, &QAction::triggered, this, &MainWindow::copyFilePath);
+    
     // Load settings
     loadSettings();
 }
@@ -227,6 +232,7 @@ void MainWindow::createMenus() {
     
     QMenu* editMenu = menuBar()->addMenu("&Edit");
     editMenu->addAction(copyToClipboardAction_);
+    editMenu->addAction(copyFilePathAction_);
     editMenu->addSeparator();
     editMenu->addAction(openContainingDirAction_);
     editMenu->addAction(focusSearchAction_);
@@ -993,4 +999,19 @@ void MainWindow::openContainingDir() {
     QFileInfo fileInfo(currentFile);
     QDesktopServices::openUrl(QUrl::fromLocalFile(fileInfo.absolutePath()));
     statusBar()->showMessage(QString("📂 Opened: %1").arg(fileInfo.absolutePath()), 2000);
+}
+
+// ============================================================================
+// Copy File Path to Clipboard
+// ============================================================================
+
+void MainWindow::copyFilePath() {
+    QString currentFile = galleryView_->getCurrentFilename();
+    if (currentFile.isEmpty()) {
+        statusBar()->showMessage("⚠️ No file selected to copy path", 3000);
+        return;
+    }
+    QClipboard* clipboard = QApplication::clipboard();
+    clipboard->setText(currentFile);
+    statusBar()->showMessage(QString("📋 Path copied: %1").arg(currentFile), 3000);
 }
