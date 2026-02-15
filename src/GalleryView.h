@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QComboBox>
 #include <QPushButton>
+#include <QKeyEvent>
 
 class GalleryView : public QWidget {
     Q_OBJECT
@@ -44,6 +45,9 @@ private:
     QPushButton* viewToggleButton_;
     QMap<QListWidgetItem*, QString> itemToFilename_;
     QMap<QListWidgetItem*, qint64> itemToFileSize_;
+    
+protected:
+    bool eventFilter(QObject* obj, QEvent* event) override;
 };
 
 #endif // GALLERYVIEW_H

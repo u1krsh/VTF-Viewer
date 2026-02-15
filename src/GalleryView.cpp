@@ -54,6 +54,9 @@ GalleryView::GalleryView(QWidget* parent) : QWidget(parent) {
             this, &GalleryView::sortItems);
     connect(viewToggleButton_, &QPushButton::clicked,
             this, &GalleryView::toggleViewMode);
+    
+    // Escape in search bar clears filter and returns focus to gallery
+    searchEdit_->installEventFilter(this);
 }
 
 void GalleryView::addTexture(const QString& filename, const QImage& thumbnail) {
@@ -256,4 +259,16 @@ void GalleryView::sortItems(int sortIndex) {
     
     // Re-apply filter
     filterItems(searchEdit_->text());
+}
+
+bool GalleryView::eventFilter(QObject* obj, QEvent* event) {
+    if (obj == searchEdit_ && event->type() == QEvent::KeyPress) {
+        QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+        if (keyEvent->key() == Qt::Key_Escape) {
+            searchEdit_->clear();
+            listWidget_->setFocus();
+            return true;
+        }
+    }
+    return QWidget::eventFilter(obj, event);
 }
