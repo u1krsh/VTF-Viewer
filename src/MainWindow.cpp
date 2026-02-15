@@ -29,6 +29,7 @@
 #include <QSlider>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QElapsedTimer>
 
 MainWindow::MainWindow(QWidget* parent) 
     : QMainWindow(parent), currentVTF_(nullptr), currentVMT_(nullptr), 
@@ -354,6 +355,9 @@ void MainWindow::loadDirectory(const QString& path) {
     QProgressDialog progress("Loading textures...", "Cancel", 0, files.size(), this);
     progress.setWindowModality(Qt::WindowModal);
     
+    QElapsedTimer loadTimer;
+    loadTimer.start();
+    
     int count = 0;
     for (const QFileInfo& fileInfo : files) {
         if (progress.wasCanceled()) {
@@ -378,7 +382,9 @@ void MainWindow::loadDirectory(const QString& path) {
         QApplication::processEvents();
     }
     
-    statusBar()->showMessage(QString("✅ Loaded %1 textures from %2").arg(count).arg(QFileInfo(path).fileName()));
+    double elapsed = loadTimer.elapsed() / 1000.0;
+    statusBar()->showMessage(QString("✅ Loaded %1 textures from %2 in %3s")
+        .arg(count).arg(QFileInfo(path).fileName()).arg(elapsed, 0, 'f', 1));
     updateTextureCount();
     
     // Update title bar with directory info
