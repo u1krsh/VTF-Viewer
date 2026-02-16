@@ -45,6 +45,7 @@ private:
 protected:
     void resizeEvent(QResizeEvent* event) override;
     void wheelEvent(QWheelEvent* event) override;
+    void mouseDoubleClickEvent(QMouseEvent* event) override;
 };
 
 #endif // IMAGEVIEWER_H

@@ -2,6 +2,7 @@
 #include <QVBoxLayout>
 #include <QResizeEvent>
 #include <QWheelEvent>
+#include <QMouseEvent>
 #include <QTransform>
 
 ImageViewer::ImageViewer(QWidget* parent) 
@@ -143,4 +144,18 @@ void ImageViewer::setCheckerboardEnabled(bool enabled) {
         scrollArea_->setStyleSheet("");
         scrollArea_->widget()->setStyleSheet("");
     }
+}
+
+void ImageViewer::mouseDoubleClickEvent(QMouseEvent* event) {
+    if (currentImage_.isNull()) {
+        QWidget::mouseDoubleClickEvent(event);
+        return;
+    }
+    
+    if (fitToWindowMode_) {
+        resetZoom();
+    } else {
+        fitToWindow();
+    }
+    event->accept();
 }
