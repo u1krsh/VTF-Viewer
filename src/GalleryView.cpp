@@ -44,6 +44,15 @@ GalleryView::GalleryView(QWidget* parent) : QWidget(parent) {
     listWidget_->setFocusPolicy(Qt::StrongFocus);
     layout->addWidget(listWidget_);
     
+    // Placeholder label for empty gallery
+    placeholderLabel_ = new QLabel("📂 No textures loaded\nOpen a directory with Ctrl+O or drag && drop a folder");
+    placeholderLabel_->setAlignment(Qt::AlignCenter);
+    placeholderLabel_->setStyleSheet("color: rgba(184, 184, 208, 0.5); font-size: 14px; padding: 40px;");
+    placeholderLabel_->setWordWrap(true);
+    layout->addWidget(placeholderLabel_);
+    placeholderLabel_->setVisible(true);
+    listWidget_->setVisible(false);
+    
     connect(listWidget_, &QListWidget::itemSelectionChanged, 
             this, &GalleryView::onItemSelectionChanged);
     connect(listWidget_, &QListWidget::itemDoubleClicked,
@@ -85,6 +94,10 @@ void GalleryView::addTexture(const QString& filename, const QImage& thumbnail) {
     
     itemToFilename_[item] = filename;
     itemToFileSize_[item] = fileInfo.size();
+    
+    // Hide placeholder when items exist
+    placeholderLabel_->setVisible(false);
+    listWidget_->setVisible(true);
 }
 
 void GalleryView::clear() {
@@ -92,6 +105,10 @@ void GalleryView::clear() {
     itemToFileSize_.clear();
     listWidget_->clear();
     searchEdit_->clear();
+    
+    // Show placeholder when gallery is empty
+    placeholderLabel_->setVisible(true);
+    listWidget_->setVisible(false);
 }
 
 QString GalleryView::getCurrentFilename() const {
