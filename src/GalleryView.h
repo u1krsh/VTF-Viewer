@@ -25,6 +25,7 @@ public:
     void selectFirst();
     void selectLast();
     void focusSearch();
+    void focusGalleryList();
     void toggleViewMode();
     
 signals:

@@ -182,6 +182,10 @@ void GalleryView::focusSearch() {
     searchEdit_->selectAll();
 }
 
+void GalleryView::focusGalleryList() {
+    listWidget_->setFocus();
+}
+
 void GalleryView::toggleViewMode() {
     if (listWidget_->viewMode() == QListView::IconMode) {
         listWidget_->setViewMode(QListView::ListMode);

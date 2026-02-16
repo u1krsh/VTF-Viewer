@@ -210,6 +210,11 @@ void MainWindow::createActions() {
     copyFilePathAction_->setStatusTip("Copy the current file path to clipboard");
     connect(copyFilePathAction_, &QAction::triggered, this, &MainWindow::copyFilePath);
     
+    focusGalleryAction_ = new QAction("Focus &Gallery", this);
+    focusGalleryAction_->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_G));
+    focusGalleryAction_->setStatusTip("Focus the gallery list widget");
+    connect(focusGalleryAction_, &QAction::triggered, this, &MainWindow::focusGallery);
+    
     // Load settings
     loadSettings();
 }
@@ -236,6 +241,7 @@ void MainWindow::createMenus() {
     editMenu->addSeparator();
     editMenu->addAction(openContainingDirAction_);
     editMenu->addAction(focusSearchAction_);
+    editMenu->addAction(focusGalleryAction_);
     
     QMenu* viewMenu = menuBar()->addMenu("&View");
     viewMenu->addAction(zoomInAction_);
@@ -1019,4 +1025,13 @@ void MainWindow::copyFilePath() {
     QClipboard* clipboard = QApplication::clipboard();
     clipboard->setText(currentFile);
     statusBar()->showMessage(QString("📋 Path copied: %1").arg(currentFile), 3000);
+}
+
+// ============================================================================
+// Focus Gallery
+// ============================================================================
+
+void MainWindow::focusGallery() {
+    galleryView_->focusGalleryList();
+    statusBar()->showMessage("🖼️ Gallery focused", 2000);
 }

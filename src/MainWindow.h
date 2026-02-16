@@ -53,6 +53,7 @@ private slots:
     void lastTexture();
     void openContainingDir();
     void copyFilePath();
+    void focusGallery();
     
 private:
     void createActions();
@@ -97,6 +98,7 @@ private:
     QAction* lastTextureAction_;
     QAction* openContainingDirAction_;
     QAction* copyFilePathAction_;
+    QAction* focusGalleryAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets
