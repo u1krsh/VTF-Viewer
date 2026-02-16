@@ -396,6 +396,11 @@ void MainWindow::loadDirectory(const QString& path) {
     // Update title bar with directory info
     setWindowTitle(QString("%1 (%2 textures) — VTF-Viewer").arg(QFileInfo(path).fileName()).arg(count));
     
+    // Auto-select first texture for immediate preview
+    if (count > 0) {
+        galleryView_->selectFirst();
+    }
+    
     // Add to recent directories
     addToRecentDirectories(path);
 }
