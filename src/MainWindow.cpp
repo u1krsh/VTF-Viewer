@@ -215,6 +215,11 @@ void MainWindow::createActions() {
     focusGalleryAction_->setStatusTip("Focus the gallery list widget");
     connect(focusGalleryAction_, &QAction::triggered, this, &MainWindow::focusGallery);
     
+    reloadCurrentTextureAction_ = new QAction("Reload &Texture", this);
+    reloadCurrentTextureAction_->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_R));
+    reloadCurrentTextureAction_->setStatusTip("Reload the currently viewed texture from disk");
+    connect(reloadCurrentTextureAction_, &QAction::triggered, this, &MainWindow::reloadCurrentTexture);
+    
     // Load settings
     loadSettings();
 }
@@ -223,6 +228,7 @@ void MainWindow::createMenus() {
     QMenu* fileMenu = menuBar()->addMenu("&File");
     fileMenu->addAction(openDirAction_);
     fileMenu->addAction(reloadAction_);
+    fileMenu->addAction(reloadCurrentTextureAction_);
     
     // Recent directories submenu
     recentMenu_ = fileMenu->addMenu("Recent &Directories");
@@ -1043,4 +1049,18 @@ void MainWindow::copyFilePath() {
 void MainWindow::focusGallery() {
     galleryView_->focusGalleryList();
     statusBar()->showMessage("🖼️ Gallery focused", 2000);
+}
+
+// ============================================================================
+// Reload Current Texture
+// ============================================================================
+
+void MainWindow::reloadCurrentTexture() {
+    QString currentFile = galleryView_->getCurrentFilename();
+    if (currentFile.isEmpty()) {
+        statusBar()->showMessage("⚠️ No texture to reload", 3000);
+        return;
+    }
+    loadTexture(currentFile);
+    statusBar()->showMessage(QString("🔄 Reloaded: %1").arg(QFileInfo(currentFile).fileName()), 2000);
 }
