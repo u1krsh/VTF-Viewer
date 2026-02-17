@@ -605,6 +605,8 @@ void MainWindow::exportTexture(const QString& filename, const QString& outputPat
         image.save(outputFile, "BMP");
     } else if (format == "tga") {
         image.save(outputFile, "TGA");
+    } else if (format == "tiff") {
+        image.save(outputFile, "TIFF");
     }
 }
 

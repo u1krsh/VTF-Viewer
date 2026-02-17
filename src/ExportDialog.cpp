@@ -25,6 +25,7 @@ ExportDialog::ExportDialog(QWidget* parent) : QDialog(parent) {
     formatCombo_->addItem("JPEG", "jpg");
     formatCombo_->addItem("BMP", "bmp");
     formatCombo_->addItem("TGA", "tga");
+    formatCombo_->addItem("TIFF", "tiff");
     
     // Quality setting (for JPEG)
     qualitySpinBox_ = new QSpinBox;
