@@ -831,6 +831,13 @@ void MainWindow::updateZoomDisplay(double factor, bool fitMode) {
     } else {
         int percent = static_cast<int>(factor * 100.0 + 0.5);
         zoomLabel_->setText(QString("%1%").arg(percent));
+        
+        // Zoom limit feedback
+        if (factor <= 0.1 + 0.001) {
+            statusBar()->showMessage("🔍 Minimum zoom reached (10%)", 2000);
+        } else if (factor >= 10.0 - 0.001) {
+            statusBar()->showMessage("🔍 Maximum zoom reached (1000%)", 2000);
+        }
     }
 }
 
