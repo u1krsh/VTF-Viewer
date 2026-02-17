@@ -170,8 +170,8 @@ void MainWindow::createActions() {
     connect(prevTextureAction_, &QAction::triggered, this, &MainWindow::previousTexture);
     
     fullScreenAction_ = new QAction("&Full Screen", this);
-    fullScreenAction_->setShortcut(QKeySequence(Qt::Key_F11));
-    fullScreenAction_->setStatusTip("Toggle full screen mode");
+    fullScreenAction_->setShortcuts({QKeySequence(Qt::Key_F11), QKeySequence(Qt::ALT | Qt::Key_Return)});
+    fullScreenAction_->setStatusTip("Toggle full screen mode (F11 or Alt+Enter)");
     fullScreenAction_->setCheckable(true);
     connect(fullScreenAction_, &QAction::triggered, this, &MainWindow::toggleFullScreen);
     
