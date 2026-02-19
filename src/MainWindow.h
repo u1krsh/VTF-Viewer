@@ -56,6 +56,7 @@ private slots:
     void focusGallery();
     void reloadCurrentTexture();
     void quickExportAll();
+    void reopenLastDirectory();
     
 private:
     void createActions();
@@ -103,6 +104,7 @@ private:
     QAction* focusGalleryAction_;
     QAction* reloadCurrentTextureAction_;
     QAction* quickExportAllAction_;
+    QAction* reopenLastDirAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets

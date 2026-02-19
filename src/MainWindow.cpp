@@ -225,6 +225,11 @@ void MainWindow::createActions() {
     quickExportAllAction_->setStatusTip("Export all textures using last-used settings");
     connect(quickExportAllAction_, &QAction::triggered, this, &MainWindow::quickExportAll);
     
+    reopenLastDirAction_ = new QAction("Reopen &Last Directory", this);
+    reopenLastDirAction_->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_O));
+    reopenLastDirAction_->setStatusTip("Reopen the most recently used directory");
+    connect(reopenLastDirAction_, &QAction::triggered, this, &MainWindow::reopenLastDirectory);
+    
     // Load settings
     loadSettings();
 }
@@ -232,6 +237,7 @@ void MainWindow::createActions() {
 void MainWindow::createMenus() {
     QMenu* fileMenu = menuBar()->addMenu("&File");
     fileMenu->addAction(openDirAction_);
+    fileMenu->addAction(reopenLastDirAction_);
     fileMenu->addAction(reloadAction_);
     fileMenu->addAction(reloadCurrentTextureAction_);
     
@@ -1100,4 +1106,21 @@ void MainWindow::quickExportAll() {
         count++;
     }
     statusBar()->showMessage(QString("📦 Quick exported %1 textures to %2").arg(count).arg(lastExportPath_), 3000);
+}
+
+// ============================================================================
+// Reopen Last Directory
+// ============================================================================
+
+void MainWindow::reopenLastDirectory() {
+    if (recentDirectories_.isEmpty()) {
+        statusBar()->showMessage("⚠️ No recent directories to reopen", 3000);
+        return;
+    }
+    QString lastDir = recentDirectories_.first();
+    if (QDir(lastDir).exists()) {
+        loadDirectory(lastDir);
+    } else {
+        statusBar()->showMessage(QString("⚠️ Directory no longer exists: %1").arg(lastDir), 3000);
+    }
 }
