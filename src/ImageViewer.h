@@ -5,6 +5,7 @@
 #include <QScrollArea>
 #include <QLabel>
 #include <QImage>
+#include <QPoint>
 
 class ImageViewer : public QWidget {
     Q_OBJECT
@@ -37,6 +38,8 @@ private:
     bool fitToWindowMode_;
     bool checkerboardEnabled_;
     int rotation_;
+    bool dragging_;
+    QPoint lastMousePos_;
     
     void updateImage();
     void scaleImage(double factor);
@@ -46,6 +49,9 @@ protected:
     void resizeEvent(QResizeEvent* event) override;
     void wheelEvent(QWheelEvent* event) override;
     void mouseDoubleClickEvent(QMouseEvent* event) override;
+    void mousePressEvent(QMouseEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
 };
 
 #endif // IMAGEVIEWER_H

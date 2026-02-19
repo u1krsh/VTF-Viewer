@@ -4,10 +4,11 @@
 #include <QWheelEvent>
 #include <QMouseEvent>
 #include <QTransform>
+#include <QScrollBar>
 
 ImageViewer::ImageViewer(QWidget* parent) 
     : QWidget(parent), scaleFactor_(1.0), fitToWindowMode_(false), 
-      checkerboardEnabled_(false), rotation_(0) {
+      checkerboardEnabled_(false), rotation_(0), dragging_(false) {
     
     imageLabel_ = new QLabel;
     imageLabel_->setBackgroundRole(QPalette::Base);
@@ -158,4 +159,40 @@ void ImageViewer::mouseDoubleClickEvent(QMouseEvent* event) {
         fitToWindow();
     }
     event->accept();
+}
+
+void ImageViewer::mousePressEvent(QMouseEvent* event) {
+    if (event->button() == Qt::MiddleButton && !currentImage_.isNull()) {
+        dragging_ = true;
+        lastMousePos_ = event->pos();
+        setCursor(Qt::ClosedHandCursor);
+        event->accept();
+    } else {
+        QWidget::mousePressEvent(event);
+    }
+}
+
+void ImageViewer::mouseMoveEvent(QMouseEvent* event) {
+    if (dragging_) {
+        QPoint delta = event->pos() - lastMousePos_;
+        lastMousePos_ = event->pos();
+        
+        QScrollBar* hBar = scrollArea_->horizontalScrollBar();
+        QScrollBar* vBar = scrollArea_->verticalScrollBar();
+        hBar->setValue(hBar->value() - delta.x());
+        vBar->setValue(vBar->value() - delta.y());
+        event->accept();
+    } else {
+        QWidget::mouseMoveEvent(event);
+    }
+}
+
+void ImageViewer::mouseReleaseEvent(QMouseEvent* event) {
+    if (event->button() == Qt::MiddleButton) {
+        dragging_ = false;
+        setCursor(Qt::ArrowCursor);
+        event->accept();
+    } else {
+        QWidget::mouseReleaseEvent(event);
+    }
 }
