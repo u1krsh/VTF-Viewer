@@ -868,6 +868,22 @@ void MainWindow::updateZoomDisplay(double factor, bool fitMode) {
             statusBar()->showMessage("🔍 Maximum zoom reached (1000%)", 2000);
         }
     }
+    
+    // Update window title with zoom info
+    QString currentFile = galleryView_->getCurrentFilename();
+    if (!currentFile.isEmpty()) {
+        QString baseName = QFileInfo(currentFile).fileName();
+        if (fitMode) {
+            setWindowTitle(QString("%1 [Fit] — VTF-Viewer").arg(baseName));
+        } else {
+            int percent = static_cast<int>(factor * 100.0 + 0.5);
+            if (percent != 100) {
+                setWindowTitle(QString("%1 [%2%] — VTF-Viewer").arg(baseName).arg(percent));
+            } else {
+                setWindowTitle(QString("%1 — VTF-Viewer").arg(baseName));
+            }
+        }
+    }
 }
 
 // ============================================================================
