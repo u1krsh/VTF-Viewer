@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(VTF-Viewer VERSION 1.0.0 LANGUAGES CXX)
+project(VTF-Viewer VERSION 1.3.0 LANGUAGES CXX)
 
 # ============================================================================
 # Project Configuration

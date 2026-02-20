@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![VTF-Viewer](https://img.shields.io/badge/version-1.2.0-blue.svg)
+![VTF-Viewer](https://img.shields.io/badge/version-1.3.0-blue.svg)
 ![License](https://img.shields.io/badge/license-GPL--3.0-green.svg)
 ![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg)
 ![C++](https://img.shields.io/badge/C%2B%2B-17-00599C.svg)
@@ -20,7 +20,7 @@
 
 VTF-Viewer is a professional VTF texture viewer and VMT material editor for Source Engine games including Half-Life 2, Counter-Strike: Global Offensive (CS:GO), Team Fortress 2 (TF2), Portal, Portal 2, Left 4 Dead, and Garry's Mod. This cross-platform tool enables game modders, level designers, texture artists, and Source Engine developers to view, analyze, and export Valve Texture Format (VTF) files and Valve Material Type (VMT) files.
 
-Built with C++ and Qt6, VTF-Viewer supports DXT compression, mipmaps, normal maps, specular maps, and animated textures. Whether you're creating custom skins, extracting game assets, converting textures to PNG/JPEG/BMP/TGA formats, or developing Source Engine mods, VTF-Viewer provides a modern interface with batch processing capabilities for efficient texture workflow management.
+Built with C++ and Qt6, VTF-Viewer supports DXT compression, mipmaps, normal maps, specular maps, and animated textures. Whether you're creating custom skins, extracting game assets, converting textures to PNG/JPEG/BMP/TGA/TIFF formats, or developing Source Engine mods, VTF-Viewer provides a modern interface with batch processing capabilities for efficient texture workflow management.
 
 ### Supported Source Engine Games
 - Half-Life 2 and Episodes
@@ -64,17 +64,32 @@ Built with C++ and Qt6, VTF-Viewer supports DXT compression, mipmaps, normal map
   - Image rotation (90° clockwise/counter-clockwise)
   - Full screen mode (F11)
   - Keyboard shortcuts for quick navigation
-- **Gallery Search**: Filter textures by name with real-time search (`Ctrl+L` to focus)
+- **Gallery Search**: Filter textures by name with real-time search (`Ctrl+L` to focus, `Escape` to clear)
 - **Gallery Sorting**: Sort by name or file size (ascending/descending)
 - **Grid/List Toggle**: Switch between icon grid and list view modes
+- **Gallery Item Count**: Live count of visible/total textures in gallery header
 - **Adjustable Thumbnails**: Slider to resize gallery thumbnails (64-256px)
-- **Texture Navigation**: Next/Previous with PgUp/PgDown keys
+- **Texture Navigation**: Next/Previous with PgUp/PgDown, First/Last with Home/End
+- **Auto-Select**: First texture automatically selected after loading directory
 - **Detailed Tooltips**: Hover over gallery items for file size and path info
+- **Empty State Placeholder**: Helpful message when no textures are loaded
 - **Reload Directory**: Refresh current directory with `F5`
+- **Reload Texture**: Reload current texture from disk with `Ctrl+R`
+- **Close Texture**: Clear current view with `Ctrl+W`
+- **Open Directory**: Open containing folder in file manager with `Ctrl+D`
+- **Copy File Path**: Copy full path to clipboard with `Ctrl+Shift+C`
+- **Focus Gallery**: Jump to gallery list with `Ctrl+G`
+- **Double-Click Fit**: Toggle fit-to-window by double-clicking the image viewer
+- **Full Screen**: Toggle with `F11` or `Alt+Enter`
+- **Format Display**: Current texture format shown in status bar
+- **Zoom Feedback**: Status bar warns at min/max zoom limits
+- **Loading Time**: Elapsed time shown after directory load
 
 ### Export Functionality
-- **Multiple Format Support**: PNG, JPEG, BMP, TGA
+- **Multiple Format Support**: PNG, JPEG, BMP, TGA, TIFF
 - **Batch Export**: Export all loaded textures in one operation
+- **Quick Export All**: Export with last-used settings via `Ctrl+Shift+E` (no dialog)
+- **Batch Confirmation**: Safety prompt before batch export
 - **Quality Control**: Adjustable JPEG quality settings
 - **Export Path Persistence**: Remembers last-used export directory
 - **Preserve Metadata**: Maintain texture properties during export
