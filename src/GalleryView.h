@@ -48,6 +48,7 @@ private:
     QMap<QListWidgetItem*, QString> itemToFilename_;
     QMap<QListWidgetItem*, qint64> itemToFileSize_;
     QLabel* placeholderLabel_;
+    QLabel* countLabel_;
     
 protected:
     bool eventFilter(QObject* obj, QEvent* event) override;

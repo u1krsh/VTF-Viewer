@@ -30,6 +30,13 @@ GalleryView::GalleryView(QWidget* parent) : QWidget(parent) {
     viewToggleButton_->setMaximumWidth(30);
     topLayout->addWidget(viewToggleButton_);
     
+    countLabel_ = new QLabel("0");
+    countLabel_->setMinimumWidth(30);
+    countLabel_->setAlignment(Qt::AlignCenter);
+    countLabel_->setStyleSheet("color: rgba(184, 184, 208, 0.7); font-size: 11px;");
+    countLabel_->setToolTip("Visible / Total textures");
+    topLayout->addWidget(countLabel_);
+    
     layout->addLayout(topLayout);
     
     // List widget
@@ -98,6 +105,9 @@ void GalleryView::addTexture(const QString& filename, const QImage& thumbnail) {
     // Hide placeholder when items exist
     placeholderLabel_->setVisible(false);
     listWidget_->setVisible(true);
+    
+    // Update count label
+    countLabel_->setText(QString("%1").arg(listWidget_->count()));
 }
 
 void GalleryView::clear() {
@@ -109,6 +119,7 @@ void GalleryView::clear() {
     // Show placeholder when gallery is empty
     placeholderLabel_->setVisible(true);
     listWidget_->setVisible(false);
+    countLabel_->setText("0");
 }
 
 QString GalleryView::getCurrentFilename() const {
@@ -150,6 +161,15 @@ void GalleryView::filterItems(const QString& text) {
         item->setHidden(!matches);
     }
     emit visibleCountChanged(getVisibleCount());
+    
+    // Update count label
+    int visible = getVisibleCount();
+    int total = listWidget_->count();
+    if (visible == total) {
+        countLabel_->setText(QString("%1").arg(total));
+    } else {
+        countLabel_->setText(QString("%1/%2").arg(visible).arg(total));
+    }
 }
 
 void GalleryView::setThumbnailSize(int size) {
