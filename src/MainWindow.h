@@ -55,6 +55,7 @@ private slots:
     void copyFilePath();
     void focusGallery();
     void reloadCurrentTexture();
+    void quickExportAll();
     
 private:
     void createActions();
@@ -101,6 +102,7 @@ private:
     QAction* copyFilePathAction_;
     QAction* focusGalleryAction_;
     QAction* reloadCurrentTextureAction_;
+    QAction* quickExportAllAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets

@@ -220,6 +220,11 @@ void MainWindow::createActions() {
     reloadCurrentTextureAction_->setStatusTip("Reload the currently viewed texture from disk");
     connect(reloadCurrentTextureAction_, &QAction::triggered, this, &MainWindow::reloadCurrentTexture);
     
+    quickExportAllAction_ = new QAction("Quick Export A&ll", this);
+    quickExportAllAction_->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_E));
+    quickExportAllAction_->setStatusTip("Export all textures using last-used settings");
+    connect(quickExportAllAction_, &QAction::triggered, this, &MainWindow::quickExportAll);
+    
     // Load settings
     loadSettings();
 }
@@ -237,6 +242,7 @@ void MainWindow::createMenus() {
     fileMenu->addSeparator();
     fileMenu->addAction(exportCurrentAction_);
     fileMenu->addAction(exportAllAction_);
+    fileMenu->addAction(quickExportAllAction_);
     fileMenu->addSeparator();
     fileMenu->addAction(closeCurrentAction_);
     fileMenu->addAction(exitAction_);
@@ -1063,4 +1069,26 @@ void MainWindow::reloadCurrentTexture() {
     }
     loadTexture(currentFile);
     statusBar()->showMessage(QString("🔄 Reloaded: %1").arg(QFileInfo(currentFile).fileName()), 2000);
+}
+
+// ============================================================================
+// Quick Export All (last-used settings, no dialog)
+// ============================================================================
+
+void MainWindow::quickExportAll() {
+    if (loadedTextures_.isEmpty()) {
+        statusBar()->showMessage("⚠️ No textures loaded to export", 3000);
+        return;
+    }
+    if (lastExportPath_.isEmpty()) {
+        statusBar()->showMessage("⚠️ No previous export path — use Export All first", 3000);
+        return;
+    }
+    
+    int count = 0;
+    for (auto it = loadedTextures_.begin(); it != loadedTextures_.end(); ++it) {
+        exportTexture(it.value(), lastExportPath_, "png", 90);
+        count++;
+    }
+    statusBar()->showMessage(QString("📦 Quick exported %1 textures to %2").arg(count).arg(lastExportPath_), 3000);
 }
