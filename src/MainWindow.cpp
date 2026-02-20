@@ -970,7 +970,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
             imageViewer_->clear();
             propertiesPanel_->clear();
             imageDimensionsLabel_->setText("");
-            setWindowTitle("VTF-Viewer — Source Engine Texture Viewer");
+            setWindowTitle("VTF-Viewer v1.3.0 — Source Engine Texture Viewer");
             statusBar()->showMessage("Selection cleared", 2000);
         }
         event->accept();
@@ -997,7 +997,7 @@ void MainWindow::closeCurrent() {
     if (!currentDirectory_.isEmpty()) {
         setWindowTitle(QString("%1 — VTF-Viewer").arg(QFileInfo(currentDirectory_).fileName()));
     } else {
-        setWindowTitle("VTF-Viewer — Source Engine Texture Viewer");
+        setWindowTitle("VTF-Viewer v1.3.0 — Source Engine Texture Viewer");
     }
     statusBar()->showMessage("🗑️ Current texture closed", 2000);
 }

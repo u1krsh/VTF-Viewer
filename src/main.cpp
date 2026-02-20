@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
     
     // Set application metadata
     app.setApplicationName("VTF-Viewer");
-    app.setApplicationVersion("1.0.0");
+    app.setApplicationVersion("1.3.0");
     app.setOrganizationName("VTF-Viewer");
     app.setOrganizationDomain("vtf-viewer.local");
     app.setWindowIcon(QIcon(":/icons/icon.png"));
@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
     
     // Create and show main window
     MainWindow window;
-    window.setWindowTitle("VTF-Viewer - Source Engine Texture Viewer");
+    window.setWindowTitle("VTF-Viewer v1.3.0 — Source Engine Texture Viewer");
     window.show();
     
     int result = app.exec();
