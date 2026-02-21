@@ -2,6 +2,7 @@
 #include "VTFFormat.h"
 #include <QVBoxLayout>
 #include <QFileInfo>
+#include <numeric>
 
 PropertiesPanel::PropertiesPanel(QWidget* parent) : QWidget(parent) {
     textEdit_ = new QTextEdit;
@@ -43,6 +44,7 @@ void PropertiesPanel::setVTFProperties(const QString& filename, int width, int h
     html += QString("<tr><td><b>Path:</b></td><td>%1</td></tr>").arg(fileInfo.absolutePath());
     html += QString("<tr><td><b>File Size:</b></td><td>%1</td></tr>").arg(formatFileSize(fileInfo.size()));
     html += QString("<tr><td><b>Dimensions:</b></td><td>%1 x %2%3</td></tr>").arg(width).arg(height).arg(pixelCount);
+    html += QString("<tr><td><b>Aspect Ratio:</b></td><td>%1</td></tr>").arg(calculateAspectRatio(width, height));
     html += QString("<tr><td><b>Format:</b></td><td>%1</td></tr>").arg(format);
     html += QString("<tr><td><b>Frames:</b></td><td>%1</td></tr>").arg(frames);
     html += QString("<tr><td><b>Mipmaps:</b></td><td>%1</td></tr>").arg(mipmaps);
@@ -93,4 +95,10 @@ QString PropertiesPanel::formatFlags(quint32 flags) {
         .arg(flagList.join(", "))
         .arg(flagList.size())
         .arg(flags, 0, 16);
+}
+
+QString PropertiesPanel::calculateAspectRatio(int width, int height) {
+    if (width <= 0 || height <= 0) return "N/A";
+    int g = std::gcd(width, height);
+    return QString("%1:%2").arg(width / g).arg(height / g);
 }

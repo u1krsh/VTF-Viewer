@@ -20,6 +20,7 @@ private:
     
     QString formatFlags(quint32 flags);
     QString formatFileSize(qint64 bytes);
+    QString calculateAspectRatio(int width, int height);
 };
 
 #endif // PROPERTIESPANEL_H
