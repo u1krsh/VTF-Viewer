@@ -1,6 +1,7 @@
 #include "GalleryView.h"
 #include <QFileInfo>
 #include <QHBoxLayout>
+#include <QRandomGenerator>
 
 GalleryView::GalleryView(QWidget* parent) : QWidget(parent) {
     QVBoxLayout* layout = new QVBoxLayout(this);
@@ -312,4 +313,18 @@ bool GalleryView::eventFilter(QObject* obj, QEvent* event) {
         }
     }
     return QWidget::eventFilter(obj, event);
+}
+
+void GalleryView::selectRandom() {
+    QList<int> visibleIndices;
+    for (int i = 0; i < listWidget_->count(); ++i) {
+        if (!listWidget_->item(i)->isHidden()) {
+            visibleIndices.append(i);
+        }
+    }
+    if (!visibleIndices.isEmpty()) {
+        int randomIndex = visibleIndices.at(
+            QRandomGenerator::global()->bounded(visibleIndices.size()));
+        listWidget_->setCurrentRow(randomIndex);
+    }
 }

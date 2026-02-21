@@ -237,6 +237,11 @@ void MainWindow::createActions() {
     togglePropertiesPanelAction_->setChecked(true);
     connect(togglePropertiesPanelAction_, &QAction::triggered, this, &MainWindow::togglePropertiesPanel);
     
+    randomTextureAction_ = new QAction("&Random Texture", this);
+    randomTextureAction_->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_R));
+    randomTextureAction_->setStatusTip("Select a random texture from the gallery");
+    connect(randomTextureAction_, &QAction::triggered, this, &MainWindow::randomTexture);
+    
     // Load settings
     loadSettings();
 }
@@ -267,6 +272,8 @@ void MainWindow::createMenus() {
     editMenu->addAction(openContainingDirAction_);
     editMenu->addAction(focusSearchAction_);
     editMenu->addAction(focusGalleryAction_);
+    editMenu->addSeparator();
+    editMenu->addAction(randomTextureAction_);
     
     QMenu* viewMenu = menuBar()->addMenu("&View");
     viewMenu->addAction(zoomInAction_);
@@ -1161,4 +1168,17 @@ void MainWindow::togglePropertiesPanel() {
     statusBar()->showMessage(visible ? 
         "📋 Properties panel hidden" : 
         "📋 Properties panel shown", 2000);
+}
+
+// ============================================================================
+// Random Texture
+// ============================================================================
+
+void MainWindow::randomTexture() {
+    if (loadedTextures_.isEmpty()) {
+        statusBar()->showMessage("⚠️ No textures loaded", 3000);
+        return;
+    }
+    galleryView_->selectRandom();
+    statusBar()->showMessage("🎲 Random texture selected", 2000);
 }

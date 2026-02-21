@@ -28,6 +28,7 @@ public:
     void focusSearch();
     void focusGalleryList();
     void toggleViewMode();
+    void selectRandom();
     
 signals:
     void textureSelected(const QString& filename);

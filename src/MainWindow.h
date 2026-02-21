@@ -59,6 +59,7 @@ private slots:
     void quickExportAll();
     void reopenLastDirectory();
     void togglePropertiesPanel();
+    void randomTexture();
     
 private:
     void createActions();
@@ -109,6 +110,7 @@ private:
     QAction* quickExportAllAction_;
     QAction* reopenLastDirAction_;
     QAction* togglePropertiesPanelAction_;
+    QAction* randomTextureAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets
