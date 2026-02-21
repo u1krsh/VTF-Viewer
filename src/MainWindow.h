@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QSplitter>
+#include <QDockWidget>
 #include <QTreeWidget>
 #include <QMap>
 #include <QStringList>
@@ -57,6 +58,7 @@ private slots:
     void reloadCurrentTexture();
     void quickExportAll();
     void reopenLastDirectory();
+    void togglePropertiesPanel();
     
 private:
     void createActions();
@@ -75,6 +77,7 @@ private:
     GalleryView* galleryView_;
     ImageViewer* imageViewer_;
     PropertiesPanel* propertiesPanel_;
+    QDockWidget* propertiesDock_;
     
     // Actions
     QAction* openDirAction_;
@@ -105,6 +108,7 @@ private:
     QAction* reloadCurrentTextureAction_;
     QAction* quickExportAllAction_;
     QAction* reopenLastDirAction_;
+    QAction* togglePropertiesPanelAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets

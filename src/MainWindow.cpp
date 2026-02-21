@@ -230,6 +230,13 @@ void MainWindow::createActions() {
     reopenLastDirAction_->setStatusTip("Reopen the most recently used directory");
     connect(reopenLastDirAction_, &QAction::triggered, this, &MainWindow::reopenLastDirectory);
     
+    togglePropertiesPanelAction_ = new QAction("Toggle &Properties Panel", this);
+    togglePropertiesPanelAction_->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_I));
+    togglePropertiesPanelAction_->setStatusTip("Show or hide the properties panel");
+    togglePropertiesPanelAction_->setCheckable(true);
+    togglePropertiesPanelAction_->setChecked(true);
+    connect(togglePropertiesPanelAction_, &QAction::triggered, this, &MainWindow::togglePropertiesPanel);
+    
     // Load settings
     loadSettings();
 }
@@ -279,6 +286,8 @@ void MainWindow::createMenus() {
     viewMenu->addAction(lastTextureAction_);
     viewMenu->addSeparator();
     viewMenu->addAction(fullScreenAction_);
+    viewMenu->addSeparator();
+    viewMenu->addAction(togglePropertiesPanelAction_);
     
     QMenu* helpMenu = menuBar()->addMenu("&Help");
     helpMenu->addAction(aboutAction_);
@@ -342,10 +351,10 @@ void MainWindow::createStatusBar() {
 void MainWindow::createDockWidgets() {
     propertiesPanel_ = new PropertiesPanel;
     
-    QDockWidget* propertiesDock = new QDockWidget("Properties", this);
-    propertiesDock->setWidget(propertiesPanel_);
-    propertiesDock->setAllowedAreas(Qt::RightDockWidgetArea | Qt::LeftDockWidgetArea);
-    addDockWidget(Qt::RightDockWidgetArea, propertiesDock);
+    propertiesDock_ = new QDockWidget("Properties", this);
+    propertiesDock_->setWidget(propertiesPanel_);
+    propertiesDock_->setAllowedAreas(Qt::RightDockWidgetArea | Qt::LeftDockWidgetArea);
+    addDockWidget(Qt::RightDockWidgetArea, propertiesDock_);
 }
 
 void MainWindow::openDirectory() {
@@ -1139,4 +1148,17 @@ void MainWindow::reopenLastDirectory() {
     } else {
         statusBar()->showMessage(QString("⚠️ Directory no longer exists: %1").arg(lastDir), 3000);
     }
+}
+
+// ============================================================================
+// Toggle Properties Panel
+// ============================================================================
+
+void MainWindow::togglePropertiesPanel() {
+    bool visible = propertiesDock_->isVisible();
+    propertiesDock_->setVisible(!visible);
+    togglePropertiesPanelAction_->setChecked(!visible);
+    statusBar()->showMessage(visible ? 
+        "📋 Properties panel hidden" : 
+        "📋 Properties panel shown", 2000);
 }
