@@ -48,6 +48,7 @@ void PropertiesPanel::setVTFProperties(const QString& filename, int width, int h
     html += QString("<tr><td><b>Format:</b></td><td>%1</td></tr>").arg(format);
     html += QString("<tr><td><b>Frames:</b></td><td>%1</td></tr>").arg(frames);
     html += QString("<tr><td><b>Mipmaps:</b></td><td>%1</td></tr>").arg(mipmaps);
+    html += QString("<tr><td><b>Est. VRAM:</b></td><td>%1</td></tr>").arg(estimateMemorySize(width, height, mipmaps));
     html += QString("<tr><td><b>Flags:</b></td><td>%1</td></tr>").arg(formatFlags(flags));
     html += "</table>";
     
@@ -101,4 +102,20 @@ QString PropertiesPanel::calculateAspectRatio(int width, int height) {
     if (width <= 0 || height <= 0) return "N/A";
     int g = std::gcd(width, height);
     return QString("%1:%2").arg(width / g).arg(height / g);
+}
+
+QString PropertiesPanel::estimateMemorySize(int width, int height, int mipmaps) {
+    // Base RGBA size (4 bytes per pixel)
+    qint64 baseSize = static_cast<qint64>(width) * height * 4;
+    
+    // Add mipmap levels (each is 1/4 of previous, sum ~= 1.33x base)
+    qint64 totalSize = baseSize;
+    int mipW = width, mipH = height;
+    for (int i = 1; i < mipmaps; ++i) {
+        mipW = std::max(1, mipW / 2);
+        mipH = std::max(1, mipH / 2);
+        totalSize += static_cast<qint64>(mipW) * mipH * 4;
+    }
+    
+    return formatFileSize(totalSize);
 }
