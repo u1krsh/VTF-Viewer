@@ -22,6 +22,8 @@ GalleryView::GalleryView(QWidget* parent) : QWidget(parent) {
     sortCombo_->addItem("Name ↓");
     sortCombo_->addItem("Size ↑");
     sortCombo_->addItem("Size ↓");
+    sortCombo_->addItem("Dims ↑");
+    sortCombo_->addItem("Dims ↓");
     sortCombo_->setToolTip("Sort gallery items");
     sortCombo_->setMinimumWidth(80);
     topLayout->addWidget(sortCombo_);
@@ -114,6 +116,7 @@ void GalleryView::addTexture(const QString& filename, const QImage& thumbnail) {
 void GalleryView::clear() {
     itemToFilename_.clear();
     itemToFileSize_.clear();
+    itemToDimensions_.clear();
     listWidget_->clear();
     searchEdit_->clear();
     
@@ -248,6 +251,7 @@ void GalleryView::sortItems(int sortIndex) {
         QString tooltip;
         QString filename;
         qint64 fileSize;
+        qint64 dimensions;
     };
     
     QList<ItemData> items;
@@ -259,6 +263,7 @@ void GalleryView::sortItems(int sortIndex) {
         data.tooltip = item->toolTip();
         data.filename = itemToFilename_.value(item);
         data.fileSize = itemToFileSize_.value(item, 0);
+        data.dimensions = itemToDimensions_.value(item, 0);
         items.append(data);
     }
     
@@ -284,11 +289,22 @@ void GalleryView::sortItems(int sortIndex) {
                 return a.fileSize > b.fileSize;
             });
             break;
+        case 4: // Dimensions ascending
+            std::sort(items.begin(), items.end(), [](const ItemData& a, const ItemData& b) {
+                return a.dimensions < b.dimensions;
+            });
+            break;
+        case 5: // Dimensions descending
+            std::sort(items.begin(), items.end(), [](const ItemData& a, const ItemData& b) {
+                return a.dimensions > b.dimensions;
+            });
+            break;
     }
     
     // Rebuild the list
     itemToFilename_.clear();
     itemToFileSize_.clear();
+    itemToDimensions_.clear();
     listWidget_->clear();
     
     for (const ItemData& data : items) {
@@ -297,6 +313,7 @@ void GalleryView::sortItems(int sortIndex) {
         listWidget_->addItem(item);
         itemToFilename_[item] = data.filename;
         itemToFileSize_[item] = data.fileSize;
+        itemToDimensions_[item] = data.dimensions;
     }
     
     // Re-apply filter
@@ -326,5 +343,14 @@ void GalleryView::selectRandom() {
         int randomIndex = visibleIndices.at(
             QRandomGenerator::global()->bounded(visibleIndices.size()));
         listWidget_->setCurrentRow(randomIndex);
+    }
+}
+
+void GalleryView::setTextureDimensions(const QString& filename, int width, int height) {
+    for (auto it = itemToFilename_.begin(); it != itemToFilename_.end(); ++it) {
+        if (it.value() == filename) {
+            itemToDimensions_[it.key()] = static_cast<qint64>(width) * height;
+            return;
+        }
     }
 }

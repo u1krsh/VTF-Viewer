@@ -29,6 +29,7 @@ public:
     void focusGalleryList();
     void toggleViewMode();
     void selectRandom();
+    void setTextureDimensions(const QString& filename, int width, int height);
     
 signals:
     void textureSelected(const QString& filename);
@@ -48,6 +49,7 @@ private:
     QPushButton* viewToggleButton_;
     QMap<QListWidgetItem*, QString> itemToFilename_;
     QMap<QListWidgetItem*, qint64> itemToFileSize_;
+    QMap<QListWidgetItem*, qint64> itemToDimensions_;  // stores width*height
     QLabel* placeholderLabel_;
     QLabel* countLabel_;
     

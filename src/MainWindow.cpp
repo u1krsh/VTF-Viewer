@@ -418,6 +418,7 @@ void MainWindow::loadDirectory(const QString& path) {
                 QImage thumbnail = reader.getThumbnail(128);
                 if (!thumbnail.isNull()) {
                     galleryView_->addTexture(filename, thumbnail);
+                    galleryView_->setTextureDimensions(filename, reader.getWidth(), reader.getHeight());
                     loadedTextures_[fileInfo.fileName()] = filename;
                     count++;
                 }
