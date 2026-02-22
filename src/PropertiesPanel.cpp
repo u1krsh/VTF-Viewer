@@ -2,6 +2,7 @@
 #include "VTFFormat.h"
 #include <QVBoxLayout>
 #include <QFileInfo>
+#include <QDateTime>
 #include <numeric>
 
 PropertiesPanel::PropertiesPanel(QWidget* parent) : QWidget(parent) {
@@ -43,6 +44,7 @@ void PropertiesPanel::setVTFProperties(const QString& filename, int width, int h
     html += QString("<tr><td><b>File:</b></td><td>%1</td></tr>").arg(fileInfo.fileName());
     html += QString("<tr><td><b>Path:</b></td><td>%1</td></tr>").arg(fileInfo.absolutePath());
     html += QString("<tr><td><b>File Size:</b></td><td>%1</td></tr>").arg(formatFileSize(fileInfo.size()));
+    html += QString("<tr><td><b>Modified:</b></td><td>%1</td></tr>").arg(fileInfo.lastModified().toString("yyyy-MM-dd hh:mm"));
     html += QString("<tr><td><b>Dimensions:</b></td><td>%1 x %2%3</td></tr>").arg(width).arg(height).arg(pixelCount);
     html += QString("<tr><td><b>Aspect Ratio:</b></td><td>%1</td></tr>").arg(calculateAspectRatio(width, height));
     html += QString("<tr><td><b>Format:</b></td><td>%1</td></tr>").arg(format);
