@@ -30,6 +30,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QElapsedTimer>
+#include <cmath>
 
 MainWindow::MainWindow(QWidget* parent) 
     : QMainWindow(parent), currentVTF_(nullptr), currentVMT_(nullptr), 
@@ -874,15 +875,28 @@ void MainWindow::saveSettings() {
 void MainWindow::updateZoomDisplay(double factor, bool fitMode) {
     if (fitMode) {
         zoomLabel_->setText("Fit");
+        zoomLabel_->setToolTip("Fit to window mode");
     } else {
         int percent = static_cast<int>(factor * 100.0 + 0.5);
         zoomLabel_->setText(QString("%1%").arg(percent));
         
+        // Visual zoom step indicator (10% to 1000% mapped to 10 steps)
+        // Using log scale: log(0.1)=-1 to log(10)=1, 10 blocks
+        double logMin = -1.0, logMax = 1.0;
+        double logVal = std::log10(factor);
+        int step = static_cast<int>((logVal - logMin) / (logMax - logMin) * 10.0);
+        step = qBound(0, step, 10);
+        QString bar;
+        for (int i = 0; i < 10; ++i) {
+            bar += (i < step) ? "\u25b0" : "\u25b1";
+        }
+        zoomLabel_->setToolTip(QString("Zoom: %1%\n%2").arg(percent).arg(bar));
+        
         // Zoom limit feedback
         if (factor <= 0.1 + 0.001) {
-            statusBar()->showMessage("🔍 Minimum zoom reached (10%)", 2000);
+            statusBar()->showMessage("\ud83d\udd0d Minimum zoom reached (10%)", 2000);
         } else if (factor >= 10.0 - 0.001) {
-            statusBar()->showMessage("🔍 Maximum zoom reached (1000%)", 2000);
+            statusBar()->showMessage("\ud83d\udd0d Maximum zoom reached (1000%)", 2000);
         }
     }
     
