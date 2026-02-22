@@ -160,13 +160,13 @@ void MainWindow::createActions() {
     connect(rotateCCWAction_, &QAction::triggered, this, &MainWindow::rotateImageCCW);
     
     nextTextureAction_ = new QAction("&Next Texture", this);
-    nextTextureAction_->setShortcut(QKeySequence(Qt::Key_PageDown));
-    nextTextureAction_->setStatusTip("View next texture in gallery");
+    nextTextureAction_->setShortcuts({QKeySequence(Qt::Key_PageDown), QKeySequence(Qt::CTRL | Qt::Key_Right)});
+    nextTextureAction_->setStatusTip("View next texture in gallery (PgDown or Ctrl+Right)");
     connect(nextTextureAction_, &QAction::triggered, this, &MainWindow::nextTexture);
     
     prevTextureAction_ = new QAction("&Previous Texture", this);
-    prevTextureAction_->setShortcut(QKeySequence(Qt::Key_PageUp));
-    prevTextureAction_->setStatusTip("View previous texture in gallery");
+    prevTextureAction_->setShortcuts({QKeySequence(Qt::Key_PageUp), QKeySequence(Qt::CTRL | Qt::Key_Left)});
+    prevTextureAction_->setStatusTip("View previous texture in gallery (PgUp or Ctrl+Left)");
     connect(prevTextureAction_, &QAction::triggered, this, &MainWindow::previousTexture);
     
     fullScreenAction_ = new QAction("&Full Screen", this);
