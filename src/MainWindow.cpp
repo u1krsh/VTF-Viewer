@@ -1055,6 +1055,18 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
         event->accept();
         return;
     }
+    
+    // Space bar toggles fit-to-window
+    if (event->key() == Qt::Key_Space && !event->modifiers()) {
+        if (imageViewer_->isFitToWindow()) {
+            imageViewer_->resetZoom();
+        } else {
+            imageViewer_->fitToWindow();
+        }
+        event->accept();
+        return;
+    }
+    
     QMainWindow::keyPressEvent(event);
 }
 
