@@ -35,7 +35,7 @@
 MainWindow::MainWindow(QWidget* parent) 
     : QMainWindow(parent), currentVTF_(nullptr), currentVMT_(nullptr), 
       checkerboardEnabled_(false), recursiveScan_(false), thumbnailSize_(128),
-      lastExportPath_(QString()) {
+      lastExportPath_(QString()), autoFitOnSelect_(false) {
     
     // Enable drag and drop
     setAcceptDrops(true);
@@ -243,6 +243,13 @@ void MainWindow::createActions() {
     randomTextureAction_->setStatusTip("Select a random texture from the gallery");
     connect(randomTextureAction_, &QAction::triggered, this, &MainWindow::randomTexture);
     
+    autoFitAction_ = new QAction("Auto-&Fit on Select", this);
+    autoFitAction_->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_F));
+    autoFitAction_->setStatusTip("Automatically fit images to window when selecting textures");
+    autoFitAction_->setCheckable(true);
+    autoFitAction_->setChecked(false);
+    connect(autoFitAction_, &QAction::triggered, this, &MainWindow::toggleAutoFit);
+    
     // Load settings
     loadSettings();
 }
@@ -296,6 +303,7 @@ void MainWindow::createMenus() {
     viewMenu->addAction(fullScreenAction_);
     viewMenu->addSeparator();
     viewMenu->addAction(togglePropertiesPanelAction_);
+    viewMenu->addAction(autoFitAction_);
     
     QMenu* helpMenu = menuBar()->addMenu("&Help");
     helpMenu->addAction(aboutAction_);
@@ -449,6 +457,9 @@ void MainWindow::loadDirectory(const QString& path) {
 
 void MainWindow::onTextureSelected(const QString& filename) {
     loadTexture(filename);
+    if (autoFitOnSelect_) {
+        fitToWindow();
+    }
 }
 
 void MainWindow::onTextureDoubleClicked(const QString& filename) {
@@ -1196,4 +1207,16 @@ void MainWindow::randomTexture() {
     }
     galleryView_->selectRandom();
     statusBar()->showMessage("🎲 Random texture selected", 2000);
+}
+
+// ============================================================================
+// Toggle Auto-Fit on Select
+// ============================================================================
+
+void MainWindow::toggleAutoFit() {
+    autoFitOnSelect_ = !autoFitOnSelect_;
+    autoFitAction_->setChecked(autoFitOnSelect_);
+    statusBar()->showMessage(autoFitOnSelect_ ? 
+        "📏 Auto-fit on select enabled" : 
+        "📏 Auto-fit on select disabled", 2000);
 }

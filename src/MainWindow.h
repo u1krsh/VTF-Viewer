@@ -60,6 +60,7 @@ private slots:
     void reopenLastDirectory();
     void togglePropertiesPanel();
     void randomTexture();
+    void toggleAutoFit();
     
 private:
     void createActions();
@@ -111,6 +112,7 @@ private:
     QAction* reopenLastDirAction_;
     QAction* togglePropertiesPanelAction_;
     QAction* randomTextureAction_;
+    QAction* autoFitAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets
@@ -128,6 +130,7 @@ private:
     bool recursiveScan_;
     int thumbnailSize_;
     QString lastExportPath_;
+    bool autoFitOnSelect_;
     
     void updateRecentDirectoriesMenu();
     void addToRecentDirectories(const QString& path);
