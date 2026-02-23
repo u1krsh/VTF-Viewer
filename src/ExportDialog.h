@@ -17,6 +17,7 @@ public:
     QString getFormat() const;
     int getQuality() const;
     void setOutputPath(const QString& path);
+    void setFormat(const QString& format);
     
 private slots:
     void browseOutputPath();

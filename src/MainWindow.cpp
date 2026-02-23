@@ -554,6 +554,9 @@ void MainWindow::exportCurrent() {
     if (!lastExportPath_.isEmpty()) {
         dialog.setOutputPath(lastExportPath_);
     }
+    if (!lastExportFormat_.isEmpty()) {
+        dialog.setFormat(lastExportFormat_);
+    }
     if (dialog.exec() == QDialog::Accepted) {
         QString outputPath = dialog.getOutputPath();
         QString format = dialog.getFormat();
@@ -566,6 +569,7 @@ void MainWindow::exportCurrent() {
         }
         
         lastExportPath_ = outputPath;
+        lastExportFormat_ = format;
         saveSettings();
         exportTexture(currentFile, outputPath, format, quality);
         QMessageBox::information(this, "Export Complete",
@@ -854,6 +858,7 @@ void MainWindow::loadSettings() {
     thumbnailSize_ = settings.value("thumbnailSize", 128).toInt();
     galleryView_->setThumbnailSize(thumbnailSize_);
     lastExportPath_ = settings.value("lastExportPath").toString();
+    lastExportFormat_ = settings.value("lastExportFormat", "png").toString();
     
     // Restore window geometry if saved
     if (settings.contains("geometry")) {
@@ -874,6 +879,7 @@ void MainWindow::saveSettings() {
     settings.setValue("recursiveScan", recursiveScan_);
     settings.setValue("thumbnailSize", thumbnailSize_);
     settings.setValue("lastExportPath", lastExportPath_);
+    settings.setValue("lastExportFormat", lastExportFormat_);
     settings.setValue("geometry", saveGeometry());
     settings.setValue("windowState", saveState());
     settings.setValue("splitterState", mainSplitter_->saveState());

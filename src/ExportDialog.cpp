@@ -74,3 +74,10 @@ int ExportDialog::getQuality() const {
 void ExportDialog::setOutputPath(const QString& path) {
     pathEdit_->setText(path);
 }
+
+void ExportDialog::setFormat(const QString& format) {
+    int index = formatCombo_->findData(format);
+    if (index >= 0) {
+        formatCombo_->setCurrentIndex(index);
+    }
+}

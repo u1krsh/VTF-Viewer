@@ -131,6 +131,7 @@ private:
     int thumbnailSize_;
     QString lastExportPath_;
     bool autoFitOnSelect_;
+    QString lastExportFormat_;
     
     void updateRecentDirectoriesMenu();
     void addToRecentDirectories(const QString& path);
