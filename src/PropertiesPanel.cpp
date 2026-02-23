@@ -47,6 +47,8 @@ void PropertiesPanel::setVTFProperties(const QString& filename, int width, int h
     html += QString("<tr><td><b>Modified:</b></td><td>%1</td></tr>").arg(fileInfo.lastModified().toString("yyyy-MM-dd hh:mm"));
     html += QString("<tr><td><b>Dimensions:</b></td><td>%1 x %2%3</td></tr>").arg(width).arg(height).arg(pixelCount);
     html += QString("<tr><td><b>Aspect Ratio:</b></td><td>%1</td></tr>").arg(calculateAspectRatio(width, height));
+    bool isPOT = (width > 0) && (height > 0) && ((width & (width - 1)) == 0) && ((height & (height - 1)) == 0);
+    html += QString("<tr><td><b>Power of 2:</b></td><td>%1</td></tr>").arg(isPOT ? "✅ Yes" : "❌ No");
     html += QString("<tr><td><b>Format:</b></td><td>%1</td></tr>").arg(format);
     html += QString("<tr><td><b>Frames:</b></td><td>%1</td></tr>").arg(frames);
     html += QString("<tr><td><b>Mipmaps:</b></td><td>%1</td></tr>").arg(mipmaps);
