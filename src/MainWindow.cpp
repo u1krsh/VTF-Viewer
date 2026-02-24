@@ -368,6 +368,13 @@ void MainWindow::createStatusBar() {
     zoomLabel_->setAlignment(Qt::AlignCenter);
     zoomLabel_->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
     statusBar()->addPermanentWidget(zoomLabel_);
+    
+    alphaLabel_ = new QLabel("");
+    alphaLabel_->setMinimumWidth(40);
+    alphaLabel_->setAlignment(Qt::AlignCenter);
+    alphaLabel_->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+    statusBar()->addPermanentWidget(alphaLabel_);
+    
     statusBar()->showMessage("Ready");
 }
 
@@ -513,6 +520,12 @@ void MainWindow::loadTexture(const QString& filename) {
             
             // Update format indicator
             formatLabel_->setText(currentVTF_->getFormat());
+            
+            // Update alpha channel indicator
+            QString fmt = currentVTF_->getFormat();
+            bool hasAlpha = fmt.contains('A') || fmt.contains("alpha", Qt::CaseInsensitive);
+            alphaLabel_->setText(hasAlpha ? "α" : "");
+            alphaLabel_->setToolTip(hasAlpha ? "Has alpha channel" : "No alpha channel");
         }
     } else if (fileInfo.suffix().toLower() == "vmt") {
         currentVMT_ = new VMTParser;
@@ -545,6 +558,7 @@ void MainWindow::loadTexture(const QString& filename) {
             setWindowTitle(QString("%1 — VTF-Viewer").arg(fileInfo.fileName()));
             imageDimensionsLabel_->setText("");
             formatLabel_->setText("");
+            alphaLabel_->setText("");
         }
     }
 }

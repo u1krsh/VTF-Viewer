@@ -122,6 +122,7 @@ private:
     QLabel* textureCountLabel_;
     QLabel* imageDimensionsLabel_;
     QLabel* formatLabel_;
+    QLabel* alphaLabel_;
     
     // Data
     QMap<QString, QString> loadedTextures_; // filename -> full path
