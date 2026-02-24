@@ -255,6 +255,11 @@ void MainWindow::createActions() {
     directoryStatsAction_->setStatusTip("Show statistics about the loaded directory");
     connect(directoryStatsAction_, &QAction::triggered, this, &MainWindow::showDirectoryStats);
     
+    saveCurrentViewAction_ = new QAction("&Save Current View...", this);
+    saveCurrentViewAction_->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_S));
+    saveCurrentViewAction_->setStatusTip("Save the current view (with rotation) as PNG");
+    connect(saveCurrentViewAction_, &QAction::triggered, this, &MainWindow::saveCurrentView);
+    
     // Load settings
     loadSettings();
 }
@@ -274,6 +279,7 @@ void MainWindow::createMenus() {
     fileMenu->addAction(exportCurrentAction_);
     fileMenu->addAction(exportAllAction_);
     fileMenu->addAction(quickExportAllAction_);
+    fileMenu->addAction(saveCurrentViewAction_);
     fileMenu->addSeparator();
     fileMenu->addAction(closeCurrentAction_);
     fileMenu->addSeparator();
@@ -1304,4 +1310,36 @@ void MainWindow::showDirectoryStats() {
         .arg(fileCount)
         .arg(totalSizeStr)
         .arg(avgSize));
+}
+
+// ============================================================================
+// Save Current View
+// ============================================================================
+
+void MainWindow::saveCurrentView() {
+    if (currentVTF_ == nullptr) {
+        statusBar()->showMessage("⚠️ No image to save", 3000);
+        return;
+    }
+    
+    QImage image = imageViewer_->getRotatedImage();
+    if (image.isNull()) {
+        statusBar()->showMessage("⚠️ No image to save", 3000);
+        return;
+    }
+    
+    QString currentFile = galleryView_->getCurrentFilename();
+    QString suggestedName = QFileInfo(currentFile).baseName() + "_view.png";
+    
+    QString savePath = QFileDialog::getSaveFileName(this, "Save Current View",
+        lastExportPath_.isEmpty() ? suggestedName : lastExportPath_ + "/" + suggestedName,
+        "PNG (*.png);;JPEG (*.jpg);;BMP (*.bmp)");
+    
+    if (!savePath.isEmpty()) {
+        if (image.save(savePath)) {
+            statusBar()->showMessage(QString("💾 Saved: %1").arg(QFileInfo(savePath).fileName()), 3000);
+        } else {
+            statusBar()->showMessage("⚠️ Failed to save image", 3000);
+        }
+    }
 }

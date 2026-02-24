@@ -62,6 +62,7 @@ private slots:
     void randomTexture();
     void toggleAutoFit();
     void showDirectoryStats();
+    void saveCurrentView();
     
 private:
     void createActions();
@@ -115,6 +116,7 @@ private:
     QAction* randomTextureAction_;
     QAction* autoFitAction_;
     QAction* directoryStatsAction_;
+    QAction* saveCurrentViewAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets
