@@ -9,6 +9,7 @@
 #include <QPushButton>
 #include <QKeyEvent>
 #include <QLabel>
+#include <QDateTime>
 
 class GalleryView : public QWidget {
     Q_OBJECT
@@ -50,6 +51,7 @@ private:
     QMap<QListWidgetItem*, QString> itemToFilename_;
     QMap<QListWidgetItem*, qint64> itemToFileSize_;
     QMap<QListWidgetItem*, qint64> itemToDimensions_;  // stores width*height
+    QMap<QListWidgetItem*, QDateTime> itemToModDate_;
     QLabel* placeholderLabel_;
     QLabel* countLabel_;
     

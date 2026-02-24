@@ -24,6 +24,8 @@ GalleryView::GalleryView(QWidget* parent) : QWidget(parent) {
     sortCombo_->addItem("Size ↓");
     sortCombo_->addItem("Dims ↑");
     sortCombo_->addItem("Dims ↓");
+    sortCombo_->addItem("Date ↑");
+    sortCombo_->addItem("Date ↓");
     sortCombo_->setToolTip("Sort gallery items");
     sortCombo_->setMinimumWidth(80);
     topLayout->addWidget(sortCombo_);
@@ -104,6 +106,7 @@ void GalleryView::addTexture(const QString& filename, const QImage& thumbnail) {
     
     itemToFilename_[item] = filename;
     itemToFileSize_[item] = fileInfo.size();
+    itemToModDate_[item] = fileInfo.lastModified();
     
     // Hide placeholder when items exist
     placeholderLabel_->setVisible(false);
@@ -117,6 +120,7 @@ void GalleryView::clear() {
     itemToFilename_.clear();
     itemToFileSize_.clear();
     itemToDimensions_.clear();
+    itemToModDate_.clear();
     listWidget_->clear();
     searchEdit_->clear();
     
@@ -252,6 +256,7 @@ void GalleryView::sortItems(int sortIndex) {
         QString filename;
         qint64 fileSize;
         qint64 dimensions;
+        QDateTime modDate;
     };
     
     QList<ItemData> items;
@@ -264,6 +269,7 @@ void GalleryView::sortItems(int sortIndex) {
         data.filename = itemToFilename_.value(item);
         data.fileSize = itemToFileSize_.value(item, 0);
         data.dimensions = itemToDimensions_.value(item, 0);
+        data.modDate = itemToModDate_.value(item);
         items.append(data);
     }
     
@@ -299,12 +305,23 @@ void GalleryView::sortItems(int sortIndex) {
                 return a.dimensions > b.dimensions;
             });
             break;
+        case 6: // Date ascending (oldest first)
+            std::sort(items.begin(), items.end(), [](const ItemData& a, const ItemData& b) {
+                return a.modDate < b.modDate;
+            });
+            break;
+        case 7: // Date descending (newest first)
+            std::sort(items.begin(), items.end(), [](const ItemData& a, const ItemData& b) {
+                return a.modDate > b.modDate;
+            });
+            break;
     }
     
     // Rebuild the list
     itemToFilename_.clear();
     itemToFileSize_.clear();
     itemToDimensions_.clear();
+    itemToModDate_.clear();
     listWidget_->clear();
     
     for (const ItemData& data : items) {
@@ -314,6 +331,7 @@ void GalleryView::sortItems(int sortIndex) {
         itemToFilename_[item] = data.filename;
         itemToFileSize_[item] = data.fileSize;
         itemToDimensions_[item] = data.dimensions;
+        itemToModDate_[item] = data.modDate;
     }
     
     // Re-apply filter
