@@ -61,6 +61,7 @@ private slots:
     void togglePropertiesPanel();
     void randomTexture();
     void toggleAutoFit();
+    void showDirectoryStats();
     
 private:
     void createActions();
@@ -113,6 +114,7 @@ private:
     QAction* togglePropertiesPanelAction_;
     QAction* randomTextureAction_;
     QAction* autoFitAction_;
+    QAction* directoryStatsAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets

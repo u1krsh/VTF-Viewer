@@ -250,6 +250,11 @@ void MainWindow::createActions() {
     autoFitAction_->setChecked(false);
     connect(autoFitAction_, &QAction::triggered, this, &MainWindow::toggleAutoFit);
     
+    directoryStatsAction_ = new QAction("Directory &Statistics...", this);
+    directoryStatsAction_->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_D));
+    directoryStatsAction_->setStatusTip("Show statistics about the loaded directory");
+    connect(directoryStatsAction_, &QAction::triggered, this, &MainWindow::showDirectoryStats);
+    
     // Load settings
     loadSettings();
 }
@@ -271,6 +276,8 @@ void MainWindow::createMenus() {
     fileMenu->addAction(quickExportAllAction_);
     fileMenu->addSeparator();
     fileMenu->addAction(closeCurrentAction_);
+    fileMenu->addSeparator();
+    fileMenu->addAction(directoryStatsAction_);
     fileMenu->addAction(exitAction_);
     
     QMenu* editMenu = menuBar()->addMenu("&Edit");
@@ -1237,4 +1244,50 @@ void MainWindow::toggleAutoFit() {
     statusBar()->showMessage(autoFitOnSelect_ ? 
         "📏 Auto-fit on select enabled" : 
         "📏 Auto-fit on select disabled", 2000);
+}
+
+// ============================================================================
+// Directory Statistics
+// ============================================================================
+
+void MainWindow::showDirectoryStats() {
+    if (currentDirectory_.isEmpty() || loadedTextures_.isEmpty()) {
+        statusBar()->showMessage("⚠️ No directory loaded", 3000);
+        return;
+    }
+    
+    qint64 totalSize = 0;
+    int fileCount = loadedTextures_.size();
+    
+    for (auto it = loadedTextures_.begin(); it != loadedTextures_.end(); ++it) {
+        QFileInfo fi(it.value());
+        totalSize += fi.size();
+    }
+    
+    QString avgSize;
+    if (fileCount > 0) {
+        qint64 avg = totalSize / fileCount;
+        if (avg < 1024) avgSize = QString("%1 B").arg(avg);
+        else if (avg < 1024 * 1024) avgSize = QString("%1 KB").arg(avg / 1024.0, 0, 'f', 1);
+        else avgSize = QString("%1 MB").arg(avg / (1024.0 * 1024.0), 0, 'f', 2);
+    }
+    
+    QString totalSizeStr;
+    if (totalSize < 1024) totalSizeStr = QString("%1 B").arg(totalSize);
+    else if (totalSize < 1024 * 1024) totalSizeStr = QString("%1 KB").arg(totalSize / 1024.0, 0, 'f', 1);
+    else if (totalSize < 1024LL * 1024 * 1024) totalSizeStr = QString("%1 MB").arg(totalSize / (1024.0 * 1024.0), 0, 'f', 2);
+    else totalSizeStr = QString("%1 GB").arg(totalSize / (1024.0 * 1024.0 * 1024.0), 0, 'f', 2);
+    
+    QMessageBox::information(this, "Directory Statistics",
+        QString("<h3>📊 Directory Statistics</h3>"
+                "<table cellpadding='4'>"
+                "<tr><td><b>Directory:</b></td><td>%1</td></tr>"
+                "<tr><td><b>Textures:</b></td><td>%2</td></tr>"
+                "<tr><td><b>Total Size:</b></td><td>%3</td></tr>"
+                "<tr><td><b>Average Size:</b></td><td>%4</td></tr>"
+                "</table>")
+        .arg(QFileInfo(currentDirectory_).fileName())
+        .arg(fileCount)
+        .arg(totalSizeStr)
+        .arg(avgSize));
 }
