@@ -10,6 +10,7 @@
 #include <QSettings>
 #include <QLabel>
 #include <QSlider>
+#include <QSpinBox>
 
 class GalleryView;
 class ImageViewer;
@@ -137,6 +138,8 @@ private:
     QString lastExportPath_;
     bool autoFitOnSelect_;
     QString lastExportFormat_;
+    int currentMipLevel_;
+    QSpinBox* mipmapSpinBox_;
     
     void updateRecentDirectoriesMenu();
     void addToRecentDirectories(const QString& path);

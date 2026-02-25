@@ -35,7 +35,8 @@
 MainWindow::MainWindow(QWidget* parent) 
     : QMainWindow(parent), currentVTF_(nullptr), currentVMT_(nullptr), 
       checkerboardEnabled_(false), recursiveScan_(false), thumbnailSize_(128),
-      lastExportPath_(QString()), autoFitOnSelect_(false) {
+      lastExportPath_(QString()), autoFitOnSelect_(false),
+      currentMipLevel_(0) {
     
     // Enable drag and drop
     setAcceptDrops(true);
@@ -348,6 +349,28 @@ void MainWindow::createToolBar() {
         saveSettings();
     });
     toolBar->addWidget(thumbSlider);
+    
+    // Mipmap level selector
+    toolBar->addSeparator();
+    QLabel* mipLabel = new QLabel(" Mip: ");
+    toolBar->addWidget(mipLabel);
+    mipmapSpinBox_ = new QSpinBox;
+    mipmapSpinBox_->setRange(0, 0);
+    mipmapSpinBox_->setValue(0);
+    mipmapSpinBox_->setToolTip("Select mipmap level (0 = full resolution)");
+    mipmapSpinBox_->setMaximumWidth(60);
+    connect(mipmapSpinBox_, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](int level) {
+        currentMipLevel_ = level;
+        QString currentFile = galleryView_->getCurrentFilename();
+        if (!currentFile.isEmpty() && currentVTF_) {
+            QImage image = currentVTF_->getImage(level);
+            if (!image.isNull()) {
+                imageViewer_->setImage(image);
+                statusBar()->showMessage(QString("🔎 Mip level %1 (%2×%3)").arg(level).arg(image.width()).arg(image.height()), 2000);
+            }
+        }
+    });
+    toolBar->addWidget(mipmapSpinBox_);
 }
 
 void MainWindow::createStatusBar() {
@@ -526,6 +549,11 @@ void MainWindow::loadTexture(const QString& filename) {
             
             // Update format indicator
             formatLabel_->setText(currentVTF_->getFormat());
+            
+            // Update mipmap selector range
+            mipmapSpinBox_->setMaximum(std::max(0, currentVTF_->getMipmapCount() - 1));
+            mipmapSpinBox_->setValue(0);
+            currentMipLevel_ = 0;
             
             // Update alpha channel indicator
             QString fmt = currentVTF_->getFormat();
