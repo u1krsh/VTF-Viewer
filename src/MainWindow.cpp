@@ -419,6 +419,7 @@ void MainWindow::createDockWidgets() {
     propertiesPanel_ = new PropertiesPanel;
     
     propertiesDock_ = new QDockWidget("Properties", this);
+    propertiesDock_->setObjectName("PropertiesDock");
     propertiesDock_->setWidget(propertiesPanel_);
     propertiesDock_->setAllowedAreas(Qt::RightDockWidgetArea | Qt::LeftDockWidgetArea);
     addDockWidget(Qt::RightDockWidgetArea, propertiesDock_);
@@ -983,9 +984,9 @@ void MainWindow::updateZoomDisplay(double factor, bool fitMode) {
         
         // Zoom limit feedback
         if (factor <= 0.1 + 0.001) {
-            statusBar()->showMessage("\ud83d\udd0d Minimum zoom reached (10%)", 2000);
+            statusBar()->showMessage(QString::fromUtf8("\xF0\x9F\x94\x8D Minimum zoom reached (10%)"), 2000);
         } else if (factor >= 10.0 - 0.001) {
-            statusBar()->showMessage("\ud83d\udd0d Maximum zoom reached (1000%)", 2000);
+            statusBar()->showMessage(QString::fromUtf8("\xF0\x9F\x94\x8D Maximum zoom reached (1000%)"), 2000);
         }
     }
     

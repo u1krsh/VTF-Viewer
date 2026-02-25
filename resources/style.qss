@@ -159,7 +159,6 @@ QListWidget::item:hover {
                                 stop:0 rgba(108, 99, 255, 0.4),
                                 stop:1 rgba(124, 115, 255, 0.2));
     border: 2px solid rgba(108, 99, 255, 0.6);
-    transform: scale(1.05);
 }
 
 QListWidget::item:selected {

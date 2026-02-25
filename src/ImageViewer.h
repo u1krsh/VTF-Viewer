@@ -43,6 +43,8 @@ private:
     
     void updateImage();
     void scaleImage(double factor);
+
+public:
     QImage getRotatedImage() const;
     
 protected:

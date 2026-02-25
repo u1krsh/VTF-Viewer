@@ -10,16 +10,16 @@ int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
     
     // Set application metadata
-    app.setApplicationName("VTF-Viewer");
-    app.setApplicationVersion("1.3.0");
-    app.setOrganizationName("VTF-Viewer");
-    app.setOrganizationDomain("vtf-viewer.local");
-    app.setWindowIcon(QIcon(":/icons/icon.png"));
-    
+    QApplication::setApplicationName("VTF-Viewer");
+    QApplication::setApplicationVersion("1.3.0");
+    QApplication::setOrganizationName("VTF-Viewer");
+    QApplication::setOrganizationDomain("vtf-viewer.local");
+    QApplication::setWindowIcon(QIcon(":/icons/icon.png"));
+
     // Set modern font
     QFont font("Segoe UI", 10);
-    app.setFont(font);
-    
+    QApplication::setFont(font);
+
     // Load revolutionary stylesheet
     QFile styleFile(":/style.qss");
     if (styleFile.open(QFile::ReadOnly | QFile::Text)) {
@@ -37,8 +37,8 @@ int main(int argc, char* argv[]) {
     window.setWindowTitle("VTF-Viewer v1.4.0 — Source Engine Texture Viewer");
     window.show();
     
-    int result = app.exec();
-    
+    int result = QApplication::exec();
+
     // Cleanup
     VTFLib::Shutdown();
     

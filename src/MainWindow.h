@@ -9,7 +9,6 @@
 #include <QStringList>
 #include <QSettings>
 #include <QLabel>
-#include <QSlider>
 #include <QSpinBox>
 
 class GalleryView;
@@ -23,8 +22,8 @@ class MainWindow : public QMainWindow {
     
 public:
     explicit MainWindow(QWidget* parent = nullptr);
-    ~MainWindow();
-    
+    ~MainWindow() override;
+
 private slots:
     void openDirectory();
     void exportCurrent();
@@ -133,6 +132,7 @@ private:
     QMap<QString, QString> loadedTextures_; // filename -> full path
     QString currentDirectory_;
     VTFReader* currentVTF_;
+    VMTParser* currentVMT_;
     QStringList recentDirectories_;
     bool checkerboardEnabled_;
     bool recursiveScan_;
@@ -153,7 +153,6 @@ protected:
     void dropEvent(QDropEvent* event) override;
     void closeEvent(QCloseEvent* event) override;
     void keyPressEvent(QKeyEvent* event) override;
-    VMTParser* currentVMT_;
 };
 
 #endif // MAINWINDOW_H
