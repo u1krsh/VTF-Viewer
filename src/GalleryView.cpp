@@ -30,6 +30,16 @@ GalleryView::GalleryView(QWidget* parent) : QWidget(parent) {
     sortCombo_->setMinimumWidth(80);
     topLayout->addWidget(sortCombo_);
     
+    dimFilterCombo_ = new QComboBox;
+    dimFilterCombo_->addItem("All");
+    dimFilterCombo_->addItem("≤128");
+    dimFilterCombo_->addItem("≤512");
+    dimFilterCombo_->addItem("≤1024");
+    dimFilterCombo_->addItem(">1024");
+    dimFilterCombo_->setToolTip("Filter by max dimension");
+    dimFilterCombo_->setMinimumWidth(65);
+    topLayout->addWidget(dimFilterCombo_);
+    
     viewToggleButton_ = new QPushButton("☰");
     viewToggleButton_->setToolTip("Toggle grid/list view");
     viewToggleButton_->setMaximumWidth(30);
@@ -75,6 +85,8 @@ GalleryView::GalleryView(QWidget* parent) : QWidget(parent) {
             this, &GalleryView::sortItems);
     connect(viewToggleButton_, &QPushButton::clicked,
             this, &GalleryView::toggleViewMode);
+    connect(dimFilterCombo_, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &GalleryView::filterByDimension);
     
     // Escape in search bar clears filter and returns focus to gallery
     searchEdit_->installEventFilter(this);
@@ -371,4 +383,38 @@ void GalleryView::setTextureDimensions(const QString& filename, int width, int h
             return;
         }
     }
+}
+
+void GalleryView::filterByDimension(int index) {
+    // Define max pixel count thresholds: 128²=16384, 512²=262144, 1024²=1048576
+    for (int i = 0; i < listWidget_->count(); ++i) {
+        QListWidgetItem* item = listWidget_->item(i);
+        qint64 dims = itemToDimensions_.value(item, 0);
+        
+        bool visible = true;
+        switch (index) {
+            case 0: visible = true; break;                   // All
+            case 1: visible = (dims <= 128LL * 128); break;  // ≤128
+            case 2: visible = (dims <= 512LL * 512); break;  // ≤512
+            case 3: visible = (dims <= 1024LL * 1024); break; // ≤1024
+            case 4: visible = (dims > 1024LL * 1024); break;  // >1024
+        }
+        
+        // Also respect text filter
+        if (visible && !searchEdit_->text().isEmpty()) {
+            visible = item->text().contains(searchEdit_->text(), Qt::CaseInsensitive);
+        }
+        
+        item->setHidden(!visible);
+    }
+    
+    // Update count label
+    int vis = getVisibleCount();
+    int total = listWidget_->count();
+    if (vis == total) {
+        countLabel_->setText(QString("%1").arg(total));
+    } else {
+        countLabel_->setText(QString("%1/%2").arg(vis).arg(total));
+    }
+    emit visibleCountChanged(vis);
 }

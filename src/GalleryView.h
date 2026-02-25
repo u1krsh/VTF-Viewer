@@ -42,11 +42,13 @@ private slots:
     void onItemDoubleClicked(QListWidgetItem* item);
     void filterItems(const QString& text);
     void sortItems(int sortIndex);
+    void filterByDimension(int index);
     
 private:
     QListWidget* listWidget_;
     QLineEdit* searchEdit_;
     QComboBox* sortCombo_;
+    QComboBox* dimFilterCombo_;
     QPushButton* viewToggleButton_;
     QMap<QListWidgetItem*, QString> itemToFilename_;
     QMap<QListWidgetItem*, qint64> itemToFileSize_;
