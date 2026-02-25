@@ -261,6 +261,13 @@ void MainWindow::createActions() {
     saveCurrentViewAction_->setStatusTip("Save the current view (with rotation) as PNG");
     connect(saveCurrentViewAction_, &QAction::triggered, this, &MainWindow::saveCurrentView);
     
+    alwaysOnTopAction_ = new QAction("Always on &Top", this);
+    alwaysOnTopAction_->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_T));
+    alwaysOnTopAction_->setStatusTip("Keep window on top of all other windows");
+    alwaysOnTopAction_->setCheckable(true);
+    alwaysOnTopAction_->setChecked(false);
+    connect(alwaysOnTopAction_, &QAction::triggered, this, &MainWindow::toggleAlwaysOnTop);
+    
     // Load settings
     loadSettings();
 }
@@ -318,6 +325,7 @@ void MainWindow::createMenus() {
     viewMenu->addSeparator();
     viewMenu->addAction(togglePropertiesPanelAction_);
     viewMenu->addAction(autoFitAction_);
+    viewMenu->addAction(alwaysOnTopAction_);
     
     QMenu* helpMenu = menuBar()->addMenu("&Help");
     helpMenu->addAction(aboutAction_);
@@ -1370,4 +1378,22 @@ void MainWindow::saveCurrentView() {
             statusBar()->showMessage("⚠️ Failed to save image", 3000);
         }
     }
+}
+
+// ============================================================================
+// Toggle Always-on-Top
+// ============================================================================
+
+void MainWindow::toggleAlwaysOnTop() {
+    Qt::WindowFlags flags = windowFlags();
+    if (flags & Qt::WindowStaysOnTopHint) {
+        setWindowFlags(flags & ~Qt::WindowStaysOnTopHint);
+        alwaysOnTopAction_->setChecked(false);
+        statusBar()->showMessage("📌 Always-on-top disabled", 2000);
+    } else {
+        setWindowFlags(flags | Qt::WindowStaysOnTopHint);
+        alwaysOnTopAction_->setChecked(true);
+        statusBar()->showMessage("📌 Always-on-top enabled", 2000);
+    }
+    show();  // Required after changing window flags
 }

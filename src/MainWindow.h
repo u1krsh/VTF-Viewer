@@ -64,6 +64,7 @@ private slots:
     void toggleAutoFit();
     void showDirectoryStats();
     void saveCurrentView();
+    void toggleAlwaysOnTop();
     
 private:
     void createActions();
@@ -118,6 +119,7 @@ private:
     QAction* autoFitAction_;
     QAction* directoryStatsAction_;
     QAction* saveCurrentViewAction_;
+    QAction* alwaysOnTopAction_;
     QMenu* recentMenu_;
     
     // Status bar widgets
