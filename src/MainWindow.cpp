@@ -744,7 +744,7 @@ void MainWindow::about() {
     QMessageBox::about(this, "About VTF-Viewer",
         "<div style='text-align: center;'>"
         "<h3>VTF-Viewer</h3>"
-        "<p>Version 1.3.0</p>"
+        "<p>Version 1.4.0</p>"
         "<p>A tool for viewing and exporting Source Engine textures.</p>"
         "<hr>"
         "<p><b>Keyboard Shortcuts:</b></p>"
@@ -775,6 +775,15 @@ void MainWindow::about() {
         "<tr><td>F11/Alt+Enter</td><td>&nbsp;Full Screen</td></tr>"
         "<tr><td>Escape</td><td>&nbsp;Exit Full Screen / Clear</td></tr>"
         "<tr><td>Double-click</td><td>&nbsp;Toggle Fit to Window</td></tr>"
+        "<tr><td>Ctrl+Shift+O</td><td>&nbsp;Reopen Last Directory</td></tr>"
+        "<tr><td>Ctrl+I</td><td>&nbsp;Toggle Properties Panel</td></tr>"
+        "<tr><td>Ctrl+Shift+R</td><td>&nbsp;Random Texture</td></tr>"
+        "<tr><td>Ctrl+Shift+F</td><td>&nbsp;Auto-Fit on Select</td></tr>"
+        "<tr><td>Ctrl+Shift+D</td><td>&nbsp;Directory Statistics</td></tr>"
+        "<tr><td>Ctrl+Shift+S</td><td>&nbsp;Save Current View</td></tr>"
+        "<tr><td>Ctrl+T</td><td>&nbsp;Always on Top</td></tr>"
+        "<tr><td>Space</td><td>&nbsp;Toggle Fit to Window</td></tr>"
+        "<tr><td>Middle Mouse</td><td>&nbsp;Pan/Drag Image</td></tr>"
         "</table>"
         "<hr>"
         "<p>Built with Qt6. Released under GPL v3.0.</p>"
@@ -1112,7 +1121,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
             imageViewer_->clear();
             propertiesPanel_->clear();
             imageDimensionsLabel_->setText("");
-            setWindowTitle("VTF-Viewer v1.3.0 — Source Engine Texture Viewer");
+            setWindowTitle("VTF-Viewer v1.4.0 — Source Engine Texture Viewer");
             statusBar()->showMessage("Selection cleared", 2000);
         }
         event->accept();
@@ -1151,7 +1160,7 @@ void MainWindow::closeCurrent() {
     if (!currentDirectory_.isEmpty()) {
         setWindowTitle(QString("%1 — VTF-Viewer").arg(QFileInfo(currentDirectory_).fileName()));
     } else {
-        setWindowTitle("VTF-Viewer v1.3.0 — Source Engine Texture Viewer");
+        setWindowTitle("VTF-Viewer v1.4.0 — Source Engine Texture Viewer");
     }
     statusBar()->showMessage("🗑️ Current texture closed", 2000);
 }

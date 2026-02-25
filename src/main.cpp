@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
     
     // Create and show main window
     MainWindow window;
-    window.setWindowTitle("VTF-Viewer v1.3.0 — Source Engine Texture Viewer");
+    window.setWindowTitle("VTF-Viewer v1.4.0 — Source Engine Texture Viewer");
     window.show();
     
     int result = app.exec();
