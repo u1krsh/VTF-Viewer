@@ -1,5 +1,7 @@
 # VTF-Viewer
 
+> A modern Source Engine texture viewer and VMT editor.
+
 <div align="center">
 
 ![VTF-Viewer](https://img.shields.io/badge/version-1.3.0-blue.svg)
