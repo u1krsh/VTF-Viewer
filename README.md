@@ -12,7 +12,7 @@
 
 **A powerful, cross-platform VTF viewer and VMT editor for Source Engine games - Half-Life 2, Team Fortress 2, CS:GO, Portal, Left 4 Dead**
 
-[Features](#features) • [Installation](#building) • [Usage](#usage) • [Contributing](#contributing) • [License](#license)
+[Features](#features) • [Installation](#building) • [Usage](#usage) • [FAQ](#faq) • [Contributing](#contributing) • [License](#license)
 
 </div>
 
