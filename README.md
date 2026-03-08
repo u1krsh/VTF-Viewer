@@ -44,6 +44,7 @@ Built with C++ and Qt6, VTF-Viewer supports DXT compression, mipmaps, normal map
 
 ### VTF Texture Viewing
 - **Comprehensive Format Support**:
+  - Custom VTFLib integration
   - DXT1, DXT3, DXT5 compression formats
   - RGBA8888, BGRA8888, RGB888, BGR888 uncompressed formats
   - Mipmaps with level-by-level viewing
