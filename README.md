@@ -68,7 +68,7 @@ Built with C++ and Qt6, VTF-Viewer supports DXT compression, mipmaps, normal map
   - Image rotation (90° clockwise/counter-clockwise)
   - Full screen mode (F11)
   - Keyboard shortcuts for quick navigation
-- **Gallery Search**: Filter textures by name with real-time search (`Ctrl+L` to focus, `Escape` to clear)
+- **Gallery Search**: Filter textures by name and dimensions with real-time search (`Ctrl+L` to focus, `Escape` to clear)
 - **Gallery Sorting**: Sort by name or file size (ascending/descending)
 - **Grid/List Toggle**: Switch between icon grid and list view modes
 - **Gallery Item Count**: Live count of visible/total textures in gallery header
