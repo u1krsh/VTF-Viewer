@@ -59,7 +59,7 @@ Built with C++ and Qt6, VTF-Viewer supports DXT compression, mipmaps, normal map
 - Hierarchical property display
 
 ### User Interface
-- **Gallery View**: Browse textures in an organized thumbnail grid
+- **Gallery View**: Browse textures in an organized thumbnail grid with custom filters
 - **Advanced Image Viewer**:
   - Smooth zoom in/out with mouse wheel support
   - Pan and navigate large textures
