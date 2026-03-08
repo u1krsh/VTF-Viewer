@@ -72,7 +72,7 @@ Built with C++ and Qt6, VTF-Viewer supports DXT compression, mipmaps, normal map
 - **Gallery Sorting**: Sort by name or file size (ascending/descending)
 - **Grid/List Toggle**: Switch between icon grid and list view modes
 - **Gallery Item Count**: Live count of visible/total textures in gallery header
-- **Adjustable Thumbnails**: Slider to resize gallery thumbnails (64-256px)
+- **Adjustable Thumbnails**: Slider to resize gallery thumbnails (64-256px) with dynamic aspect ratio
 - **Texture Navigation**: Next/Previous with PgUp/PgDown, First/Last with Home/End
 - **Auto-Select**: First texture automatically selected after loading directory
 - **Detailed Tooltips**: Hover over gallery items for file size and path info
