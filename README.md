@@ -35,6 +35,7 @@ Built with C++ and Qt6, VTF-Viewer supports DXT compression, mipmaps, normal map
 - Alien Swarm
 - Black Mesa
 - And other Source Engine games
+- Titanfall (VMT format variations)
 
 ![VTF-Viewer Interface](resources/screenshot.png)
 *VTF-Viewer showing texture gallery, preview, and properties panel*
