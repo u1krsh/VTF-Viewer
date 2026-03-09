@@ -105,6 +105,8 @@ Built with C++ and Qt6, VTF-Viewer supports DXT compression, mipmaps, normal map
 
 ## Building
 
+Ensure Qt6 paths are correctly set in CMake.
+
 ### Prerequisites
 
 Before building VTF-Viewer, ensure you have the following installed:
