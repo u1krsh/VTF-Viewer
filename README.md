@@ -85,7 +85,7 @@ Built with C++ and Qt6, VTF-Viewer supports DXT compression, mipmaps, normal map
 - **Focus Gallery**: Jump to gallery list with `Ctrl+G`
 - **Double-Click Fit**: Toggle fit-to-window by double-clicking the image viewer
 - **Full Screen**: Toggle with `F11` or `Alt+Enter`
-- **Format Display**: Current texture format shown in status bar
+- **Format Display**: Current texture format and size shown in status bar
 - **Zoom Feedback**: Status bar warns at min/max zoom limits
 - **Loading Time**: Elapsed time shown after directory load
 
