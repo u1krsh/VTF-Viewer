@@ -169,7 +169,7 @@ cmake -G "Visual Studio 16 2019" ..
 cmake --build . --config Release
 
 REM Run the application
-bin\Release\VTF-Viewer.exe
+bin\Release\VTF-Viewer.exe --help
 ```
 
 ### macOS
