@@ -203,6 +203,8 @@ cmake -DCMAKE_PREFIX_PATH=/path/to/qt ..
 
 ## Usage
 
+Launch the executable from your shell or application menu.
+
 ### Opening Textures
 
 1. **Launch VTF-Viewer**
