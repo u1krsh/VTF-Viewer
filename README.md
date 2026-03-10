@@ -134,7 +134,7 @@ cd VTF-Viewer
 # Build the project
 mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
 make -j$(nproc)
 
 # Run the application
