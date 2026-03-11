@@ -215,7 +215,7 @@ Launch the executable from your shell or application menu.
 - **Recursive scanning**: Toggle recursive subdirectory scanning from View menu
 - **Copy to clipboard**: Copy current image with Ctrl+C or menu option
 - **Transparency preview**: Toggle checkerboard background with B key
-- **Settings persistence**: Window geometry, splitter layout, and preferences saved
+- **Settings persistence**: Window geometry, layout, and filters, splitter layout, and preferences saved
 4. Textures will appear in the gallery view
 
 ### Navigation
