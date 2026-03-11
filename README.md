@@ -207,7 +207,7 @@ Launch the executable from your shell or application menu.
 
 ### Opening Textures
 
-1. **Launch VTF-Viewer**
+1. **Launch VTF-Viewer application**
 2. Click **File → Open Directory** or press `Ctrl+O`
 3. Select a folder containing VTF/VMT files
 - **Quick file/folder loading**: Drag and drop folders or VTF/VMT files
