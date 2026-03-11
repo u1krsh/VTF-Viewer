@@ -209,7 +209,7 @@ Launch the executable from your shell or application menu.
 
 1. **Launch VTF-Viewer application**
 2. Click **File → Open Directory** or press `Ctrl+O`
-3. Select a folder containing VTF/VMT files
+3. Select a folder containing VTF/VMT assets
 - **Quick file/folder loading**: Drag and drop folders or VTF/VMT files
 - **Recent directories**: Quick access to previously opened folders
 - **Recursive scanning**: Toggle recursive subdirectory scanning from View menu
