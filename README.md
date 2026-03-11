@@ -213,7 +213,7 @@ Launch the executable from your shell or application menu.
 - **Quick file/folder loading**: Drag and drop folders or VTF/VMT files
 - **Recent directories**: Quick access to previously opened folders
 - **Recursive scanning**: Toggle recursive subdirectory scanning from View menu
-- **Copy to clipboard**: Copy current image with Ctrl+C
+- **Copy to clipboard**: Copy current image with Ctrl+C or menu option
 - **Transparency preview**: Toggle checkerboard background with B key
 - **Settings persistence**: Window geometry, splitter layout, and preferences saved
 4. Textures will appear in the gallery view
