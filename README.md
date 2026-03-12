@@ -272,7 +272,7 @@ The properties panel displays detailed information about the selected texture:
 - **Mipmap Levels**: Number of mipmap levels
 - **Frames**: Animation frame count
 - **Flags**: Texture flags with flag count and hex value
-- **VMT Data**: Associated material properties with parameter count
+- **VMT Data**: Associated material properties and shaders with parameter count
 
 ## Project Structure
 
