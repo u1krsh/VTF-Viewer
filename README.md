@@ -248,6 +248,8 @@ Launch the executable from your shell or application menu.
 ### Exporting
 
 #### Single Texture Export
+
+Allows exporting selected assets to common image formats.
 1. Select a texture in the gallery or viewer
 2. Press `Ctrl+E` or click **File → Export Current**
 3. Choose format (PNG, JPEG, BMP, TGA) and destination
