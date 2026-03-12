@@ -256,6 +256,8 @@ Allows exporting selected assets to common image formats.
 4. Click **Save**
 
 #### Batch Export
+
+Allows exporting all loaded textures to the specified output folder.
 1. Click **File → Export All**
 2. Select output format and destination folder
 3. Configure quality settings (for JPEG)
