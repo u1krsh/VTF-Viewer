@@ -240,6 +240,7 @@ Launch the executable from your shell or application menu.
 | Checkerboard | `B` | View menu |
 | Copy to Clipboard | `Ctrl+C` | Edit menu |
 | Focus Search | `Ctrl+L` | Edit menu |
+| Focus Gallery | `Ctrl+G` | View menu |
 | Reload Directory | `F5` | File menu |
 | Exit FS / Clear | `Escape` | - |
 | Pan Image | - | Click and drag |
