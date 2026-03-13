@@ -280,7 +280,7 @@ Overview of the files in this repository:
 
 ```
 VTF-Viewer/
-├── CMakeLists.txt           # CMake build configuration
+├── CMakeLists.txt           # Main CMake build configuration
 ├── README.md                # This file
 ├── LICENSE                  # GNU GPL v3 license
 ├── build.sh                 # Quick build script
