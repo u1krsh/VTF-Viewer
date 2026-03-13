@@ -291,7 +291,7 @@ VTF-Viewer/
 │       ├── VMTFile.h/cpp    # VMT material file parser
 │       └── VTFLib.h/cpp     # Library initialization and utilities
 ├── src/
-│   ├── main.cpp             # Application entry point
+│   ├── main.cpp             # Entry point of the application
 │   ├── MainWindow.h/cpp     # Main application window and menu
 │   ├── VTFReader.h/cpp      # Qt wrapper for VTF reading
 │   ├── VMTParser.h/cpp      # Qt wrapper for VMT parsing
