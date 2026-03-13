@@ -276,6 +276,8 @@ The properties panel displays detailed information about the selected texture:
 
 ## Project Structure
 
+Overview of the files in this repository:
+
 ```
 VTF-Viewer/
 ├── CMakeLists.txt           # CMake build configuration
