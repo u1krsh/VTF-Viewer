@@ -287,7 +287,7 @@ VTF-Viewer/
 ├── lib/
 │   └── VTFLib/              # VTF/VMT parsing library
 │       ├── VTFFormat.h      # VTF format definitions and constants
-│       ├── VTFFile.h/cpp    # VTF file reader and decoder
+│       ├── VTFFile.h/cpp    # VTF file reader and parser and decoder
 │       ├── VMTFile.h/cpp    # VMT material file parser
 │       └── VTFLib.h/cpp     # Library initialization and utilities
 ├── src/
