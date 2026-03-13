@@ -282,7 +282,7 @@ Overview of the files in this repository:
 VTF-Viewer/
 ├── CMakeLists.txt           # Main CMake build configuration
 ├── README.md                # This file
-├── LICENSE                  # GNU GPL v3 license
+├── LICENSE                  # GNU GPL v3 license file
 ├── build.sh                 # Quick build script
 ├── lib/
 │   └── VTFLib/              # VTF/VMT parsing library
