@@ -320,6 +320,8 @@ VTF-Viewer includes a custom VTFLib implementation with:
 
 ### VMT Parsing
 
+The VMT parser reads Valve Material Type keyvalue structure.
+
 The VMT parser features:
 - **Hierarchical Parsing**: Node-based system for nested properties
 - **Shader Detection**: Automatic shader type identification
