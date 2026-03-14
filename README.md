@@ -311,7 +311,7 @@ Information about the inner workings of VTF-Viewer.
 ### VTF Format Support
 
 VTF-Viewer includes a custom VTFLib implementation with:
-- **Version Support**: VTF versions 7.0 through 7.5
+- **Version Support**: VTF versions 7.0 through 7.6
 - **Decompression**: Hardware-accelerated DXT1/DXT3/DXT5 decompression
 - **Format Conversion**: Automatic conversion to RGBA8888 for display
 - **Mipmap Extraction**: Access to all mipmap levels
