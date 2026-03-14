@@ -306,6 +306,8 @@ VTF-Viewer/
 
 ## Technical Details
 
+Information about the inner workings of VTF-Viewer.
+
 ### VTF Format Support
 
 VTF-Viewer includes a custom VTFLib implementation with:
