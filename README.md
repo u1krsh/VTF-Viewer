@@ -24,7 +24,9 @@ VTF-Viewer is a professional VTF texture viewer and VMT material editor for Sour
 
 Built with C++ and Qt6, VTF-Viewer supports DXT compression, mipmaps, normal maps, specular maps, and animated textures. Whether you're creating custom skins, extracting game assets, converting textures to PNG/JPEG/BMP/TGA/TIFF formats, or developing Source Engine mods, VTF-Viewer provides a modern interface with batch processing capabilities for efficient texture workflow management.
 
-### Supported Source Engine Games
+### Support
+
+For questions and suggestions, please open a GitHub discussion.ed Source Engine Games
 - Half-Life 2 and Episodes
 - Counter-Strike: Source and CS:GO
 - Team Fortress 2 (TF2)
