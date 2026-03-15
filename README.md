@@ -331,6 +331,8 @@ The VMT parser features:
 
 ### Architecture
 
+The project uses Qt's model-view pattern.
+
 - **Model-View Architecture**: Clean separation of data and presentation
 - **Signal-Slot Communication**: Qt's signal-slot mechanism for loose coupling
 - **Resource Management**: RAII principles for automatic cleanup
