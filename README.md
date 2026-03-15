@@ -344,6 +344,8 @@ Contributions are welcome and appreciated! Here's how you can help:
 
 ### Reporting Bugs
 
+Please check existing issues before submitting.
+
 1. Check if the issue already exists in the issue tracker
 2. Create a new issue with:
    - Clear description of the problem
