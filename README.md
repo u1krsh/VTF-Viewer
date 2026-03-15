@@ -372,6 +372,8 @@ Please check existing issues before submitting.
 
 ### Coding Guidelines
 
+Ensure code compiles cleanly without warnings.
+
 - Follow C++17 best practices
 - Use Qt naming conventions for Qt-related code
 - Add comments for complex logic
