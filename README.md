@@ -413,7 +413,8 @@ This project is licensed under the **GNU General Public License v3.0** - see the
 
 Planned features for future releases:
 
-- [ ] Support for additional texture formats (DDS, TGA input)
+- [x] Support for additional texture formats
+- [ ] DDS format support (DDS, TGA input)
 - [ ] Texture editing capabilities
 - [ ] VMT creation and editing
 - [ ] Batch conversion tools
