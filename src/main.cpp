@@ -13,6 +13,7 @@ int main(int argc, char* argv[]) {
     // Set application metadata
     QApplication::setApplicationName("VTF-Viewer");
     QApplication::setApplicationVersion("1.4.0");
+    // Set organization name
     QApplication::setOrganizationName("VTF-Viewer");
     QApplication::setOrganizationDomain("vtf-viewer.local");
     QApplication::setWindowIcon(QIcon(":/icons/icon.png"));
