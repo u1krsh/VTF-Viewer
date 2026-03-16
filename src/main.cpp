@@ -6,6 +6,7 @@
 #include <QFont>
 #include <QIcon>
 
+// Application entry point
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
     
