@@ -19,6 +19,7 @@ int main(int argc, char* argv[]) {
     QApplication::setWindowIcon(QIcon(":/icons/icon.png"));
 
     // Set modern font
+    // Use Segoe UI as default font for cleaner UI
     QFont font("Segoe UI", 10);
     QApplication::setFont(font);
 
