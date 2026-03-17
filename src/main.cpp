@@ -46,6 +46,7 @@ int main(int argc, char* argv[]) {
     int result = QApplication::exec();
 
     // Cleanup
+    // Clean up and shutdown VTFLib
     VTFLib::Shutdown();
     
     return result;
