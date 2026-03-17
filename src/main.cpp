@@ -34,6 +34,7 @@ int main(int argc, char* argv[]) {
     }
     
     // Initialize VTFLib
+    // Initialize the VTFLib parser
     VTFLib::Initialize();
     
     // Create and show main window
