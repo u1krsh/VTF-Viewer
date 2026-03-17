@@ -38,6 +38,7 @@ int main(int argc, char* argv[]) {
     VTFLib::Initialize();
     
     // Create and show main window
+    // Create the main window instance
     MainWindow window;
     window.setWindowTitle("VTF-Viewer v1.4.0 — Source Engine Texture Viewer");
     window.show();
