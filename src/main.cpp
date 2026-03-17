@@ -24,6 +24,7 @@ int main(int argc, char* argv[]) {
     QApplication::setFont(font);
 
     // Load revolutionary stylesheet
+    // Load custom application stylesheet
     QFile styleFile(":/style.qss");
     if (styleFile.open(QFile::ReadOnly | QFile::Text)) {
         QTextStream stream(&styleFile);
