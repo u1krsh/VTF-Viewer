@@ -9,6 +9,7 @@ namespace VTFLib {
     class VTFFile;
 }
 
+// Reader class for loading and parsing VTF textures
 class VTFReader {
 public:
     VTFReader();
