@@ -15,6 +15,7 @@ public:
     VTFReader();
     ~VTFReader();
     
+    // Load texture from file path
     bool loadFile(const QString& filename);
     QImage getImage(int frame = 0, int mipmap = 0);
     QImage getThumbnail(int maxSize = 128);
