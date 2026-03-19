@@ -22,6 +22,7 @@ public:
     // Get scaled thumbnail representation
     QImage getThumbnail(int maxSize = 128);
     
+    // Get texture width in pixels
     int getWidth() const;
     int getHeight() const;
     int getFrameCount() const;
