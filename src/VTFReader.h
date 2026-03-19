@@ -24,6 +24,7 @@ public:
     
     // Get texture width in pixels
     int getWidth() const;
+    // Get texture height in pixels
     int getHeight() const;
     int getFrameCount() const;
     int getMipmapCount() const;
