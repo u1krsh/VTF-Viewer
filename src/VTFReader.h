@@ -17,6 +17,7 @@ public:
     
     // Load texture from file path
     bool loadFile(const QString& filename);
+    // Get QImage representing texture frame and mipmap level
     QImage getImage(int frame = 0, int mipmap = 0);
     QImage getThumbnail(int maxSize = 128);
     
