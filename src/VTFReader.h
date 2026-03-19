@@ -19,6 +19,7 @@ public:
     bool loadFile(const QString& filename);
     // Get QImage representing texture frame and mipmap level
     QImage getImage(int frame = 0, int mipmap = 0);
+    // Get scaled thumbnail representation
     QImage getThumbnail(int maxSize = 128);
     
     int getWidth() const;
