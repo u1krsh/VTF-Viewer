@@ -32,6 +32,7 @@ public:
     int getMipmapCount() const;
     // Get image format name
     QString getFormat() const;
+    // Get raw texture flags
     quint32 getFlags() const;
     
     bool isLoaded() const;
