@@ -28,6 +28,7 @@ public:
     int getHeight() const;
     // Get total number of frames
     int getFrameCount() const;
+    // Get number of mipmap levels
     int getMipmapCount() const;
     QString getFormat() const;
     quint32 getFlags() const;
