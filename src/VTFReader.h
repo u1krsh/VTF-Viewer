@@ -26,6 +26,7 @@ public:
     int getWidth() const;
     // Get texture height in pixels
     int getHeight() const;
+    // Get total number of frames
     int getFrameCount() const;
     int getMipmapCount() const;
     QString getFormat() const;
