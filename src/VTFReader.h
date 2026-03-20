@@ -30,6 +30,7 @@ public:
     int getFrameCount() const;
     // Get number of mipmap levels
     int getMipmapCount() const;
+    // Get image format name
     QString getFormat() const;
     quint32 getFlags() const;
     
