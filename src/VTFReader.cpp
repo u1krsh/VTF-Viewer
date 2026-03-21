@@ -3,6 +3,7 @@
 #include "VTFFormat.h"
 #include <QDebug>
 
+// Initialize the internal VTFLib VTFFile pointer
 VTFReader::VTFReader() : vtfFile_(std::make_unique<VTFLib::VTFFile>()) {
 }
 
