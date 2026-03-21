@@ -35,6 +35,7 @@ public:
     // Get raw texture flags
     quint32 getFlags() const;
     
+    // Check if a file is currently loaded
     bool isLoaded() const;
     
 private:
