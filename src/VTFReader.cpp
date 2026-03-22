@@ -12,6 +12,7 @@ VTFReader::~VTFReader() {
 }
 
 bool VTFReader::loadFile(const QString& filename) {
+    // Convert to standard string and load via VTFLib
     return vtfFile_->Load(filename.toStdString());
 }
 
