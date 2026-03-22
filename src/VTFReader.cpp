@@ -7,6 +7,7 @@
 VTFReader::VTFReader() : vtfFile_(std::make_unique<VTFLib::VTFFile>()) {
 }
 
+// Destructor cleans up the unique_ptr automatically
 VTFReader::~VTFReader() {
 }
 
