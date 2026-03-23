@@ -42,6 +42,7 @@ QImage VTFReader::getThumbnail(int maxSize) {
     }
     
     // Find appropriate mipmap level for thumbnail
+    // Start at base mipmap level
     int mipmap = 0;
     int width = vtfFile_->GetWidth();
     int height = vtfFile_->GetHeight();
