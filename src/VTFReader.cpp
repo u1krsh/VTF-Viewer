@@ -21,6 +21,7 @@ QImage VTFReader::getImage(int frame, int mipmap) {
         return QImage();
     }
     
+    // Calculate dimensions for the requested mipmap level
     int width = std::max(1, vtfFile_->GetWidth() >> mipmap);
     int height = std::max(1, vtfFile_->GetHeight() >> mipmap);
     
