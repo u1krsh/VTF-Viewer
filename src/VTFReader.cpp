@@ -28,7 +28,8 @@ QImage VTFReader::getImage(int frame, int mipmap) {
     // Initialize QImage with RGBA8888 format
     QImage image(width, height, QImage::Format_RGBA8888);
     
-    if (vtfFile_->GetImageData(image.bits(), frame, mipmap)) {
+    // Extract raw image data directly into QImage buffer
+        if (vtfFile_->GetImageData(image.bits(), frame, mipmap)) {
         return image;
     }
     
