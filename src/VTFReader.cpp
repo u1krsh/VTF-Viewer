@@ -25,6 +25,7 @@ QImage VTFReader::getImage(int frame, int mipmap) {
     int width = std::max(1, vtfFile_->GetWidth() >> mipmap);
     int height = std::max(1, vtfFile_->GetHeight() >> mipmap);
     
+    // Initialize QImage with RGBA8888 format
     QImage image(width, height, QImage::Format_RGBA8888);
     
     if (vtfFile_->GetImageData(image.bits(), frame, mipmap)) {
