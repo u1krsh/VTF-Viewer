@@ -18,6 +18,7 @@ public:
     // Load VMT from file path
     bool loadFile(const QString& filename);
     
+    // Get the root shader name
     QString getShader() const;
     QString getBaseTexture() const;
     QString getParameter(const QString& name) const;
