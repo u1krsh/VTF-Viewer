@@ -9,6 +9,7 @@ namespace VTFLib {
     class VMTFile;
 }
 
+// Parser for Valve Material Type (VMT) properties
 class VMTParser {
 public:
     VMTParser();
