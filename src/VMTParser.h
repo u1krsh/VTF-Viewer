@@ -15,6 +15,7 @@ public:
     VMTParser();
     ~VMTParser();
     
+    // Load VMT from file path
     bool loadFile(const QString& filename);
     
     QString getShader() const;
