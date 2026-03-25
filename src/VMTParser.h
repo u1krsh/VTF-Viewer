@@ -24,6 +24,7 @@ public:
     QString getBaseTexture() const;
     // Get parameter value by name
     QString getParameter(const QString& name) const;
+    // Get map of all defined parameters
     QMap<QString, QString> getAllParameters() const;
     
     bool isLoaded() const;
