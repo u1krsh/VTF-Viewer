@@ -20,6 +20,7 @@ public:
     
     // Get the root shader name
     QString getShader() const;
+    // Get base texture path
     QString getBaseTexture() const;
     QString getParameter(const QString& name) const;
     QMap<QString, QString> getAllParameters() const;
