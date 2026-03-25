@@ -22,6 +22,7 @@ public:
     QString getShader() const;
     // Get base texture path
     QString getBaseTexture() const;
+    // Get parameter value by name
     QString getParameter(const QString& name) const;
     QMap<QString, QString> getAllParameters() const;
     
