@@ -1,6 +1,7 @@
 #include "VMTParser.h"
 #include "VMTFile.h"
 
+// Initialize the internal VMT parser pointer
 VMTParser::VMTParser() : vmtFile_(std::make_unique<VTFLib::VMTFile>()) {
 }
 
