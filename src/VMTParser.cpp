@@ -9,6 +9,7 @@ VMTParser::~VMTParser() {
 }
 
 bool VMTParser::loadFile(const QString& filename) {
+    // Convert path and parse the keyvalues
     return vmtFile_->Load(filename.toStdString());
 }
 
