@@ -56,6 +56,7 @@ QMap<QString, QString> VMTParser::getAllParameters() const {
 }
 
 void VMTParser::extractParameters(QMap<QString, QString>& params) const {
+    // Get root node of the parsed keyvalue hierarchy
     const VTFLib::VMTNode* root = vmtFile_->GetRoot();
     if (!root) {
         return;
