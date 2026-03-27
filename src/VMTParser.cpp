@@ -17,6 +17,7 @@ QString VMTParser::getShader() const {
     if (!isLoaded()) {
         return QString();
     }
+    // Return shader type as QString
     return QString::fromStdString(vmtFile_->GetShader());
 }
 
