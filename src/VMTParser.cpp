@@ -34,6 +34,7 @@ QString VMTParser::getParameter(const QString& name) const {
         return QString();
     }
     
+    // Look up the child node in keyvalue tree
     VTFLib::VMTNode* node = const_cast<VTFLib::VMTFile*>(vmtFile_.get())->GetRoot()->FindChild(name.toStdString());
     if (node) {
         return QString::fromStdString(node->GetValue());
