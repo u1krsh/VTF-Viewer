@@ -50,6 +50,7 @@ QMap<QString, QString> VMTParser::getAllParameters() const {
         return params;
     }
     
+    // Helper to populate the parameters map
     extractParameters(params);
     return params;
 }
