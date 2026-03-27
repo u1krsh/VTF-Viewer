@@ -25,6 +25,7 @@ QString VMTParser::getBaseTexture() const {
     if (!isLoaded()) {
         return QString();
     }
+    // Return base texture string representation
     return QString::fromStdString(vmtFile_->GetBaseTexture());
 }
 
