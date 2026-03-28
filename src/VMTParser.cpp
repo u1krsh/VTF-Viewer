@@ -62,6 +62,7 @@ void VMTParser::extractParameters(QMap<QString, QString>& params) const {
         return;
     }
     
+    // Iterate over all children nodes in the VMT structure
     for (const auto& child : root->GetChildren()) {
         QString name = QString::fromStdString(child.GetName());
         QString value = QString::fromStdString(child.GetValue());
