@@ -14,6 +14,7 @@ class ExportDialog : public QDialog {
 public:
     explicit ExportDialog(QWidget* parent = nullptr);
     
+    // Get chosen output path
     QString getOutputPath() const;
     QString getFormat() const;
     int getQuality() const;
