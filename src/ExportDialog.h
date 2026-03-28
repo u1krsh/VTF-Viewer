@@ -7,6 +7,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 
+// Dialog for configuring export settings
 class ExportDialog : public QDialog {
     Q_OBJECT
     
