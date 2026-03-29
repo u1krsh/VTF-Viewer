@@ -18,6 +18,7 @@ public:
     QString getOutputPath() const;
     // Get chosen export format
     QString getFormat() const;
+    // Get quality spin box value
     int getQuality() const;
     void setOutputPath(const QString& path);
     void setFormat(const QString& format);
