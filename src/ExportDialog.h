@@ -16,6 +16,7 @@ public:
     
     // Get chosen output path
     QString getOutputPath() const;
+    // Get chosen export format
     QString getFormat() const;
     int getQuality() const;
     void setOutputPath(const QString& path);
