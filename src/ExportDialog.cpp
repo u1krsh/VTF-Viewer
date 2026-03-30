@@ -12,6 +12,7 @@ ExportDialog::ExportDialog(QWidget* parent) : QDialog(parent) {
     setMinimumWidth(500);
     
     // Output path
+    // Initialize layout line edit widgets
     pathEdit_ = new QLineEdit;
     browseButton_ = new QPushButton("Browse...");
     connect(browseButton_, &QPushButton::clicked, this, &ExportDialog::browseOutputPath);
