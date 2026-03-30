@@ -7,6 +7,7 @@
 #include <QDialogButtonBox>
 
 ExportDialog::ExportDialog(QWidget* parent) : QDialog(parent) {
+    // Set title of the dialog window
     setWindowTitle("Export Texture");
     setMinimumWidth(500);
     
