@@ -23,6 +23,7 @@ ExportDialog::ExportDialog(QWidget* parent) : QDialog(parent) {
     
     // Format selection
     formatCombo_ = new QComboBox;
+    // Add supported formats to combo box
     formatCombo_->addItem("PNG", "png");
     formatCombo_->addItem("JPEG", "jpg");
     formatCombo_->addItem("BMP", "bmp");
