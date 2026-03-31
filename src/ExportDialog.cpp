@@ -33,6 +33,7 @@ ExportDialog::ExportDialog(QWidget* parent) : QDialog(parent) {
     // Quality setting (for JPEG)
     qualitySpinBox_ = new QSpinBox;
     qualitySpinBox_->setRange(1, 100);
+    // Set default JPEG quality to 90%
     qualitySpinBox_->setValue(90);
     qualitySpinBox_->setSuffix("%");
     
