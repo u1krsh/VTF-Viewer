@@ -38,6 +38,7 @@ ExportDialog::ExportDialog(QWidget* parent) : QDialog(parent) {
     qualitySpinBox_->setSuffix("%");
     
     // Form layout
+    // Arrange inputs in a form layout style
     QFormLayout* formLayout = new QFormLayout;
     formLayout->addRow("Output Directory:", pathLayout);
     formLayout->addRow("Format:", formatCombo_);
