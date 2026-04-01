@@ -45,6 +45,7 @@ ExportDialog::ExportDialog(QWidget* parent) : QDialog(parent) {
     formLayout->addRow("Quality (JPEG):", qualitySpinBox_);
     
     // Buttons
+    // Standard Dialog accept/reject button box
     QDialogButtonBox* buttonBox = new QDialogButtonBox(
         QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
