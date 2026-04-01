@@ -58,6 +58,7 @@ ExportDialog::ExportDialog(QWidget* parent) : QDialog(parent) {
 }
 
 void ExportDialog::browseOutputPath() {
+    // Open system folder browser dialog
     QString dir = QFileDialog::getExistingDirectory(this, "Select Output Directory",
                                                      pathEdit_->text());
     if (!dir.isEmpty()) {
