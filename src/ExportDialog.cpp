@@ -83,6 +83,7 @@ void ExportDialog::setOutputPath(const QString& path) {
 }
 
 void ExportDialog::setFormat(const QString& format) {
+    // Find specified format index in the combo data
     int index = formatCombo_->findData(format);
     if (index >= 0) {
         formatCombo_->setCurrentIndex(index);
