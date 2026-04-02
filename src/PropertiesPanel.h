@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QTextEdit>
 
+// Panel to display metadata details of files
 class PropertiesPanel : public QWidget {
     Q_OBJECT
     
