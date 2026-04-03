@@ -22,6 +22,7 @@ private:
     
     // Format texture flags to a human-readable list
     QString formatFlags(quint32 flags);
+    // Format file size in B, KB, MB or GB
     QString formatFileSize(qint64 bytes);
     QString calculateAspectRatio(int width, int height);
     QString estimateMemorySize(int width, int height, int mipmaps);
