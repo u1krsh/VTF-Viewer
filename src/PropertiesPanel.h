@@ -14,6 +14,7 @@ public:
     void setVTFProperties(const QString& filename, int width, int height, 
                          const QString& format, int frames, int mipmaps, quint32 flags);
     void setVMTProperties(const QString& shader, const QMap<QString, QString>& parameters);
+    // Clear properties text box
     void clear();
     
 private:
