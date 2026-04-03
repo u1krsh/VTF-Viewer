@@ -6,6 +6,7 @@
 #include <numeric>
 
 PropertiesPanel::PropertiesPanel(QWidget* parent) : QWidget(parent) {
+    // Initialize read-only text view area
     textEdit_ = new QTextEdit;
     textEdit_->setReadOnly(true);
     
