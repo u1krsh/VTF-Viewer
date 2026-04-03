@@ -16,6 +16,7 @@ PropertiesPanel::PropertiesPanel(QWidget* parent) : QWidget(parent) {
 }
 
 QString PropertiesPanel::formatFileSize(qint64 bytes) {
+    // Determine files size scale and suffix
     if (bytes < 1024) {
         return QString("%1 B").arg(bytes);
     } else if (bytes < 1024 * 1024) {
