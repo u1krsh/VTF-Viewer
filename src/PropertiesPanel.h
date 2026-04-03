@@ -20,6 +20,7 @@ public:
 private:
     QTextEdit* textEdit_;
     
+    // Format texture flags to a human-readable list
     QString formatFlags(quint32 flags);
     QString formatFileSize(qint64 bytes);
     QString calculateAspectRatio(int width, int height);
