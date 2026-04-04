@@ -35,6 +35,7 @@ void PropertiesPanel::setVTFProperties(const QString& filename, int width, int h
     
     // Calculate pixel count for display
     QString pixelCount;
+    // Calculate megapixel metric
     double megapixels = (width * height) / 1000000.0;
     if (megapixels >= 1.0) {
         pixelCount = QString(" (%1 MP)").arg(megapixels, 0, 'f', 1);
