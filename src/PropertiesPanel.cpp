@@ -30,6 +30,7 @@ QString PropertiesPanel::formatFileSize(qint64 bytes) {
 
 void PropertiesPanel::setVTFProperties(const QString& filename, int width, int height,
                                       const QString& format, int frames, int mipmaps, quint32 flags) {
+    // Inspect file metadata details
     QFileInfo fileInfo(filename);
     
     // Calculate pixel count for display
