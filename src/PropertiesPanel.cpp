@@ -43,6 +43,7 @@ void PropertiesPanel::setVTFProperties(const QString& filename, int width, int h
         pixelCount = QString(" (%1 KP)").arg((width * height) / 1000.0, 0, 'f', 1);
     }
     
+    // Generate HTML structure for properties display
     QString html = "<h3>VTF Texture Properties</h3>";
     html += "<table cellpadding='4'>";
     html += QString("<tr><td><b>File:</b></td><td>%1</td></tr>").arg(fileInfo.fileName());
