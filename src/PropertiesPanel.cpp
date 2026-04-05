@@ -111,6 +111,7 @@ QString PropertiesPanel::formatFlags(quint32 flags) {
 
 QString PropertiesPanel::calculateAspectRatio(int width, int height) {
     if (width <= 0 || height <= 0) return "N/A";
+    // Compute GCD to simplify aspect ratio
     int g = std::gcd(width, height);
     return QString("%1:%2").arg(width / g).arg(height / g);
 }
