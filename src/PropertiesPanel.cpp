@@ -87,6 +87,7 @@ void PropertiesPanel::clear() {
 QString PropertiesPanel::formatFlags(quint32 flags) {
     QStringList flagList;
     
+    // Check individual VTF file texture flags
     if (flags & VTFLib::TEXTUREFLAGS_POINTSAMPLE) flagList << "PointSample";
     if (flags & VTFLib::TEXTUREFLAGS_TRILINEAR) flagList << "Trilinear";
     if (flags & VTFLib::TEXTUREFLAGS_CLAMPS) flagList << "ClampS";
