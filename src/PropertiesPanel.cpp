@@ -118,6 +118,7 @@ QString PropertiesPanel::calculateAspectRatio(int width, int height) {
 
 QString PropertiesPanel::estimateMemorySize(int width, int height, int mipmaps) {
     // Base RGBA size (4 bytes per pixel)
+    // Base memory consumption at 4 bytes per pixel
     qint64 baseSize = static_cast<qint64>(width) * height * 4;
     
     // Add mipmap levels (each is 1/4 of previous, sum ~= 1.33x base)
