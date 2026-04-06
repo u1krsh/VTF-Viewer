@@ -3,6 +3,11 @@
 # CLion
 .idea/
 cmake-build-*/
+# Compiled binaries
+*.exe
+*.dll
+*.so
+*.dylib
 
 # Build directories
 build/
