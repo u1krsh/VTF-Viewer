@@ -5,6 +5,9 @@
 cmake-build-*/
 # Compiled binaries
 *.exe
+# Windows-specific system files
+Thumbs.db
+Desktop.ini
 *.dll
 *.so
 *.dylib
