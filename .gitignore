@@ -7,6 +7,9 @@ cmake-build-*/
 *.exe
 # Windows-specific system files
 Thumbs.db
+# Visual Studio user files
+*.user
+*.suo
 Desktop.ini
 *.dll
 *.so
