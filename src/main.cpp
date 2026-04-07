@@ -53,3 +53,5 @@ int main(int argc, char* argv[]) {
 }
 
 // qol checkpoint 105
+
+// qol checkpoint 106
