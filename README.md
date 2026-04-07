@@ -431,3 +431,5 @@ Planned features for future releases:
 If you find this project useful, please consider giving it a star!
 
 </div>
+
+<!-- qol check 104 -->
